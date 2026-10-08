@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const { setupSwagger } = require('./config/swagger');
@@ -115,6 +116,8 @@ app.use(
     },
   })
 );
+// Compression gzip des réponses (JS, CSS, JSON) : pages plus légères et plus rapides.
+app.use(compression());
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(
   cors({

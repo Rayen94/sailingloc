@@ -186,7 +186,7 @@ const BoatListPage = () => {
               onClick={resetFilters}
               aria-label={t('common.clear')}
               className="rounded-full px-4 py-2 text-sm font-medium transition-all"
-              style={{ color: '#00C6E0', background: 'rgba(0,198,224,0.08)' }}
+              style={{ color: '#00788A', background: 'rgba(0,198,224,0.08)' }}
             >
               <span className="inline-flex items-center gap-1.5">
                 <X size={14} /> {t('common.clear')}
@@ -195,7 +195,7 @@ const BoatListPage = () => {
           )}
         </div>
 
-        <span className="ml-auto whitespace-nowrap text-sm" style={{ color: '#8896A8' }}>
+        <span className="ml-auto whitespace-nowrap text-sm" style={{ color: '#5E6E82' }}>
           {t('boats.boatCount', { count: total })}
         </span>
       </div>

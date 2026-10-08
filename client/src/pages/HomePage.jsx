@@ -230,7 +230,7 @@ const HomePage = () => {
           <div className="home-review-grid">
             {displayedReviews.map((review) => (
               <article key={review.id} className="home-review-card">
-                <div className="home-stars" aria-label={t('home.reviewAria')}>
+                <div className="home-stars" role="img" aria-label={t('home.reviewAria')}>
                   {Array.from({ length: 5 }, (_, index) => (
                     <Star key={index} size={14} fill={index < review.rating ? '#F4A01A' : 'none'} color="#F4A01A" />
                   ))}

@@ -440,7 +440,7 @@
 
   /* ── Section labels ── */
   .sec-eyebrow {
-    @apply block text-xs font-bold tracking-[2.5px] uppercase text-cyan-500 mb-3;
+    @apply block text-xs font-bold tracking-[2.5px] uppercase text-cyan-800 mb-3;
   }
   .sec-title {
     font-family: 'Playfair Display', Georgia, serif;
@@ -606,7 +606,7 @@
   }
 
   .home-search-field span {
-    color: #6e7f91;
+    color: #5e6e82;
     font-size: 10px;
     font-weight: 800;
     text-transform: uppercase;
@@ -810,7 +810,7 @@
   .home-review-boat {
     display: block;
     margin-top: 8px;
-    color: #00aeca;
+    color: #00788a;
     font-size: 11px;
     font-weight: 900;
     letter-spacing: 0.08em;
