@@ -17,11 +17,7 @@ const Stars = ({ rating }) => (
 
 const ReviewList = ({ reviews }) => {
   if (!reviews || reviews.length === 0) {
-    return (
-      <div className="boat-empty-state">
-        Aucun avis pour le moment. Ce bateau vient d'arriver sur SailingLoc.
-      </div>
-    );
+    return <div className="boat-empty-state">Aucun avis pour le moment. Ce bateau vient d'arriver sur SailingLoc.</div>;
   }
   return (
     <div className="space-y-4">

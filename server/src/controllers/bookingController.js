@@ -107,7 +107,10 @@ const acceptBooking = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Booking not found');
   }
-  if (booking.owner.toString() !== req.user._id.toString()) {
+  // La route autorise le propriétaire et l'administrateur : le contrôleur fait la même chose.
+  const isOwner = booking.owner.toString() === req.user._id.toString();
+  const isAdmin = req.user.role === 'admin';
+  if (!isOwner && !isAdmin) {
     res.status(403);
     throw new Error('Not authorized');
   }
@@ -147,7 +150,10 @@ const rejectBooking = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Booking not found');
   }
-  if (booking.owner.toString() !== req.user._id.toString()) {
+  // La route autorise le propriétaire et l'administrateur : le contrôleur fait la même chose.
+  const isOwner = booking.owner.toString() === req.user._id.toString();
+  const isAdmin = req.user.role === 'admin';
+  if (!isOwner && !isAdmin) {
     res.status(403);
     throw new Error('Not authorized');
   }

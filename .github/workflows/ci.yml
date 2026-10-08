@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
           cache-dependency-path: |
             server/package-lock.json
@@ -47,7 +47,7 @@ jobs:
 
       - name: Server tests
         working-directory: server
-        run: npm test --if-present
+        run: npm run test:coverage --if-present
 
       - name: Client build
         working-directory: client
@@ -55,7 +55,7 @@ jobs:
 
       - name: Install Playwright browsers
         working-directory: client
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Playwright E2E
         working-directory: client

@@ -232,12 +232,7 @@ const HomePage = () => {
               <article key={review.id} className="home-review-card">
                 <div className="home-stars" aria-label={t('home.reviewAria')}>
                   {Array.from({ length: 5 }, (_, index) => (
-                    <Star
-                      key={index}
-                      size={14}
-                      fill={index < review.rating ? '#F4A01A' : 'none'}
-                      color="#F4A01A"
-                    />
+                    <Star key={index} size={14} fill={index < review.rating ? '#F4A01A' : 'none'} color="#F4A01A" />
                   ))}
                 </div>
                 <p>{review.comment}</p>

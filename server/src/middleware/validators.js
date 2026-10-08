@@ -18,13 +18,21 @@ const registerRules = [
     .custom((value) => value === true || value === 'true')
     .withMessage('Le consentement RGPD est requis'),
   body('marketingConsent').optional().isBoolean().withMessage('Consentement marketing invalide'),
-  body('turnstileToken').optional({ checkFalsy: true }).isString().isLength({ max: 4096 }).withMessage('Captcha invalide'),
+  body('turnstileToken')
+    .optional({ checkFalsy: true })
+    .isString()
+    .isLength({ max: 4096 })
+    .withMessage('Captcha invalide'),
 ];
 
 const loginRules = [
   body('email').isEmail().withMessage('Email invalide').normalizeEmail(),
   body('password').notEmpty().withMessage('Le mot de passe est requis'),
-  body('turnstileToken').optional({ checkFalsy: true }).isString().isLength({ max: 4096 }).withMessage('Captcha invalide'),
+  body('turnstileToken')
+    .optional({ checkFalsy: true })
+    .isString()
+    .isLength({ max: 4096 })
+    .withMessage('Captcha invalide'),
 ];
 
 const forgotPasswordRules = [body('email').isEmail().withMessage('Email invalide').normalizeEmail()];
@@ -107,7 +115,10 @@ const testEmailRules = [body('to').isEmail().withMessage('Adresse email invalide
 const newsletterRules = [
   body('subject').trim().isLength({ min: 4, max: 140 }).withMessage('Le sujet doit contenir entre 4 et 140 caracteres'),
   body('title').trim().isLength({ min: 4, max: 140 }).withMessage('Le titre doit contenir entre 4 et 140 caracteres'),
-  body('message').trim().isLength({ min: 20, max: 1600 }).withMessage('Le message doit contenir entre 20 et 1600 caracteres'),
+  body('message')
+    .trim()
+    .isLength({ min: 20, max: 1600 })
+    .withMessage('Le message doit contenir entre 20 et 1600 caracteres'),
   body('includeAllTenants').optional().isBoolean().withMessage('includeAllTenants doit etre un booleen'),
 ];
 
@@ -120,7 +131,11 @@ const publicNewsletterRules = [
   body('captchaA').optional({ checkFalsy: true }).isInt({ min: 1, max: 20 }).withMessage('Captcha invalide'),
   body('captchaB').optional({ checkFalsy: true }).isInt({ min: 1, max: 20 }).withMessage('Captcha invalide'),
   body('captchaAnswer').optional({ checkFalsy: true }).isInt({ min: 0, max: 40 }).withMessage('Captcha requis'),
-  body('turnstileToken').optional({ checkFalsy: true }).isString().isLength({ max: 4096 }).withMessage('Captcha invalide'),
+  body('turnstileToken')
+    .optional({ checkFalsy: true })
+    .isString()
+    .isLength({ max: 4096 })
+    .withMessage('Captcha invalide'),
   body('source').optional({ checkFalsy: true }).trim().isLength({ max: 80 }),
 ];
 
@@ -128,8 +143,15 @@ const contactMessageRules = [
   body('name').trim().notEmpty().withMessage('Le nom est requis').isLength({ max: 120 }),
   body('email').isEmail().withMessage('Email invalide').normalizeEmail().isLength({ max: 160 }),
   body('subject').isIn(['technique', 'location', 'partenariat', 'autre']).withMessage('Sujet invalide'),
-  body('message').trim().isLength({ min: 10, max: 4000 }).withMessage('Le message doit contenir entre 10 et 4000 caracteres'),
-  body('turnstileToken').optional({ checkFalsy: true }).isString().isLength({ max: 4096 }).withMessage('Captcha invalide'),
+  body('message')
+    .trim()
+    .isLength({ min: 10, max: 4000 })
+    .withMessage('Le message doit contenir entre 10 et 4000 caracteres'),
+  body('turnstileToken')
+    .optional({ checkFalsy: true })
+    .isString()
+    .isLength({ max: 4096 })
+    .withMessage('Captcha invalide'),
 ];
 
 const updateContactMessageRules = [

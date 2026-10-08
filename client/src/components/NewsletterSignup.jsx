@@ -99,8 +99,15 @@ const NewsletterSignup = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="rounded-2xl bg-white p-4 shadow-xl sm:p-5" aria-label="Inscription newsletter">
-            <label htmlFor="newsletter-email" className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-600">
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-2xl bg-white p-4 shadow-xl sm:p-5"
+            aria-label="Inscription newsletter"
+          >
+            <label
+              htmlFor="newsletter-email"
+              className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-600"
+            >
               Adresse email
             </label>
             <input
@@ -149,7 +156,10 @@ const NewsletterSignup = () => {
               <TurnstileCaptcha onVerify={setTurnstileToken} onExpire={() => setTurnstileToken('')} />
             ) : (
               <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3">
-                <label htmlFor="newsletter-captcha" className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-600">
+                <label
+                  htmlFor="newsletter-captcha"
+                  className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-600"
+                >
                   Verification anti-spam
                 </label>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

@@ -319,7 +319,9 @@ test('Boats API: exposes active booking dates as unavailable on boat detail', as
     status: 'confirmed',
   });
 
-  const response = await request(app).get(`/api/boats/slug/${boat.slug || boat._id}`).expect(200);
+  const response = await request(app)
+    .get(`/api/boats/slug/${boat.slug || boat._id}`)
+    .expect(200);
   const unavailableDays = response.body.unavailableDates.map((date) => date.slice(0, 10));
 
   assert.ok(unavailableDays.includes(futureDate(10)));
@@ -394,6 +396,42 @@ test('Bookings API: creates, accepts, pays and completes a booking while blockin
     .expect(200);
 
   assert.equal(completed.body.status, 'completed');
+});
+
+test('Bookings API: admin can accept or reject a booking, another tenant cannot', async () => {
+  const owner = await createUser({ email: 'owner@sailingloc.test', role: 'owner' });
+  const tenant = await createUser({ email: 'tenant@sailingloc.test', role: 'tenant' });
+  const admin = await createUser({ email: 'admin@sailingloc.test', role: 'admin' });
+  const tenantToken = await loginAs(tenant.email);
+  const adminToken = await loginAs(admin.email);
+  const boat = await createApprovedBoat(owner._id);
+
+  const createBooking = (start, end) =>
+    request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${tenantToken}`)
+      .send({ boatId: boat._id.toString(), startDate: futureDate(start), endDate: futureDate(end) })
+      .expect(201);
+
+  const first = await createBooking(40, 42);
+  const second = await createBooking(50, 52);
+
+  await request(app)
+    .patch(`/api/bookings/${first.body._id}/accept`)
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(403);
+
+  const accepted = await request(app)
+    .patch(`/api/bookings/${first.body._id}/accept`)
+    .set('Authorization', `Bearer ${adminToken}`)
+    .expect(200);
+  assert.equal(accepted.body.status, 'accepted');
+
+  const rejected = await request(app)
+    .patch(`/api/bookings/${second.body._id}/reject`)
+    .set('Authorization', `Bearer ${adminToken}`)
+    .expect(200);
+  assert.equal(rejected.body.status, 'rejected');
 });
 
 test('Payments API: Stripe checkout returns a clean error when Stripe is disabled', async () => {
@@ -689,6 +727,151 @@ test('Newsletter API: subscribes a public email and updates existing user consen
 
   const updatedTenant = await User.findById(tenant._id);
   assert.equal(updatedTenant.marketingConsent, true);
+});
+
+test('Users API: reads and updates the profile, then anonymizes the account (RGPD)', async () => {
+  const tenant = await createUser({ email: 'tenant@sailingloc.test', role: 'tenant' });
+  const tenantToken = await loginAs(tenant.email);
+
+  const profile = await request(app).get('/api/users/me').set('Authorization', `Bearer ${tenantToken}`).expect(200);
+  assert.equal(profile.body.email, tenant.email);
+  assert.equal(profile.body.password, undefined);
+
+  const updated = await request(app)
+    .put('/api/users/me')
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .send({ firstName: 'Rayen', phone: '+33611111111' })
+    .expect(200);
+  assert.equal(updated.body.firstName, 'Rayen');
+  assert.equal(updated.body.phone, '+33611111111');
+
+  await request(app).delete('/api/users/me').set('Authorization', `Bearer ${tenantToken}`).expect(200);
+  const anonymized = await User.findById(tenant._id);
+  assert.equal(anonymized.isActive, false);
+  assert.match(anonymized.email, /^deleted_user_.+@deleted\.local$/);
+  assert.ok(anonymized.anonymizedAt);
+
+  await request(app).get('/api/users/me').set('Authorization', `Bearer ${tenantToken}`).expect(401);
+});
+
+test('Notifications API: lists my notifications and marks one as read', async () => {
+  const tenant = await createUser({ email: 'tenant@sailingloc.test', role: 'tenant' });
+  const other = await createUser({ email: 'other@sailingloc.test', role: 'tenant' });
+  const tenantToken = await loginAs(tenant.email);
+  const otherToken = await loginAs(other.email);
+  const notification = await Notification.create({
+    user: tenant._id,
+    type: 'booking_accepted',
+    title: 'Reservation acceptee',
+    message: 'Votre demande a ete acceptee.',
+  });
+
+  const list = await request(app)
+    .get('/api/notifications/me')
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(200);
+  assert.equal(list.body.length, 1);
+
+  await request(app)
+    .patch(`/api/notifications/${notification._id}/read`)
+    .set('Authorization', `Bearer ${otherToken}`)
+    .expect(404);
+
+  const read = await request(app)
+    .patch(`/api/notifications/${notification._id}/read`)
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(200);
+  assert.ok(read.body.readAt);
+});
+
+test('Reports API: a user reports a boat and only the admin can process it', async () => {
+  const owner = await createUser({ email: 'owner@sailingloc.test', role: 'owner' });
+  const tenant = await createUser({ email: 'tenant@sailingloc.test', role: 'tenant' });
+  const admin = await createUser({ email: 'admin@sailingloc.test', role: 'admin' });
+  const tenantToken = await loginAs(tenant.email);
+  const adminToken = await loginAs(admin.email);
+  const boat = await createApprovedBoat(owner._id);
+
+  await request(app)
+    .post('/api/reports')
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .send({ targetType: 'boat' })
+    .expect(400);
+
+  const created = await request(app)
+    .post('/api/reports')
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .send({ targetType: 'boat', targetId: boat._id.toString(), reason: 'Photos trompeuses' })
+    .expect(201);
+  assert.equal(created.body.status, 'open');
+
+  await request(app).get('/api/reports/admin').set('Authorization', `Bearer ${tenantToken}`).expect(403);
+
+  const list = await request(app).get('/api/reports/admin').set('Authorization', `Bearer ${adminToken}`).expect(200);
+  assert.equal(list.body.total, 1);
+
+  await request(app)
+    .patch(`/api/reports/admin/${created.body._id}/status`)
+    .set('Authorization', `Bearer ${adminToken}`)
+    .send({ status: 'inconnu' })
+    .expect(400);
+
+  const resolved = await request(app)
+    .patch(`/api/reports/admin/${created.body._id}/status`)
+    .set('Authorization', `Bearer ${adminToken}`)
+    .send({ status: 'resolved', adminNote: 'Annonce corrigee' })
+    .expect(200);
+  assert.equal(resolved.body.status, 'resolved');
+  assert.ok(await AdminActionLog.findOne({ action: 'update_report_status' }));
+});
+
+test('Uploads API: owner uploads a boat photo, wrong files and roles are refused', async () => {
+  const owner = await createUser({ email: 'owner@sailingloc.test', role: 'owner' });
+  const tenant = await createUser({ email: 'tenant@sailingloc.test', role: 'tenant' });
+  const ownerToken = await loginAs(owner.email);
+  const tenantToken = await loginAs(tenant.email);
+  const png = Buffer.from('89504e470d0a1a0a0000000d49484452', 'hex');
+
+  const uploaded = await request(app)
+    .post('/api/uploads/boat-images')
+    .set('Authorization', `Bearer ${ownerToken}`)
+    .attach('file', png, { filename: 'Mon Voilier.png', contentType: 'image/png' })
+    .expect(201);
+  assert.match(uploaded.body.url, /^\/uploads\/boat-images\/\d+-\d+-mon-voilier\.png$/);
+  const uploadedPath = path.join(uploadRoot, uploaded.body.url.replace('/uploads/', ''));
+  assert.ok(fs.existsSync(uploadedPath));
+  fs.unlinkSync(uploadedPath);
+
+  const wrongType = await request(app)
+    .post('/api/uploads/boat-images')
+    .set('Authorization', `Bearer ${ownerToken}`)
+    .attach('file', Buffer.from('MZ'), { filename: 'virus.exe', contentType: 'application/x-msdownload' })
+    .expect(400);
+  assert.equal(wrongType.body.message, 'Type de fichier non supporté');
+
+  await request(app).post('/api/uploads/boat-images').set('Authorization', `Bearer ${ownerToken}`).expect(400);
+
+  await request(app)
+    .post('/api/uploads/boat-images')
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .attach('file', png, { filename: 'photo.png', contentType: 'image/png' })
+    .expect(403);
+});
+
+test('Validation: invalid data is refused with a 400 error', async () => {
+  const tenant = await createUser({ email: 'tenant@sailingloc.test', role: 'tenant' });
+  const tenantToken = await loginAs(tenant.email);
+
+  await request(app)
+    .put('/api/users/me')
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .send({ firstName: '   ' })
+    .expect(400);
+
+  await request(app)
+    .patch('/api/notifications/pas-un-identifiant/read')
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(400);
 });
 
 test('slugify creates SEO-safe boat URLs', () => {

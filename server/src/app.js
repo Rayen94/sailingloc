@@ -46,7 +46,10 @@ const sanitizeUrlEnv = (value, fallback) => {
   }
 };
 
-const configuredClientOrigin = sanitizeUrlEnv(process.env.CLIENT_URL || process.env.FRONTEND_URL, 'http://localhost:5173');
+const configuredClientOrigin = sanitizeUrlEnv(
+  process.env.CLIENT_URL || process.env.FRONTEND_URL,
+  'http://localhost:5173'
+);
 const allowedOrigins = new Set([
   configuredClientOrigin,
   'http://localhost:5173',
@@ -85,7 +88,12 @@ app.use(
         frameSrc: ["'self'", 'https://www.googletagmanager.com', 'https://challenges.cloudflare.com'],
         imgSrc: ["'self'", 'data:', 'blob:', 'https:'],
         objectSrc: ["'none'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'https://challenges.cloudflare.com'],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://www.googletagmanager.com',
+          'https://challenges.cloudflare.com',
+        ],
         scriptSrcElem: [
           "'self'",
           "'unsafe-inline'",

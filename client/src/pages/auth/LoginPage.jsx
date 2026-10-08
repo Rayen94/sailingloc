@@ -52,7 +52,9 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [failedAttempts, setFailedAttempts] = useState(() => Number(sessionStorage.getItem('sailingloc_login_failures') || 0));
+  const [failedAttempts, setFailedAttempts] = useState(() =>
+    Number(sessionStorage.getItem('sailingloc_login_failures') || 0)
+  );
   const [turnstileToken, setTurnstileToken] = useState('');
 
   const captchaRequired = isTurnstileConfigured && failedAttempts >= 3;
@@ -236,7 +238,10 @@ const LoginPage = () => {
             <span className="text-xs font-bold uppercase tracking-[0.24em]" style={{ color: '#7EEAFA' }}>
               SailingLoc
             </span>
-            <span className="rounded-full px-3 py-1 text-xs font-bold" style={{ background: '#00C6E0', color: '#07192E' }}>
+            <span
+              className="rounded-full px-3 py-1 text-xs font-bold"
+              style={{ background: '#00C6E0', color: '#07192E' }}
+            >
               Live
             </span>
           </div>

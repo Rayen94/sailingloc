@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {
-  getAdminContactMessages,
-  updateAdminContactMessage,
-} = require('../controllers/contactController');
+const { getAdminContactMessages, updateAdminContactMessage } = require('../controllers/contactController');
 const {
   getStats,
   getUsers,

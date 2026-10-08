@@ -94,11 +94,17 @@ const AdminContactMessagesPage = () => {
         {messages.length === 0 ? (
           <div className="bg-white rounded-2xl p-10 text-center" style={{ boxShadow: '0 4px 24px rgba(7,25,46,0.08)' }}>
             <Mail size={28} className="mx-auto mb-3" color="#00C6E0" />
-            <p className="font-semibold" style={{ color: '#07192E' }}>Aucun message contact.</p>
+            <p className="font-semibold" style={{ color: '#07192E' }}>
+              Aucun message contact.
+            </p>
           </div>
         ) : (
           messages.map((item) => (
-            <article key={item._id} className="bg-white rounded-2xl p-5" style={{ boxShadow: '0 4px 24px rgba(7,25,46,0.08)' }}>
+            <article
+              key={item._id}
+              className="bg-white rounded-2xl p-5"
+              style={{ boxShadow: '0 4px 24px rgba(7,25,46,0.08)' }}
+            >
               <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -106,10 +112,15 @@ const AdminContactMessagesPage = () => {
                     <span className="text-xs font-bold uppercase tracking-wider" style={{ color: '#00AFC7' }}>
                       {subjectLabels[item.subject] || item.subject}
                     </span>
-                    <span className="text-xs" style={{ color: '#8896A8' }}>{formatDate(item.createdAt)}</span>
+                    <span className="text-xs" style={{ color: '#8896A8' }}>
+                      {formatDate(item.createdAt)}
+                    </span>
                   </div>
                   <h2 className="font-bold" style={{ color: '#07192E' }}>
-                    {item.name} <span className="text-sm font-medium" style={{ color: '#8896A8' }}>({item.email})</span>
+                    {item.name}{' '}
+                    <span className="text-sm font-medium" style={{ color: '#8896A8' }}>
+                      ({item.email})
+                    </span>
                   </h2>
                   <p className="mt-3 whitespace-pre-wrap text-sm leading-6" style={{ color: '#3D4D61' }}>
                     {item.message}

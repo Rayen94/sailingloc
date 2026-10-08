@@ -50,7 +50,10 @@ const layout = ({ title, intro, ctaLabel, ctaUrl, details = [] }) => {
           <p style="display:inline-block;margin:0 0 16px;padding:7px 12px;border-radius:999px;background:#e8fbfe;color:#007f94;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em">Notification SailingLoc</p>
           <h1 style="margin:0 0 18px;font-size:28px;line-height:1.2;color:#07192e">${escapeHtml(title)}</h1>
           ${intro
-            .map((line) => `<p style="margin:0 0 14px;color:#344256;font-size:15px;line-height:1.65">${escapeHtml(line)}</p>`)
+            .map(
+              (line) =>
+                `<p style="margin:0 0 14px;color:#344256;font-size:15px;line-height:1.65">${escapeHtml(line)}</p>`
+            )
             .join('')}
           ${detailHtml}
           ${ctaHtml}
@@ -273,7 +276,6 @@ const testEmail = () =>
     title: 'Bonjour SailingLoc test',
     intro: ['Ceci est un email de test envoyé depuis SailingLoc avec Brevo.'],
   });
-
 
 const newsletter = ({ user, subject, title, message }) =>
   buildTemplate({

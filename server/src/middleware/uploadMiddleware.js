@@ -39,7 +39,9 @@ const allowedMimeTypes = {
 const fileFilter = (req, file, cb) => {
   const allowed = req.uploadType === 'document' ? allowedMimeTypes.document : allowedMimeTypes.boatImage;
   if (!allowed.includes(file.mimetype)) {
-    cb(new Error('Type de fichier non supporté'));
+    const error = new Error('Type de fichier non supporté');
+    error.statusCode = 400;
+    cb(error);
     return;
   }
   cb(null, true);

@@ -58,7 +58,11 @@ const generateInvoicePdf = async ({ booking, payment }) => {
     line(doc, 256);
 
     doc.fillColor('#07192e').fontSize(15).font('Helvetica-Bold').text('Reservation', 48, 284);
-    doc.fillColor('#344256').fontSize(11).font('Helvetica').text(`Bateau : ${booking.boat?.title || 'Bateau SailingLoc'}`, 48, 312);
+    doc
+      .fillColor('#344256')
+      .fontSize(11)
+      .font('Helvetica')
+      .text(`Bateau : ${booking.boat?.title || 'Bateau SailingLoc'}`, 48, 312);
     doc.text(`Lieu : ${booking.boat?.location || '-'}`, 48, 330);
     doc.text(`Periode : ${formatDate(booking.startDate)} au ${formatDate(booking.endDate)}`, 48, 348);
     doc.text(`Nombre de jours : ${booking.numberOfDays}`, 48, 366);
@@ -79,7 +83,11 @@ const generateInvoicePdf = async ({ booking, payment }) => {
     doc.text(formatPrice(booking.serviceFee), 452, tableTop + 94);
 
     line(doc, tableTop + 132);
-    doc.font('Helvetica-Bold').fontSize(13).fillColor('#07192e').text('Total TTC', 330, tableTop + 156);
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(13)
+      .fillColor('#07192e')
+      .text('Total TTC', 330, tableTop + 156);
     doc.fontSize(18).text(formatPrice(payment.amount), 452, tableTop + 152);
 
     doc.roundedRect(48, 690, 499, 54, 10).fill('#e8fbfe');

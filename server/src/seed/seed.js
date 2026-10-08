@@ -694,7 +694,8 @@ const seed = async () => {
     const payments = [];
     const boatSlot = new Map();
 
-    for (let index = 0; index < 72; index += 1) {
+    // Une réservation par statut prévu (60) : avant, la boucle allait jusqu'à 72 et créait des statuts vides.
+    for (let index = 0; index < bookingStatuses.length; index += 1) {
       const status = bookingStatuses[index];
       const boat = boats[index % boats.length];
       const tenant = tenants[(index * 3) % tenants.length];
@@ -751,7 +752,8 @@ const seed = async () => {
 
     const completedBookings = bookings.filter((booking) => booking.status === 'completed');
     const reviews = [];
-    for (let index = 0; index < 32; index += 1) {
+    // Un avis par réservation terminée au maximum (sinon le script plantait : 32 avis pour 26 locations terminées).
+    for (let index = 0; index < Math.min(32, completedBookings.length); index += 1) {
       const booking = completedBookings[index];
       const rating = 3 + (index % 3);
       reviews.push(

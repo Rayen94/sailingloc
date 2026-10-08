@@ -1,5 +1,6 @@
 ﻿{
   "navbar": {
+    "navigation": "Main navigation",
     "home": "Home",
     "boats": "Boats",
     "categories": "Categories",
