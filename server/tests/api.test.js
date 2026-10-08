@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const request = require('supertest');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
@@ -872,6 +873,85 @@ test('Validation: invalid data is refused with a 400 error', async () => {
     .patch('/api/notifications/pas-un-identifiant/read')
     .set('Authorization', `Bearer ${tenantToken}`)
     .expect(400);
+});
+
+test('Bookings API: business rules refuse invalid bookings, cancellation refunds a paid booking', async () => {
+  const owner = await createUser({ email: 'owner@sailingloc.test', role: 'owner' });
+  const tenant = await createUser({ email: 'tenant@sailingloc.test', role: 'tenant' });
+  const other = await createUser({ email: 'other@sailingloc.test', role: 'tenant' });
+  const ownerToken = await loginAs(owner.email);
+  const tenantToken = await loginAs(tenant.email);
+  const otherToken = await loginAs(other.email);
+  const boat = await createApprovedBoat(owner._id);
+  const pendingBoat = await createApprovedBoat(owner._id, { title: 'Bateau en attente', status: 'pending' });
+
+  const book = (boatId, start, end, token = tenantToken) =>
+    request(app)
+      .post('/api/bookings')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ boatId: boatId.toString(), startDate: futureDate(start), endDate: futureDate(end) });
+
+  await book(pendingBoat._id, 20, 22).expect(400);
+  await book(boat._id, 22, 20).expect(400);
+  await book(boat._id, -5, -2).expect(400);
+  await book(boat._id, 20, 22, ownerToken).expect(403);
+
+  const created = await book(boat._id, 20, 22).expect(201);
+  const myBookings = await request(app)
+    .get('/api/bookings/me')
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(200);
+  assert.equal(myBookings.body.length, 1);
+  const ownerBookings = await request(app)
+    .get('/api/bookings/owner')
+    .set('Authorization', `Bearer ${ownerToken}`)
+    .expect(200);
+  assert.equal(ownerBookings.body.length, 1);
+
+  await request(app)
+    .patch(`/api/bookings/${created.body._id}/accept`)
+    .set('Authorization', `Bearer ${ownerToken}`)
+    .expect(200);
+  await request(app)
+    .patch(`/api/bookings/${created.body._id}/pay`)
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(200);
+
+  await request(app)
+    .patch(`/api/bookings/${created.body._id}/cancel`)
+    .set('Authorization', `Bearer ${otherToken}`)
+    .expect(403);
+
+  const cancelled = await request(app)
+    .patch(`/api/bookings/${created.body._id}/cancel`)
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(200);
+  assert.equal(cancelled.body.status, 'cancelled');
+  assert.equal(cancelled.body.paymentStatus, 'refunded');
+  const payment = await Payment.findOne({ booking: created.body._id });
+  assert.equal(payment.status, 'refunded');
+
+  await request(app)
+    .patch(`/api/bookings/${created.body._id}/cancel`)
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(400);
+  await request(app)
+    .patch(`/api/bookings/${new mongoose.Types.ObjectId()}/cancel`)
+    .set('Authorization', `Bearer ${tenantToken}`)
+    .expect(404);
+});
+
+test('Security: protected routes refuse missing, invalid or expired tokens', async () => {
+  const tenant = await createUser({ email: 'tenant@sailingloc.test', role: 'tenant' });
+
+  await request(app).get('/api/bookings/me').expect(401);
+  await request(app).get('/api/bookings/me').set('Authorization', 'Bearer faux-jeton').expect(401);
+
+  const expired = jwt.sign({ id: tenant._id }, process.env.JWT_SECRET, { expiresIn: -10 });
+  await request(app).get('/api/bookings/me').set('Authorization', `Bearer ${expired}`).expect(401);
+
+  const otherSecret = jwt.sign({ id: tenant._id }, 'autre_secret', { expiresIn: '1h' });
+  await request(app).get('/api/bookings/me').set('Authorization', `Bearer ${otherSecret}`).expect(401);
 });
 
 test('slugify creates SEO-safe boat URLs', () => {
