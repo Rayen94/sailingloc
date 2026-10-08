@@ -28,6 +28,12 @@ const newsletterRoutes = require('./routes/newsletterRoutes');
 const { stripeWebhook } = require('./controllers/paymentController');
 
 const app = express();
+
+// Derrière un hébergeur (Render), les requêtes passent par un proxy. Sans ce réglage,
+// le limiteur de requêtes voit l'adresse IP du proxy au lieu de celle du visiteur :
+// tous les visiteurs partagent alors la même limite. TRUST_PROXY = nombre de proxys (ex. 1).
+const trustProxy = process.env.TRUST_PROXY;
+if (trustProxy) app.set('trust proxy', /^\d+$/.test(trustProxy) ? Number(trustProxy) : trustProxy);
 const clientDistPath = path.resolve(__dirname, '../../client/dist');
 const clientIndexPath = path.join(clientDistPath, 'index.html');
 
