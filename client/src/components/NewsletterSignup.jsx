@@ -34,7 +34,7 @@ const NewsletterSignup = () => {
     }
 
     if (!isTurnstileConfigured && Number(captchaAnswer) !== captcha.a + captcha.b) {
-      setStatus({ type: 'error', message: 'Captcha incorrect. Verifiez le resultat du calcul.' });
+      setStatus({ type: 'error', message: 'Captcha incorrect. Vérifiez le résultat du calcul.' });
       setCaptcha(createCaptcha());
       setCaptchaAnswer('');
       return;
@@ -58,11 +58,11 @@ const NewsletterSignup = () => {
       setCaptchaAnswer('');
       setTurnstileToken('');
       setWebsite('');
-      setStatus({ type: 'success', message: 'Inscription confirmee. Merci, vous recevrez les actualites SailingLoc.' });
+      setStatus({ type: 'success', message: 'Inscription confirmée. Merci, vous recevrez les actualités SailingLoc.' });
     } catch (error) {
       setStatus({
         type: 'error',
-        message: error.response?.data?.message || "L'inscription newsletter a echoue. Verifiez votre email.",
+        message: error.response?.data?.message || "L'inscription à la newsletter a échoué. Vérifiez votre e-mail.",
       });
     } finally {
       setLoading(false);
@@ -91,11 +91,11 @@ const NewsletterSignup = () => {
               className="text-3xl font-black leading-tight text-white sm:text-4xl"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Recevez les meilleures idees de navigation.
+              Recevez les meilleures idées de navigation.
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
-              Nouveaux bateaux, conseils de location et actualites SailingLoc. Aucun achat reel ne peut etre effectue
-              sur ce projet etudiant fictif.
+              Nouveaux bateaux, conseils de location et actualités SailingLoc. Aucun achat réel ne peut être effectué
+              sur ce projet étudiant fictif.
             </p>
           </div>
 
@@ -149,7 +149,7 @@ const NewsletterSignup = () => {
                 className="mt-1 h-4 w-4"
                 style={{ accentColor: '#00C6E0' }}
               />
-              <span>J'accepte de recevoir la newsletter SailingLoc et je peux me desinscrire a tout moment.</span>
+              <span>J'accepte de recevoir la newsletter SailingLoc et je peux me désinscrire à tout moment.</span>
             </label>
 
             {isTurnstileConfigured ? (
@@ -160,7 +160,7 @@ const NewsletterSignup = () => {
                   htmlFor="newsletter-captcha"
                   className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-600"
                 >
-                  Verification anti-spam
+                  Vérification anti-spam
                 </label>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                   <span className="text-sm font-semibold text-slate-700">
