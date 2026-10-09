@@ -13,12 +13,38 @@ Plateforme full-stack de location de bateaux entre particuliers, avec espaces vi
 - Upload local réel pour images de bateaux et documents propriétaire.
 - Swagger/OpenAPI, tests API, E2E Playwright, Docker, CI GitHub Actions.
 
+## Équipe
+
+Projet de l'École DSP (2024-2026), réalisé par l'agence fictive Pandawan :
+
+- Jean Christophe AROUNASSALAM : responsable analyse et stratégie ;
+- Rayen SAAD : responsable conception et gestion de projet ;
+- Jylane ABDESSEMED : développeur full stack.
+
+Site en ligne : [https://dsp-dev-o24a-g6-fr.onrender.com](https://dsp-dev-o24a-g6-fr.onrender.com)
+
+## Prérequis
+
+- Node.js 24 (version indiquée dans `.nvmrc` ; Node 22 accepté, Node 20 n'est plus maintenu) ;
+- MongoDB local, MongoDB Atlas ou Docker ;
+- k6 pour les tests de charge (facultatif).
+
+## Branches Git
+
+| Branche | Rôle | Mise en ligne |
+| --- | --- | --- |
+| `prod` | Version en production, protégée : on n'y fusionne que depuis `preprod` | Site Render de production |
+| `preprod` | Version de recette, vérifiée par le client avant la production | Service Render de préproduction |
+| `dev` | Intégration des fonctionnalités et corrections en cours | Aucune |
+| `feature/...`, `fix/...` | Une branche par fonctionnalité ou correction, créée depuis `dev` | Aucune |
+| `hotfix/...` | Correction urgente, créée depuis `prod`, puis reportée dans `dev` | - |
+
 ## Quick Start
 
 Terminal backend :
 
-```powershell
-cd C:\Users\xxx75012\Documents\Codex\2026-06-20\tu-t\tmp\sailingloc-github\server
+```bash
+cd server
 npm install
 npm run seed
 npm run dev
@@ -26,8 +52,8 @@ npm run dev
 
 Terminal frontend :
 
-```powershell
-cd C:\Users\xxx75012\Documents\Codex\2026-06-20\tu-t\tmp\sailingloc-github\client
+```bash
+cd client
 npm install
 npm run dev
 ```
@@ -153,6 +179,20 @@ SERVER_URL=http://localhost:5000
 - Calendrier de réservation clarifié : disponible, indisponible, sélectionné, aujourd'hui.
 - Scripts de tests API, couverture, validation DB, validation déploiement et k6.
 
+## Corrections du rattrapage (octobre 2026)
+
+- RGPD : Google Tag Manager n'est chargé qu'après l'accord cookies (avant : chargé pour tout le monde).
+- Paiement : bascule vers le paiement simulé quand Stripe n'est pas configuré.
+- Droits : l'administrateur peut accepter ou refuser une réservation.
+- Sécurité : Node 24, Multer 2, Morgan 1.12, Nodemailer 10, `npm audit fix` (0 faille en production côté serveur) ;
+  réglage `TRUST_PROXY` pour le limiteur de requêtes ; données de démonstration désactivées par défaut en production.
+- Accessibilité et SEO : contrastes, lien d'évitement, titres, textes alternatifs, une seule meta description
+  (Lighthouse : 100/100 en accessibilité et en SEO sur l'accueil).
+- Performance : compression gzip, cache de la liste des bateaux limité, index MongoDB.
+- Tests : 57 tests serveur (couverture 80 % des lignes), 13 tests E2E sur Chromium, Firefox et WebKit,
+  campagne de tests de charge k6 (`load-tests/results/2026-10-08-local`).
+- Maintenance : Dependabot, audit de sécurité dans l'intégration continue, modèles de tickets GitHub.
+
 ## Commandes de validation
 
 ```powershell
@@ -212,11 +252,12 @@ Healthcheck :
 
 ## Tests
 
-Backend complet :
+Backend complet (57 tests) et couverture :
 
 ```bash
 cd server
 npm test
+npm run test:coverage
 ```
 
 Tests admin critiques :
@@ -226,7 +267,7 @@ cd server
 npm run test:admin
 ```
 
-E2E Playwright :
+E2E Playwright (13 tests, sur Chromium, Firefox et WebKit) :
 
 ```bash
 cd client
@@ -248,14 +289,16 @@ npm run format:check
 
 ## CI/CD
 
-Le pipeline `.github/workflows/ci.yml` s exécute sur `push` et `pull_request` :
+Le pipeline `.github/workflows/ci.yml` s'exécute sur `push` et `pull_request`, avec la version de Node de `.nvmrc` :
 
-- install serveur/client ;
-- lint si disponible ;
-- format check si disponible ;
-- tests serveur ;
-- build client ;
-- E2E Playwright.
+- installation serveur et client ;
+- audit de sécurité des dépendances de production (échec si faille haute ou critique) ;
+- lint et contrôle de la mise en forme ;
+- tests serveur avec couverture ;
+- construction du client ;
+- tests E2E Playwright sur Chromium, Firefox et WebKit.
+
+Dependabot (`.github/dependabot.yml`) propose chaque lundi les mises à jour mineures sur la branche `dev`.
 
 ## Uploads
 
@@ -281,13 +324,17 @@ Les fichiers sont servis depuis `/uploads`. Pour une vraie production, remplacer
 
 ## Comptes de démonstration
 
-Après `npm run seed` :
+Après `npm run seed`, en local uniquement :
 
 | Rôle | Email | Mot de passe |
 | --- | --- | --- |
 | Admin | `admin@sailingloc.fr` | `Admin123!` |
-| Propriétaire | `owner1@sailingloc.fr` à `owner14@sailingloc.fr` | `Owner123!` |
-| Locataire | `tenant1@sailingloc.fr` à `tenant20@sailingloc.fr` | `Tenant123!` |
+| Propriétaire | `owner1@sailingloc.fr` à `owner20@sailingloc.fr` | `Owner123!` |
+| Locataire | `tenant1@sailingloc.fr` à `tenant30@sailingloc.fr` | `Tenant123!` |
+
+En production, ces données de démonstration sont désactivées par défaut : le serveur ne remet plus le mot de passe
+administrateur à `Admin123!` et le seed refuse d'effacer la base. Pour une démonstration, définir explicitement
+`DEMO_SEED_IF_EMPTY=true` ou `DEMO_REPAIR_ADMIN=true`, puis changer les mots de passe ensuite.
 
 ## Limites MVP
 

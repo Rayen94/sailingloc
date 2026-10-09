@@ -9,6 +9,9 @@ const ACTIVE_BOOKING_STATUSES = ['pending', 'accepted', 'confirmed'];
 const boatListCache = new Map();
 const BOAT_LIST_CACHE_TTL_MS = Number(process.env.BOAT_LIST_CACHE_TTL_MS || 120_000);
 const BOAT_LIST_CACHE_ENABLED = process.env.NODE_ENV === 'production';
+// Taille maximale du cache : sans limite, chaque recherche différente restait en mémoire
+// (fuite de mémoire constatée pendant le test de charge du 08/10/2026).
+const BOAT_LIST_CACHE_MAX_ENTRIES = Number(process.env.BOAT_LIST_CACHE_MAX_ENTRIES || 300);
 const PUBLIC_BOAT_FIELDS =
   'owner title slug type description location port pricePerDay capacity length engine skipperAvailable equipments images unavailableDates status averageRating createdAt';
 
@@ -102,6 +105,7 @@ const getBoats = asyncHandler(async (req, res) => {
   } = req.query;
   const cacheKey = createCacheKey(req.query || {});
   const cached = BOAT_LIST_CACHE_ENABLED ? boatListCache.get(cacheKey) : null;
+  if (cached && cached.expiresAt <= Date.now()) boatListCache.delete(cacheKey);
   if (cached && cached.expiresAt > Date.now()) {
     res.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=120');
     return res.json(cached.payload);
@@ -147,6 +151,8 @@ const getBoats = asyncHandler(async (req, res) => {
   const boatsWithSlugs = await Promise.all(boats.map((boat) => ensureBoatHasSlug(boat)));
   const payload = { boats: boatsWithSlugs, total, page: numericPage, pages: Math.ceil(total / numericLimit) };
   if (BOAT_LIST_CACHE_ENABLED) {
+    // Cache plein : on retire la plus ancienne recherche (une Map garde l'ordre d'ajout).
+    while (boatListCache.size >= BOAT_LIST_CACHE_MAX_ENTRIES) boatListCache.delete(boatListCache.keys().next().value);
     boatListCache.set(cacheKey, { payload, expiresAt: Date.now() + BOAT_LIST_CACHE_TTL_MS });
   }
   res.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=120');

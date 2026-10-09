@@ -61,20 +61,23 @@ const MyBookingsPage = () => {
   const handlePay = async (id) => {
     setPayingBookingId(id);
     try {
-      const { data } = await createStripeCheckoutSession(id);
-      if (data?.checkoutUrl) {
-        window.location.href = data.checkoutUrl;
+      let checkoutUrl = null;
+      try {
+        const { data } = await createStripeCheckoutSession(id);
+        checkoutUrl = data?.checkoutUrl || null;
+      } catch (err) {
+        // 503 = Stripe n'est pas configure sur le serveur : on passe au paiement simule.
+        if (err.response?.status !== 503) throw err;
+      }
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
         return;
       }
       await payBooking(id);
       await fetchBookings();
       toast('Paiement simule avec succes.', 'success');
     } catch (err) {
-      const message =
-        err.response?.status === 503
-          ? "Le paiement Stripe n'est pas disponible pour le moment."
-          : err.response?.data?.message || 'Erreur lors du paiement.';
-      toast(message, 'error');
+      toast(err.response?.data?.message || 'Erreur lors du paiement.', 'error');
     } finally {
       setPayingBookingId(null);
     }
@@ -176,7 +179,12 @@ const MyBookingsPage = () => {
                     <span className="inline-flex items-center gap-1.5">
                       <CalendarDays size={14} /> {formatDate(booking.startDate)} au {formatDate(booking.endDate)}
                     </span>
-                    {Number(booking.numberOfDays || 0) > 0 && (<> &nbsp;-&nbsp; {Number(booking.numberOfDays)} jour{Number(booking.numberOfDays) > 1 ? 's' : ''}</>)}
+                    {Number(booking.numberOfDays || 0) > 0 && (
+                      <>
+                        {' '}
+                        &nbsp;-&nbsp; {Number(booking.numberOfDays)} jour{Number(booking.numberOfDays) > 1 ? 's' : ''}
+                      </>
+                    )}
                   </p>
 
                   <div className="flex flex-wrap items-center justify-between gap-3">

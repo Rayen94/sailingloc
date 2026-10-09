@@ -41,7 +41,6 @@ const BoatCard = ({ boat }) => {
   return (
     <Link
       to={detailPath}
-      aria-label={`Voir le bateau ${boat.title}, ${formatPrice(boat.pricePerDay)} ${t('common.perDay')}`}
       className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-navy-900/[0.04] bg-white transition-all duration-300"
       style={{ boxShadow: 'var(--shadow-card)' }}
       onMouseEnter={(e) =>
@@ -52,7 +51,11 @@ const BoatCard = ({ boat }) => {
       <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-smoke">
         <img
           src={imageUrl}
-          alt={boat.title}
+          alt={t('common.boatImageAlt', {
+            type: t(`boatTypes.${boat.type}`, boat.type),
+            title: boat.title,
+            location: boat.location || boat.port || '',
+          })}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           onError={(e) => {
             e.target.src = FALLBACK_BOAT_IMAGE;
@@ -108,7 +111,7 @@ const BoatCard = ({ boat }) => {
       </div>
 
       <div className="flex min-h-[310px] flex-col p-5">
-        <div className="mb-1 text-[10px] font-bold uppercase tracking-[1.5px]" style={{ color: '#00C6E0' }}>
+        <div className="mb-1 text-[10px] font-bold uppercase tracking-[1.5px]" style={{ color: '#00788A' }}>
           <span className="inline-flex items-center gap-1.5">
             <MapPin size={12} /> {boat.port || boat.location}
           </span>
@@ -121,7 +124,7 @@ const BoatCard = ({ boat }) => {
           {boat.title}
         </h3>
 
-        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs" style={{ color: '#8896A8' }}>
+        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs" style={{ color: '#5E6E82' }}>
           {boat.capacity && (
             <span className="inline-flex items-center gap-1">
               <Users size={13} /> {boat.capacity} {t('common.personsShort')}
@@ -153,7 +156,7 @@ const BoatCard = ({ boat }) => {
             {extra > 0 && (
               <span
                 className="rounded-full px-2.5 py-1 text-[10px] font-semibold"
-                style={{ background: '#EDF1F5', color: '#8896A8' }}
+                style={{ background: '#EDF1F5', color: '#5E6E82' }}
               >
                 +{extra}
               </span>
@@ -169,7 +172,7 @@ const BoatCard = ({ boat }) => {
             >
               {formatPrice(boat.pricePerDay)}
             </span>
-            <span className="mt-0.5 block text-sm" style={{ color: '#8896A8' }}>
+            <span className="mt-0.5 block text-sm" style={{ color: '#5E6E82' }}>
               {t('common.perDay')}
             </span>
           </div>

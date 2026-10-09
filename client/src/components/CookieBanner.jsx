@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Cookie, Settings2, ShieldCheck } from 'lucide-react';
+import { COOKIE_PREFERENCES_KEY, isGoogleTagManagerLoaded, loadGoogleTagManager } from '../utils/analytics';
 
 const defaultPreferences = {
   essential: true,
@@ -14,19 +15,27 @@ const CookieBanner = () => {
   const [preferences, setPreferences] = useState(defaultPreferences);
 
   useEffect(() => {
-    const saved = localStorage.getItem('sailingloc_cookie_preferences');
+    const saved = localStorage.getItem(COOKIE_PREFERENCES_KEY);
     if (!saved) setVisible(true);
   }, []);
 
   const savePreferences = (nextPreferences) => {
     localStorage.setItem(
-      'sailingloc_cookie_preferences',
+      COOKIE_PREFERENCES_KEY,
       JSON.stringify({
         ...nextPreferences,
         savedAt: new Date().toISOString(),
       })
     );
     setVisible(false);
+
+    if (nextPreferences.analytics) {
+      // Accord donné : on charge Google Tag Manager maintenant.
+      loadGoogleTagManager();
+    } else if (isGoogleTagManagerLoaded()) {
+      // Accord retiré : on recharge la page pour arrêter Google Tag Manager.
+      window.location.reload();
+    }
   };
 
   const toggle = (key) => {
@@ -39,7 +48,7 @@ const CookieBanner = () => {
       <button
         type="button"
         onClick={() => {
-          const saved = localStorage.getItem('sailingloc_cookie_preferences');
+          const saved = localStorage.getItem(COOKIE_PREFERENCES_KEY);
           if (saved) {
             try {
               const parsed = JSON.parse(saved);
@@ -64,12 +73,7 @@ const CookieBanner = () => {
   }
 
   return (
-    <div
-      className="cookie-consent"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Préférences cookies"
-    >
+    <div className="cookie-consent" role="dialog" aria-modal="true" aria-label="Préférences cookies">
       <div className="cookie-consent__panel">
         <div className="cookie-consent__header">
           <div className="cookie-consent__icon" aria-hidden="true">
@@ -80,10 +84,7 @@ const CookieBanner = () => {
             <p>
               Nous utilisons des cookies essentiels au fonctionnement du site. Les cookies de mesure d'audience et
               marketing restent désactivés sans votre accord. Consultez notre{' '}
-              <Link to="/legal/cookies">
-                politique des cookies
-              </Link>
-              .
+              <Link to="/legal/cookies">politique des cookies</Link>.
             </p>
           </div>
           <div className="cookie-consent__actions">

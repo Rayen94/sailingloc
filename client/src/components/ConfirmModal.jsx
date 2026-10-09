@@ -30,7 +30,11 @@ const ConfirmModal = ({ request, onResolve }) => {
         className="w-full max-w-md bg-white rounded-2xl p-6"
         style={{ boxShadow: '0 24px 70px rgba(7,25,46,0.28)' }}
       >
-        <h2 id={titleId} className="font-bold text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif", color: '#07192E' }}>
+        <h2
+          id={titleId}
+          className="font-bold text-lg mb-2"
+          style={{ fontFamily: "'Playfair Display', serif", color: '#07192E' }}
+        >
           {request.title || 'Confirmation'}
         </h2>
         <p id={messageId} className="text-sm leading-relaxed mb-5" style={{ color: '#64748B' }}>

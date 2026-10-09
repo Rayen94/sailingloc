@@ -237,7 +237,10 @@ const AdminEmailSettingsPage = () => {
         {newsletterResult && (
           <p
             className="mt-4 flex items-start gap-2 rounded-xl px-4 py-3 text-sm"
-            style={{ background: newsletterResult.failed ? '#FFF7ED' : '#ECFDF5', color: newsletterResult.failed ? '#C2410C' : '#047857' }}
+            style={{
+              background: newsletterResult.failed ? '#FFF7ED' : '#ECFDF5',
+              color: newsletterResult.failed ? '#C2410C' : '#047857',
+            }}
           >
             <CheckCircle2 size={18} className="mt-0.5 shrink-0" />
             <span>

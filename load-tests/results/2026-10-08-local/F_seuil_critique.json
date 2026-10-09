@@ -1,0 +1,182 @@
+{
+    "root_group": {
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+            "Recherche avec filtres": {
+                "name": "Recherche avec filtres",
+                "path": "::Recherche avec filtres",
+                "id": "ecfd99b3e68fb958205ad0a2f8017b5b",
+                "groups": {},
+                "checks": {
+                        "search returns 200": {
+                            "name": "search returns 200",
+                            "path": "::Recherche avec filtres::search returns 200",
+                            "id": "76d976775331c706c95e0354a0087bcc",
+                            "passes": 4300,
+                            "fails": 0
+                        }
+                    }
+            },
+            "Fiche bateau et avis": {
+                "name": "Fiche bateau et avis",
+                "path": "::Fiche bateau et avis",
+                "id": "8690e26329ab95b5e450a378198579af",
+                "groups": {},
+                "checks": {
+                        "detail returns 200": {
+                            "id": "564ae4ab2236070d83ccbc3a1501b747",
+                            "passes": 4300,
+                            "fails": 0,
+                            "name": "detail returns 200",
+                            "path": "::Fiche bateau et avis::detail returns 200"
+                        },
+                        "reviews return 200": {
+                            "path": "::Fiche bateau et avis::reviews return 200",
+                            "id": "57962e95ac947da8bf20127a6564693a",
+                            "passes": 4300,
+                            "fails": 0,
+                            "name": "reviews return 200"
+                        }
+                    }
+            }
+        },
+        "checks": {
+            "list returns 200": {
+                "name": "list returns 200",
+                "path": "::list returns 200",
+                "id": "27ef51343f65195abd6f1ee671bafd58",
+                "passes": 2484,
+                "fails": 0
+            }
+        },
+        "name": ""
+    },
+    "metrics": {
+        "vus": {
+            "value": 4,
+            "min": 1,
+            "max": 200
+        },
+        "http_req_duration": {
+            "avg": 676.3458210685807,
+            "min": 0.601197,
+            "med": 266.59945849999997,
+            "max": 5915.878972,
+            "p(90)": 2007.4654779000002,
+            "p(95)": 2572.1850153999985,
+            "thresholds": {
+                "p(95)<1200": true
+            }
+        },
+        "data_received": {
+            "count": 58397261,
+            "rate": 215138.39998033136
+        },
+        "group_duration": {
+            "min": 0.747565,
+            "med": 743.610158,
+            "max": 7827.23227,
+            "p(90)": 3213.4829907000003,
+            "p(95)": 4064.780590199997,
+            "avg": 1205.3524163739517
+        },
+        "http_req_failed": {
+            "passes": 0,
+            "fails": 15384,
+            "thresholds": {
+                "rate<0.05": false
+            },
+            "value": 0
+        },
+        "http_req_blocked": {
+            "avg": 0.015775686882475267,
+            "min": 0.001242,
+            "med": 0.005813,
+            "max": 10.411868,
+            "p(90)": 0.009815500000000003,
+            "p(95)": 0.01288889999999998
+        },
+        "data_sent": {
+            "count": 1811153,
+            "rate": 6672.377297619782
+        },
+        "vus_max": {
+            "value": 200,
+            "min": 200,
+            "max": 200
+        },
+        "iteration_duration": {
+            "avg": 4423.07633223093,
+            "min": 2028.923584,
+            "med": 3690.7178025,
+            "max": 12147.646595,
+            "p(90)": 7660.294685399999,
+            "p(95)": 8638.146838949999
+        },
+        "http_req_tls_handshaking": {
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0
+        },
+        "http_req_connecting": {
+            "avg": 0.005413903731149247,
+            "min": 0,
+            "med": 0,
+            "max": 8.726472,
+            "p(90)": 0,
+            "p(95)": 0
+        },
+        "http_req_waiting": {
+            "med": 266.31649600000003,
+            "max": 5915.792542,
+            "p(90)": 2007.4075168000004,
+            "p(95)": 2571.9218092499987,
+            "avg": 676.1203254912202,
+            "min": 0.503561
+        },
+        "http_req_sending": {
+            "p(90)": 0.060612700000000026,
+            "p(95)": 0.08701434999999998,
+            "avg": 0.04184122646905853,
+            "min": 0.004436,
+            "med": 0.018109,
+            "max": 11.64895
+        },
+        "http_reqs": {
+            "count": 15384,
+            "rate": 56.675417453181886
+        },
+        "http_req_duration{expected_response:true}": {
+            "avg": 676.3458210685807,
+            "min": 0.601197,
+            "med": 266.59945849999997,
+            "max": 5915.878972,
+            "p(90)": 2007.4654779000002,
+            "p(95)": 2572.1850153999985
+        },
+        "iterations": {
+            "rate": 15.841412834677724,
+            "count": 4300
+        },
+        "checks": {
+            "passes": 15384,
+            "fails": 0,
+            "thresholds": {
+                "rate>0.95": false
+            },
+            "value": 1
+        },
+        "http_req_receiving": {
+            "avg": 0.18365435088403584,
+            "min": 0.019204,
+            "med": 0.09695899999999999,
+            "max": 23.077661,
+            "p(90)": 0.22285220000000003,
+            "p(95)": 0.37233504999999967
+        }
+    }
+}

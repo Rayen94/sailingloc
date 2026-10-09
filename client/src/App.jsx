@@ -69,100 +69,100 @@ function App() {
         <ScrollToTop />
         <AuthProvider>
           <ToastProvider>
-          <Routes>
-            {/* Public routes */}
-            <Route element={<PublicLayout />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/categories" element={<CategoriesPage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/products/:id" element={<BoatDetailPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-              <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-              <Route path="/boats" element={<BoatListPage />} />
-              <Route path="/boats/:identifier" element={<BoatDetailPage />} />
-              <Route path="/bateaux/:slug" element={<BoatDetailPage />} />
-              <Route path="/legal/:slug" element={<LegalPage />} />
-              <Route path="/mvp-limitations" element={<MvpLimitationsPage />} />
+            <Routes>
+              {/* Public routes */}
+              <Route element={<PublicLayout />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/categories" element={<CategoriesPage />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/products/:id" element={<BoatDetailPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+                <Route path="/boats" element={<BoatListPage />} />
+                <Route path="/boats/:identifier" element={<BoatDetailPage />} />
+                <Route path="/bateaux/:slug" element={<BoatDetailPage />} />
+                <Route path="/legal/:slug" element={<LegalPage />} />
+                <Route path="/mvp-limitations" element={<MvpLimitationsPage />} />
 
-              {/* Protected public routes */}
+                {/* Protected public routes */}
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <ProfilePage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/my-bookings"
+                  element={
+                    <RoleRoute roles={['tenant']}>
+                      <MyBookingsPage />
+                    </RoleRoute>
+                  }
+                />
+                <Route
+                  path="/payment/success"
+                  element={
+                    <RoleRoute roles={['tenant']}>
+                      <PaymentSuccess />
+                    </RoleRoute>
+                  }
+                />
+                <Route
+                  path="/payment/cancel"
+                  element={
+                    <RoleRoute roles={['tenant']}>
+                      <PaymentCancel />
+                    </RoleRoute>
+                  }
+                />
+
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+
+              {/* Owner routes */}
               <Route
-                path="/profile"
+                path="/owner"
                 element={
-                  <ProtectedRoute>
-                    <ProfilePage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/my-bookings"
-                element={
-                  <RoleRoute roles={['tenant']}>
-                    <MyBookingsPage />
+                  <RoleRoute roles={['owner']}>
+                    <OwnerLayout />
                   </RoleRoute>
                 }
-              />
+              >
+                <Route path="dashboard" element={<OwnerDashboardPage />} />
+                <Route path="boats" element={<OwnerBoatsPage />} />
+                <Route path="boats/new" element={<OwnerBoatFormPage />} />
+                <Route path="boats/:id/edit" element={<OwnerBoatFormPage />} />
+                <Route path="bookings" element={<OwnerBookingsPage />} />
+                <Route path="documents" element={<OwnerDocumentsPage />} />
+              </Route>
+
+              {/* Admin routes */}
               <Route
-                path="/payment/success"
+                path="/admin"
                 element={
-                  <RoleRoute roles={['tenant']}>
-                    <PaymentSuccess />
+                  <RoleRoute roles={['admin']}>
+                    <AdminLayout />
                   </RoleRoute>
                 }
-              />
-              <Route
-                path="/payment/cancel"
-                element={
-                  <RoleRoute roles={['tenant']}>
-                    <PaymentCancel />
-                  </RoleRoute>
-                }
-              />
-
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-
-            {/* Owner routes */}
-            <Route
-              path="/owner"
-              element={
-                <RoleRoute roles={['owner']}>
-                  <OwnerLayout />
-                </RoleRoute>
-              }
-            >
-              <Route path="dashboard" element={<OwnerDashboardPage />} />
-              <Route path="boats" element={<OwnerBoatsPage />} />
-              <Route path="boats/new" element={<OwnerBoatFormPage />} />
-              <Route path="boats/:id/edit" element={<OwnerBoatFormPage />} />
-              <Route path="bookings" element={<OwnerBookingsPage />} />
-              <Route path="documents" element={<OwnerDocumentsPage />} />
-            </Route>
-
-            {/* Admin routes */}
-            <Route
-              path="/admin"
-              element={
-                <RoleRoute roles={['admin']}>
-                  <AdminLayout />
-                </RoleRoute>
-              }
-            >
-              <Route path="dashboard" element={<AdminDashboardPage />} />
-              <Route path="users" element={<AdminUsersPage />} />
-              <Route path="boats" element={<AdminBoatsPage />} />
-              <Route path="bookings" element={<AdminBookingsPage />} />
-              <Route path="reviews" element={<AdminReviewsPage />} />
-              <Route path="documents" element={<AdminDocumentsPage />} />
-              <Route path="payments" element={<AdminPaymentsPage />} />
-              <Route path="reports" element={<AdminReportsPage />} />
-              <Route path="contact-messages" element={<AdminContactMessagesPage />} />
-              <Route path="email-settings" element={<AdminEmailSettingsPage />} />
-              <Route path="action-logs" element={<AdminActionLogsPage />} />
-            </Route>
-          </Routes>
+              >
+                <Route path="dashboard" element={<AdminDashboardPage />} />
+                <Route path="users" element={<AdminUsersPage />} />
+                <Route path="boats" element={<AdminBoatsPage />} />
+                <Route path="bookings" element={<AdminBookingsPage />} />
+                <Route path="reviews" element={<AdminReviewsPage />} />
+                <Route path="documents" element={<AdminDocumentsPage />} />
+                <Route path="payments" element={<AdminPaymentsPage />} />
+                <Route path="reports" element={<AdminReportsPage />} />
+                <Route path="contact-messages" element={<AdminContactMessagesPage />} />
+                <Route path="email-settings" element={<AdminEmailSettingsPage />} />
+                <Route path="action-logs" element={<AdminActionLogsPage />} />
+              </Route>
+            </Routes>
           </ToastProvider>
         </AuthProvider>
       </BrowserRouter>

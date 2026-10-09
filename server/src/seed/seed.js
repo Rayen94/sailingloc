@@ -13,6 +13,16 @@ const { buildBoatSlug } = require('../utils/slugify');
 
 const DAY = 24 * 60 * 60 * 1000;
 
+// Sécurité : le seed efface toutes les données. En production, il faut le demander explicitement.
+if (
+  process.env.NODE_ENV === 'production' &&
+  process.env.DEMO_FORCE_SEED !== 'true' &&
+  process.env.DEMO_SEED_IF_EMPTY !== 'true'
+) {
+  console.error('Seed refusé en production : définir DEMO_FORCE_SEED=true pour effacer et recréer les données.');
+  process.exit(1);
+}
+
 const connectDB = async () => {
   await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/sailingloc');
   console.log('MongoDB connected for seeding');
@@ -694,7 +704,8 @@ const seed = async () => {
     const payments = [];
     const boatSlot = new Map();
 
-    for (let index = 0; index < 72; index += 1) {
+    // Une réservation par statut prévu (60) : avant, la boucle allait jusqu'à 72 et créait des statuts vides.
+    for (let index = 0; index < bookingStatuses.length; index += 1) {
       const status = bookingStatuses[index];
       const boat = boats[index % boats.length];
       const tenant = tenants[(index * 3) % tenants.length];
@@ -751,7 +762,8 @@ const seed = async () => {
 
     const completedBookings = bookings.filter((booking) => booking.status === 'completed');
     const reviews = [];
-    for (let index = 0; index < 32; index += 1) {
+    // Un avis par réservation terminée au maximum (sinon le script plantait : 32 avis pour 26 locations terminées).
+    for (let index = 0; index < Math.min(32, completedBookings.length); index += 1) {
       const booking = completedBookings[index];
       const rating = 3 + (index % 3);
       reviews.push(

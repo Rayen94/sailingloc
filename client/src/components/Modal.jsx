@@ -10,7 +10,11 @@ const Modal = ({ isOpen, onClose, title, children }) => {
   }, [isOpen]);
 
   if (!isOpen) return null;
-  const titleId = title ? `modal-title-${String(title).toLowerCase().replace(/[^a-z0-9]+/gi, '-')}` : undefined;
+  const titleId = title
+    ? `modal-title-${String(title)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/gi, '-')}`
+    : undefined;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">

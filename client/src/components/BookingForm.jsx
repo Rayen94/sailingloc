@@ -173,7 +173,11 @@ const BookingForm = ({ boat }) => {
         </div>
       ) : user.role !== 'tenant' ? (
         <div className="booking-card__message">
-          <p>{user.role === 'owner' ? 'Les propriétaires ne peuvent pas réserver.' : 'Seuls les locataires peuvent réserver.'}</p>
+          <p>
+            {user.role === 'owner'
+              ? 'Les propriétaires ne peuvent pas réserver.'
+              : 'Seuls les locataires peuvent réserver.'}
+          </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="booking-card__form">

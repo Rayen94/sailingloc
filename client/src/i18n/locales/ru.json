@@ -1,5 +1,7 @@
 {
   "navbar": {
+    "skipToContent": "Перейти к основному содержимому",
+    "navigation": "Главная навигация",
     "home": "Главная",
     "boats": "Лодки",
     "categories": "Категории",
@@ -32,6 +34,7 @@
     "projectBy": "Проект команды SailingLoc"
   },
   "common": {
+    "boatImageAlt": "{{type}} {{title}}, {{location}}",
     "loading": "Загрузка...",
     "search": "Искать",
     "filters": "Фильтры",

@@ -26,7 +26,9 @@ const createStripeCheckoutSession = asyncHandler(async (req, res) => {
     throw new Error('Stripe payment is not configured.');
   }
 
-  const booking = await Booking.findById(req.body.bookingId).populate('boat', 'title owner').populate('tenant', 'email');
+  const booking = await Booking.findById(req.body.bookingId)
+    .populate('boat', 'title owner')
+    .populate('tenant', 'email');
   if (!booking) {
     res.status(404);
     throw new Error('Reservation introuvable');
@@ -125,7 +127,9 @@ const markPaymentFailed = async ({ paymentId, sessionId, paymentIntentId }) => {
 const confirmStripePayment = async (session) => {
   const metadata = session.metadata || {};
   const payment = await Payment.findOne({
-    $or: [{ _id: metadata.paymentId }, { stripeCheckoutSessionId: session.id }].filter((entry) => Object.values(entry)[0]),
+    $or: [{ _id: metadata.paymentId }, { stripeCheckoutSessionId: session.id }].filter(
+      (entry) => Object.values(entry)[0]
+    ),
   });
   if (!payment) return;
 

@@ -9,7 +9,15 @@ const summary = JSON.parse(readFileSync(input, 'utf8'));
 const metrics = summary.metrics || {};
 const now = new Date().toISOString();
 
-const value = (metric, key, fallback = 0) => metrics[metric]?.values?.[key] ?? fallback;
+// Deux formats possibles : --summary-export (valeurs directement dans la métrique, taux dans "value")
+// et handleSummary (valeurs dans "values", taux dans "rate").
+const value = (metric, key, fallback = 0) => {
+  const m = metrics[metric];
+  if (!m) return fallback;
+  const source = m.values || m;
+  if (key === 'rate') return source.rate ?? source.value ?? fallback;
+  return source[key] ?? fallback;
+};
 const count = (metric) => Math.round(value(metric, 'count'));
 const ms = (number) => `${Number(number || 0).toFixed(0)} ms`;
 const percent = (number) => `${(Number(number || 0) * 100).toFixed(2)}%`;
@@ -26,7 +34,7 @@ const status =
 
 const report = `# Rapport k6 SailingLoc - Demo oral
 
-Date: ${now}
+Rapport genere le : ${now}${process.env.TEST_DATE ? `\n\nDate du test : ${process.env.TEST_DATE}` : ''}
 
 ## Objectif
 

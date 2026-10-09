@@ -1,5 +1,7 @@
 {
   "navbar": {
+    "skipToContent": "انتقل إلى المحتوى الرئيسي",
+    "navigation": "التنقل الرئيسي",
     "home": "الرئيسية",
     "boats": "القوارب",
     "categories": "الفئات",
@@ -32,6 +34,7 @@
     "projectBy": "مشروع من فريق SailingLoc"
   },
   "common": {
+    "boatImageAlt": "{{type}} {{title}} في {{location}}",
     "loading": "جار التحميل...",
     "search": "بحث",
     "filters": "الفلاتر",

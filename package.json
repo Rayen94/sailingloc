@@ -24,6 +24,7 @@
     "load:stress": "k6 run load-tests/stress-test.js",
     "load:bookings": "k6 run load-tests/api-bookings.js",
     "load:payments": "k6 run load-tests/api-payments.js",
+    "load:search": "k6 run load-tests/search-journey.js",
     "load:compare": "node scripts/compare-load-tests.mjs",
     "load:oral": "node scripts/run-k6-oral.mjs",
     "server:install": "npm --prefix server install",
@@ -32,6 +33,6 @@
     "client:build": "npm --prefix client run build"
   },
   "engines": {
-    "node": ">=20 <25"
+    "node": ">=22 <25"
   }
 }

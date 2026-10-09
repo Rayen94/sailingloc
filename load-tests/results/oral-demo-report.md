@@ -1,6 +1,8 @@
 # Rapport k6 SailingLoc - Demo oral
 
-Date: 2026-08-10T18:55:45.993Z
+Rapport genere le : 2026-10-08T16:50:27.529Z
+
+Date du test : 10/08/2026 vers 20 h 55 (heure de Paris), sur Render, avant le correctif du limiteur de requetes
 
 ## Objectif
 
@@ -10,11 +12,11 @@ Verifier que les pages publiques et endpoints critiques restent accessibles sous
 
 | Indicateur | Valeur |
 | --- | ---: |
-| Requetes HTTP | 0 |
-| Duree moyenne | 0 ms |
-| P95 global | 0 ms |
-| Taux erreurs HTTP | 0.00% |
-| Checks reussis | 0.00% |
+| Requetes HTTP | 1155 |
+| Duree moyenne | 294 ms |
+| P95 global | 844 ms |
+| Taux erreurs HTTP | 49.35% |
+| Checks reussis | 55.64% |
 
 ## Conclusion
 

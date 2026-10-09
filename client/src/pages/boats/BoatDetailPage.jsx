@@ -90,7 +90,11 @@ const BoatDetailPage = () => {
   if (loading) {
     return (
       <>
-        <SEO title="Chargement du bateau — SailingLoc" description="Chargement de la fiche bateau SailingLoc." noIndex />
+        <SEO
+          title="Chargement du bateau — SailingLoc"
+          description="Chargement de la fiche bateau SailingLoc."
+          noIndex
+        />
         <LoadingSpinner text="Chargement du bateau..." />
       </>
     );
@@ -99,7 +103,11 @@ const BoatDetailPage = () => {
   if (error || !boat) {
     return (
       <div className="container-max section-padding text-center py-24">
-        <SEO title="Bateau introuvable — SailingLoc" description="Cette annonce bateau est introuvable ou indisponible." noIndex />
+        <SEO
+          title="Bateau introuvable — SailingLoc"
+          description="Cette annonce bateau est introuvable ou indisponible."
+          noIndex
+        />
         <Anchor size={48} className="mx-auto mb-4" color="#00C6E0" />
         <h1 className="mb-4 text-2xl font-bold text-[#07192E]">{error || 'Bateau introuvable'}</h1>
         <Link to="/boats" className="btn-primary">
@@ -158,7 +166,7 @@ const BoatDetailPage = () => {
         <Breadcrumb items={[{ label: 'Bateaux', to: '/boats' }, { label: boat.title }]} />
 
         <div className="boat-detail-layout">
-          <main className="boat-detail-main">
+          <div className="boat-detail-main">
             <section className="boat-gallery" aria-label="Photos du bateau">
               <div className="boat-gallery__main">
                 <img
@@ -223,7 +231,11 @@ const BoatDetailPage = () => {
               <div className="boat-rating-card">
                 <Star size={18} fill="#F4A01A" color="#F4A01A" />
                 <strong>{ratingLabel}</strong>
-                <span>{reviewCount > 0 ? `${reviewCount} avis locataire${reviewCount > 1 ? 's' : ''}` : 'Première location à venir'}</span>
+                <span>
+                  {reviewCount > 0
+                    ? `${reviewCount} avis locataire${reviewCount > 1 ? 's' : ''}`
+                    : 'Première location à venir'}
+                </span>
               </div>
               <div className="boat-trust-pills">
                 <span>
@@ -252,7 +264,11 @@ const BoatDetailPage = () => {
               </div>
               <div className="boat-feature-grid">
                 <FeatureItem icon={Users} label="Capacité" value={`${boat.capacity} pers.`} />
-                <FeatureItem icon={Ruler} label="Longueur" value={boat.length ? `${boat.length} m` : 'Non renseignée'} />
+                <FeatureItem
+                  icon={Ruler}
+                  label="Longueur"
+                  value={boat.length ? `${boat.length} m` : 'Non renseignée'}
+                />
                 <FeatureItem icon={Sailboat} label="Type" value={typeLabels[boat.type] || boat.type} tone="sand" />
                 <FeatureItem icon={Gauge} label="Moteur" value={boat.engine || 'Non renseigné'} />
                 <FeatureItem icon={Anchor} label="Port" value={boat.port || boat.location} tone="sand" />
@@ -336,7 +352,7 @@ const BoatDetailPage = () => {
                 </div>
               </section>
             )}
-          </main>
+          </div>
 
           <aside className="boat-detail-aside" aria-label="Réservation">
             <BookingForm boat={boat} />

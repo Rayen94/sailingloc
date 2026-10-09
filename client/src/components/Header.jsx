@@ -247,7 +247,11 @@ const Header = () => {
                       {t('navbar.bookings')}
                     </Link>
                   )}
-                  <button type="button" onClick={handleLogout} className="block w-full px-3 py-3 text-left text-sm text-red-400">
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="block w-full px-3 py-3 text-left text-sm text-red-400"
+                  >
                     {t('navbar.logout')}
                   </button>
                 </>

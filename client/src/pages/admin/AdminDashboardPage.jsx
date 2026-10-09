@@ -182,12 +182,7 @@ const AdminDashboardPage = () => {
       </Section>
 
       <Section title="Modération">
-        <DashboardCard
-          title="Bateaux approuvés"
-          value={stats?.approvedBoats ?? 0}
-          icon={ShieldCheck}
-          color="green"
-        />
+        <DashboardCard title="Bateaux approuvés" value={stats?.approvedBoats ?? 0} icon={ShieldCheck} color="green" />
         <DashboardCard title="Bateaux en attente" value={stats?.pendingBoats ?? 0} icon={ShieldCheck} color="yellow" />
         <DashboardCard
           title="Avis en attente"

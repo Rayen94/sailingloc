@@ -156,8 +156,14 @@ const getStats = asyncHandler(async (req, res) => {
     Review.countDocuments({ status: 'pending' }),
     OwnerDocument.countDocuments({ status: 'pending' }),
     Payment.countDocuments({ status: { $in: paidPaymentStatuses } }),
-    Payment.aggregate([{ $match: { status: { $in: paidPaymentStatuses } } }, { $group: { _id: null, total: { $sum: '$amount' } } }]),
-    Payment.aggregate([{ $match: { status: { $in: paidPaymentStatuses } } }, { $group: { _id: null, total: { $sum: '$serviceFee' } } }]),
+    Payment.aggregate([
+      { $match: { status: { $in: paidPaymentStatuses } } },
+      { $group: { _id: null, total: { $sum: '$amount' } } },
+    ]),
+    Payment.aggregate([
+      { $match: { status: { $in: paidPaymentStatuses } } },
+      { $group: { _id: null, total: { $sum: '$serviceFee' } } },
+    ]),
     Payment.aggregate([{ $match: { status: 'refunded' } }, { $group: { _id: null, total: { $sum: '$amount' } } }]),
     require('../models/Report').countDocuments({ status: { $in: ['open', 'in_review'] } }),
     ContactMessage.countDocuments({ status: { $in: ['new', 'read'] } }),
@@ -803,13 +809,22 @@ const getAdminPayments = asyncHandler(async (req, res) => {
   const items = filtered.slice(skip, skip + limit);
 
   const [paid, stripePaid, simulatedPaid, fees, pending, refunded] = await Promise.all([
-    Payment.aggregate([{ $match: { status: { $in: paidPaymentStatuses } } }, { $group: { _id: null, total: { $sum: '$amount' } } }]),
-    Payment.aggregate([{ $match: { status: { $in: paidPaymentStatuses }, provider: 'stripe' } }, { $group: { _id: null, total: { $sum: '$amount' } } }]),
+    Payment.aggregate([
+      { $match: { status: { $in: paidPaymentStatuses } } },
+      { $group: { _id: null, total: { $sum: '$amount' } } },
+    ]),
+    Payment.aggregate([
+      { $match: { status: { $in: paidPaymentStatuses }, provider: 'stripe' } },
+      { $group: { _id: null, total: { $sum: '$amount' } } },
+    ]),
     Payment.aggregate([
       { $match: { status: { $in: paidPaymentStatuses }, provider: { $in: ['simulated', 'simulated-stripe'] } } },
       { $group: { _id: null, total: { $sum: '$amount' } } },
     ]),
-    Payment.aggregate([{ $match: { status: { $in: paidPaymentStatuses } } }, { $group: { _id: null, total: { $sum: '$serviceFee' } } }]),
+    Payment.aggregate([
+      { $match: { status: { $in: paidPaymentStatuses } } },
+      { $group: { _id: null, total: { $sum: '$serviceFee' } } },
+    ]),
     Payment.countDocuments({ status: { $in: ['unpaid', 'pending', 'requires_capture'] } }),
     Payment.aggregate([{ $match: { status: 'refunded' } }, { $group: { _id: null, total: { $sum: '$amount' } } }]),
   ]);

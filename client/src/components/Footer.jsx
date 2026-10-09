@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-bold tracking-wide text-white">{t('footer.navigation')}</h4>
+            <h2 className="mb-4 font-sans text-sm font-bold tracking-wide text-white">{t('footer.navigation')}</h2>
             <ul className="space-y-2.5">
               {navigationLinks.map(({ label, to }) => (
                 <li key={label}>
@@ -66,7 +66,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-bold tracking-wide text-white">{t('footer.legal')}</h4>
+            <h2 className="mb-4 font-sans text-sm font-bold tracking-wide text-white">{t('footer.legal')}</h2>
             <ul className="space-y-2.5">
               {legalLinks.map(({ label, to }) => (
                 <li key={label}>
@@ -83,7 +83,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-bold tracking-wide text-white">{t('navbar.contact')}</h4>
+            <h2 className="mb-4 font-sans text-sm font-bold tracking-wide text-white">{t('navbar.contact')}</h2>
             <ul className="space-y-2.5">
               {['support@sailingloc.fr', '+33 1 23 45 67 89', 'FAQ', t('footer.hours')].map((item) => (
                 <li key={item} className="text-sm" style={{ color: 'rgba(255,255,255,0.62)' }}>
