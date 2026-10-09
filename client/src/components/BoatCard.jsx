@@ -51,7 +51,11 @@ const BoatCard = ({ boat }) => {
       <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-smoke">
         <img
           src={imageUrl}
-          alt={boat.title}
+          alt={t('common.boatImageAlt', {
+            type: t(`boatTypes.${boat.type}`, boat.type),
+            title: boat.title,
+            location: boat.location || boat.port || '',
+          })}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           onError={(e) => {
             e.target.src = FALLBACK_BOAT_IMAGE;

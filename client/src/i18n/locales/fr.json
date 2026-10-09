@@ -34,6 +34,7 @@
     "projectBy": "Projet réalisé par l'équipe SailingLoc"
   },
   "common": {
+    "boatImageAlt": "{{type}} {{title}} à {{location}}",
     "loading": "Chargement...",
     "search": "Rechercher",
     "filters": "Filtres",
