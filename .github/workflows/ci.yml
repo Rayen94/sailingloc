@@ -29,6 +29,11 @@ jobs:
         working-directory: client
         run: npm install
 
+      - name: Security audit (production dependencies)
+        run: |
+          npm --prefix server audit --omit=dev --audit-level=high
+          npm --prefix client audit --omit=dev --audit-level=high
+
       - name: Server lint
         working-directory: server
         run: npm run lint --if-present
