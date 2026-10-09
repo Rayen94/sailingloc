@@ -17,9 +17,9 @@ Plateforme full-stack de location de bateaux entre particuliers, avec espaces vi
 
 Projet de l'École DSP (2024-2026), réalisé par l'agence fictive Pandawan :
 
-- Jylane ABDESSEMED : analyse et stratégie ;
-- Rayen SAAD : conception et gestion de projet ;
-- Jean Christophe AROUNASSALAM : développement full stack.
+- Jean Christophe AROUNASSALAM : responsable analyse et stratégie ;
+- Rayen SAAD : responsable conception et gestion de projet ;
+- Jylane ABDESSEMED : développeur full stack.
 
 Site en ligne : [https://dsp-dev-o24a-g6-fr.onrender.com](https://dsp-dev-o24a-g6-fr.onrender.com)
 
