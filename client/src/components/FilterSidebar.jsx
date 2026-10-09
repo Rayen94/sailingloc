@@ -29,8 +29,9 @@ const FilterSidebar = ({ filters, onChange }) => {
         </h2>
         <button
           onClick={handleReset}
+          type="button"
           className="text-xs font-semibold transition-colors hover:underline"
-          style={{ color: '#00C6E0' }}
+          style={{ color: '#00788A' }}
         >
           {t('common.reset')}
         </button>

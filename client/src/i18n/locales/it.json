@@ -1,5 +1,7 @@
 {
   "navbar": {
+    "skipToContent": "Vai al contenuto principale",
+    "navigation": "Navigazione principale",
     "home": "Home",
     "boats": "Barche",
     "categories": "Categorie",
@@ -32,6 +34,7 @@
     "projectBy": "Progetto realizzato dal team SailingLoc"
   },
   "common": {
+    "boatImageAlt": "{{type}} {{title}} a {{location}}",
     "loading": "Caricamento...",
     "search": "Cerca",
     "filters": "Filtri",

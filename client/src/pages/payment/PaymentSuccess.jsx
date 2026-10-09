@@ -24,7 +24,7 @@ const PaymentSuccess = () => {
         setMessage('Reservation confirmee. Votre facture PDF a ete generee et envoyee par email.');
       } catch (error) {
         setStatus('error');
-        setMessage(error.response?.data?.message || "Impossible de confirmer le paiement pour le moment.");
+        setMessage(error.response?.data?.message || 'Impossible de confirmer le paiement pour le moment.');
       }
     };
 
@@ -36,7 +36,11 @@ const PaymentSuccess = () => {
 
   return (
     <section className="section-padding" style={{ background: '#F7F5F2', minHeight: '70vh' }}>
-      <SEO title="Confirmation de paiement — SailingLoc" description="Page privée de confirmation de paiement SailingLoc." noIndex />
+      <SEO
+        title="Confirmation de paiement — SailingLoc"
+        description="Page privée de confirmation de paiement SailingLoc."
+        noIndex
+      />
       <div className="container-max">
         <div
           className="bg-white rounded-2xl p-8 max-w-2xl mx-auto text-center"

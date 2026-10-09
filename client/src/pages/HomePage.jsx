@@ -154,7 +154,19 @@ const HomePage = () => {
 
   return (
     <div className="home-shell">
-      <SEO title={t('home.seoTitle')} description={t('home.seoDescription')} />
+      <SEO
+        title={t('home.seoTitle')}
+        description={t('home.seoDescription')}
+        canonical="/"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'SailingLoc',
+          url: 'https://dsp-dev-o24a-g6-fr.onrender.com/',
+          inLanguage: 'fr',
+          description: t('home.seoDescription'),
+        }}
+      />
       <section className="home-hero">
         <div className="container-max home-hero-inner">
           <div className="home-hero-copy">
@@ -230,14 +242,9 @@ const HomePage = () => {
           <div className="home-review-grid">
             {displayedReviews.map((review) => (
               <article key={review.id} className="home-review-card">
-                <div className="home-stars" aria-label={t('home.reviewAria')}>
+                <div className="home-stars" role="img" aria-label={t('home.reviewAria')}>
                   {Array.from({ length: 5 }, (_, index) => (
-                    <Star
-                      key={index}
-                      size={14}
-                      fill={index < review.rating ? '#F4A01A' : 'none'}
-                      color="#F4A01A"
-                    />
+                    <Star key={index} size={14} fill={index < review.rating ? '#F4A01A' : 'none'} color="#F4A01A" />
                   ))}
                 </div>
                 <p>{review.comment}</p>

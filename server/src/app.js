@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const { setupSwagger } = require('./config/swagger');
@@ -27,6 +28,12 @@ const newsletterRoutes = require('./routes/newsletterRoutes');
 const { stripeWebhook } = require('./controllers/paymentController');
 
 const app = express();
+
+// Derrière un hébergeur (Render), les requêtes passent par un proxy. Sans ce réglage,
+// le limiteur de requêtes voit l'adresse IP du proxy au lieu de celle du visiteur :
+// tous les visiteurs partagent alors la même limite. TRUST_PROXY = nombre de proxys (ex. 1).
+const trustProxy = process.env.TRUST_PROXY;
+if (trustProxy) app.set('trust proxy', /^\d+$/.test(trustProxy) ? Number(trustProxy) : trustProxy);
 const clientDistPath = path.resolve(__dirname, '../../client/dist');
 const clientIndexPath = path.join(clientDistPath, 'index.html');
 
@@ -46,7 +53,10 @@ const sanitizeUrlEnv = (value, fallback) => {
   }
 };
 
-const configuredClientOrigin = sanitizeUrlEnv(process.env.CLIENT_URL || process.env.FRONTEND_URL, 'http://localhost:5173');
+const configuredClientOrigin = sanitizeUrlEnv(
+  process.env.CLIENT_URL || process.env.FRONTEND_URL,
+  'http://localhost:5173'
+);
 const allowedOrigins = new Set([
   configuredClientOrigin,
   'http://localhost:5173',
@@ -85,7 +95,12 @@ app.use(
         frameSrc: ["'self'", 'https://www.googletagmanager.com', 'https://challenges.cloudflare.com'],
         imgSrc: ["'self'", 'data:', 'blob:', 'https:'],
         objectSrc: ["'none'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'https://challenges.cloudflare.com'],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://www.googletagmanager.com',
+          'https://challenges.cloudflare.com',
+        ],
         scriptSrcElem: [
           "'self'",
           "'unsafe-inline'",
@@ -107,6 +122,8 @@ app.use(
     },
   })
 );
+// Compression gzip des réponses (JS, CSS, JSON) : pages plus légères et plus rapides.
+app.use(compression());
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(
   cors({

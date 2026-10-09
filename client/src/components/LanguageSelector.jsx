@@ -54,7 +54,7 @@ const LanguageSelector = () => {
         className="language-dropdown__trigger"
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label={`${t('navbar.language')} : ${activeOption.name}`}
+        aria-label={`${activeOption.label} - ${t('navbar.language')} : ${activeOption.name}`}
         onClick={() => setOpen((value) => !value)}
       >
         <Globe2 size={14} aria-hidden="true" />

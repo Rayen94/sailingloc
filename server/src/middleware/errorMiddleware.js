@@ -5,7 +5,9 @@ const notFound = (req, res, next) => {
 };
 
 const errorHandler = (err, req, res, next) => {
-  const statusCode = err.statusCode || (res.statusCode === 200 ? 500 : res.statusCode);
+  // Les erreurs d'envoi de fichier (fichier trop lourd, champ inattendu...) sont des erreurs du client : 400.
+  const multerStatus = err.name === 'MulterError' ? 400 : null;
+  const statusCode = err.statusCode || multerStatus || (res.statusCode === 200 ? 500 : res.statusCode);
   if (process.env.NODE_ENV !== 'test') {
     console.error({
       message: err.message,

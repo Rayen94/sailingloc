@@ -23,6 +23,8 @@ const bookingSchema = new mongoose.Schema(
 );
 
 bookingSchema.index({ boat: 1, status: 1, startDate: 1, endDate: 1 });
+// Recherche par dates (bateaux déjà réservés sur une période) sans passer par le bateau.
+bookingSchema.index({ status: 1, startDate: 1, endDate: 1 });
 bookingSchema.index({ tenant: 1, createdAt: -1 });
 bookingSchema.index({ owner: 1, createdAt: -1 });
 

@@ -1,0 +1,210 @@
+{
+    "metrics": {
+        "http_req_waiting": {
+            "avg": 1.4788398583333304,
+            "min": 0.310186,
+            "med": 1.0458845,
+            "max": 23.833162,
+            "p(90)": 2.6710925000000003,
+            "p(95)": 3.718843749999993
+        },
+        "http_req_blocked": {
+            "avg": 0.005570651388888904,
+            "min": 0.001195,
+            "med": 0.0031695,
+            "max": 0.68893,
+            "p(90)": 0.006850200000000001,
+            "p(95)": 0.008463049999999995
+        },
+        "http_req_connecting": {
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0.000758952314814815,
+            "min": 0,
+            "med": 0,
+            "max": 0.616811
+        },
+        "data_received": {
+            "count": 5818345,
+            "rate": 64249.4538993832
+        },
+        "http_req_tls_handshaking": {
+            "p(90)": 0,
+            "p(95)": 0,
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "max": 0
+        },
+        "http_req_receiving": {
+            "min": 0.01883,
+            "med": 0.0534115,
+            "max": 3.716692,
+            "p(90)": 0.12058900000000003,
+            "p(95)": 0.1714011,
+            "avg": 0.07360636712962965
+        },
+        "http_req_failed": {
+            "passes": 1242,
+            "fails": 918,
+            "thresholds": {
+                "rate<0.08": true
+            },
+            "value": 0.575
+        },
+        "vus_max": {
+            "value": 8,
+            "min": 8,
+            "max": 8
+        },
+        "data_sent": {
+            "count": 170640,
+            "rate": 1884.3033222317945
+        },
+        "checks": {
+            "passes": 1737,
+            "fails": 1863,
+            "thresholds": {
+                "rate>0.92": true
+            },
+            "value": 0.4825
+        },
+        "vus": {
+            "value": 8,
+            "min": 8,
+            "max": 8
+        },
+        "iterations": {
+            "count": 720,
+            "rate": 7.9506469292480775
+        },
+        "http_req_duration": {
+            "min": 0.360775,
+            "med": 1.126249,
+            "max": 23.880591,
+            "p(90)": 2.7501933000000007,
+            "p(95)": 3.8697537499999926,
+            "avg": 1.5700565842592629
+        },
+        "http_req_duration{endpoint:boats_api}": {
+            "med": 1.0227685,
+            "max": 14.165366,
+            "p(90)": 2.4610537000000003,
+            "p(95)": 3.5706802999999963,
+            "avg": 1.3828245458333324,
+            "min": 0.397525,
+            "thresholds": {
+                "p(95)<1800": false
+            }
+        },
+        "http_req_duration{endpoint:home}": {
+            "p(95)": 4.851114599999999,
+            "avg": 2.2783822916666665,
+            "min": 0.508856,
+            "med": 1.752668,
+            "max": 23.880591,
+            "p(90)": 3.5098801,
+            "thresholds": {
+                "p(95)<1800": false
+            }
+        },
+        "http_req_sending": {
+            "p(95)": 0.04917949999999998,
+            "avg": 0.017610358796296285,
+            "min": 0.003646,
+            "med": 0.009136,
+            "max": 1.267845,
+            "p(90)": 0.03516800000000001
+        },
+        "iteration_duration": {
+            "avg": 1005.8056805458326,
+            "min": 1001.814464,
+            "med": 1004.769609,
+            "max": 1040.713934,
+            "p(90)": 1008.9517185,
+            "p(95)": 1011.76787475
+        },
+        "group_duration": {
+            "min": 1.685362,
+            "med": 4.127245,
+            "max": 40.296444,
+            "p(90)": 8.2864521,
+            "p(95)": 11.156417199999996,
+            "avg": 5.2077987875
+        },
+        "http_reqs": {
+            "count": 2160,
+            "rate": 23.851940787744233
+        },
+        "http_req_duration{expected_response:true}": {
+            "max": 23.880591,
+            "p(90)": 3.4863218000000025,
+            "p(95)": 4.83276165,
+            "avg": 2.171830120915032,
+            "min": 0.480146,
+            "med": 1.691653
+        },
+        "http_req_duration{endpoint:health}": {
+            "p(95)": 2.6722540999999977,
+            "avg": 1.0489629152777777,
+            "min": 0.360775,
+            "med": 0.748631,
+            "max": 13.81811,
+            "p(90)": 1.7724706000000001,
+            "thresholds": {
+                "p(95)<900": false
+            }
+        }
+    },
+    "root_group": {
+        "checks": {},
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+                "Public discovery journey": {
+                    "name": "Public discovery journey",
+                    "path": "::Public discovery journey",
+                    "id": "84ab029ad0d32b983de919d3dbcc025b",
+                    "groups": {},
+                    "checks": {
+                            "home returns 200": {
+                                "fails": 0,
+                                "name": "home returns 200",
+                                "path": "::Public discovery journey::home returns 200",
+                                "id": "4bbc256b3e57e53ff786705a23eb5b3d",
+                                "passes": 720
+                            },
+                            "home has html": {
+                                "name": "home has html",
+                                "path": "::Public discovery journey::home has html",
+                                "id": "9b842dd0d20fbcaa56b4ca52316eb856",
+                                "passes": 720,
+                                "fails": 0
+                            },
+                            "boats api returns 200": {
+                                "passes": 99,
+                                "fails": 621,
+                                "name": "boats api returns 200",
+                                "path": "::Public discovery journey::boats api returns 200",
+                                "id": "6a61e44dfd79b28cb417b1636f08c227"
+                            },
+                            "boats api has payload": {
+                                "name": "boats api has payload",
+                                "path": "::Public discovery journey::boats api has payload",
+                                "id": "f35e61b9be2e9af7a36b372bb42b96ad",
+                                "passes": 99,
+                                "fails": 621
+                            },
+                            "health returns 200": {
+                                "passes": 99,
+                                "fails": 621,
+                                "name": "health returns 200",
+                                "path": "::Public discovery journey::health returns 200",
+                                "id": "a60ea2b9468f8336342aa881accef296"
+                            }
+                        }
+                }
+            }
+    }
+}
