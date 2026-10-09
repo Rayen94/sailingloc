@@ -50,3 +50,15 @@ test('admin page blocks non-admin user', async ({ page }) => {
   await page.goto('/admin/users?demoRole=tenant');
   await expect(page).toHaveURL(/\/$/);
 });
+
+test('keyboard users can skip directly to the main content', async ({ page }) => {
+  await page.addInitScript(() =>
+    localStorage.setItem('sailingloc_cookie_preferences', JSON.stringify({ essential: true, analytics: false }))
+  );
+  await page.goto('/');
+  await page.keyboard.press('Tab');
+  const skipLink = page.getByRole('link', { name: 'Aller au contenu principal' });
+  await expect(skipLink).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#main-content')).toBeFocused();
+});

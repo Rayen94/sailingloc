@@ -154,7 +154,19 @@ const HomePage = () => {
 
   return (
     <div className="home-shell">
-      <SEO title={t('home.seoTitle')} description={t('home.seoDescription')} />
+      <SEO
+        title={t('home.seoTitle')}
+        description={t('home.seoDescription')}
+        canonical="/"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'SailingLoc',
+          url: 'https://dsp-dev-o24a-g6-fr.onrender.com/',
+          inLanguage: 'fr',
+          description: t('home.seoDescription'),
+        }}
+      />
       <section className="home-hero">
         <div className="container-max home-hero-inner">
           <div className="home-hero-copy">
