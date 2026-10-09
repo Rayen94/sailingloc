@@ -13,6 +13,16 @@ const { buildBoatSlug } = require('../utils/slugify');
 
 const DAY = 24 * 60 * 60 * 1000;
 
+// Sécurité : le seed efface toutes les données. En production, il faut le demander explicitement.
+if (
+  process.env.NODE_ENV === 'production' &&
+  process.env.DEMO_FORCE_SEED !== 'true' &&
+  process.env.DEMO_SEED_IF_EMPTY !== 'true'
+) {
+  console.error('Seed refusé en production : définir DEMO_FORCE_SEED=true pour effacer et recréer les données.');
+  process.exit(1);
+}
+
 const connectDB = async () => {
   await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/sailingloc');
   console.log('MongoDB connected for seeding');

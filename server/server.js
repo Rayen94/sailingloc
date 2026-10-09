@@ -9,23 +9,28 @@ const User = require('./src/models/User');
 
 const PORT = process.env.PORT || 5000;
 
-const runDemoSeedIfNeeded = async () => {
-  const forceSeed = process.env.DEMO_FORCE_SEED === 'true';
-  const seedIfEmpty = process.env.DEMO_SEED_IF_EMPTY !== 'false';
+// Variables de démonstration : actives par défaut en local, désactivées par défaut en production.
+// Sinon, à chaque redémarrage de Render, le mot de passe de l'administrateur était remis à la
+// valeur publique « Admin123! », et une base sans bateau validé pouvait être effacée par le seed.
+const isProduction = process.env.NODE_ENV === 'production';
+const envFlag = (name, defaultValue) =>
+  process.env[name] === undefined || process.env[name] === '' ? defaultValue : process.env[name] === 'true';
 
-  if (!forceSeed && !seedIfEmpty) return;
+const runDemoSeedIfNeeded = async () => {
+  const forceSeed = envFlag('DEMO_FORCE_SEED', false);
+  const seedIfEmpty = envFlag('DEMO_SEED_IF_EMPTY', !isProduction);
+  const repairAdmin = envFlag('DEMO_REPAIR_ADMIN', !isProduction);
+
+  if (!forceSeed && !seedIfEmpty && !repairAdmin) return;
 
   const [demoAdmin, approvedBoatCount] = await Promise.all([
     User.findOne({ email: 'admin@sailingloc.fr' }),
     Boat.countDocuments({ status: 'approved' }),
   ]);
   const adminCredentialsValid =
-    demoAdmin &&
-    demoAdmin.role === 'admin' &&
-    demoAdmin.isActive &&
-    (await demoAdmin.matchPassword('Admin123!'));
+    demoAdmin && demoAdmin.role === 'admin' && demoAdmin.isActive && (await demoAdmin.matchPassword('Admin123!'));
 
-  if (demoAdmin && !adminCredentialsValid && process.env.DEMO_REPAIR_ADMIN !== 'false') {
+  if (demoAdmin && !adminCredentialsValid && repairAdmin) {
     demoAdmin.firstName = 'Admin';
     demoAdmin.lastName = 'SailingLoc';
     demoAdmin.role = 'admin';
@@ -37,9 +42,9 @@ const runDemoSeedIfNeeded = async () => {
     console.log('Demo admin repaired: admin@sailingloc.fr / Admin123!');
   }
 
-  const shouldSeed = forceSeed || !demoAdmin || approvedBoatCount === 0;
+  const shouldSeed = forceSeed || (seedIfEmpty && (!demoAdmin || approvedBoatCount === 0));
   if (!shouldSeed) {
-    console.log('Demo seed skipped: demo admin and approved boats already exist');
+    console.log(seedIfEmpty ? 'Demo seed skipped: demo admin and approved boats already exist' : 'Demo seed disabled');
     return;
   }
 

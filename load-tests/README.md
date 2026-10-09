@@ -13,7 +13,7 @@ winget install Grafana.k6
 Profil stable pour Render gratuit :
 
 ```powershell
-cd C:\Users\xxx75012\Documents\Codex\2026-06-20\tu-t\tmp\sailingloc-github
+# depuis le dossier du projet
 $env:BASE_URL="https://dsp-dev-o24a-g6-fr.onrender.com"
 $env:VUS="8"
 $env:DURATION="90s"
