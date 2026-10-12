@@ -1,0 +1,18 @@
+Parcours réservation et paiement dans un vrai navigateur - 12/10/2026
+Conditions : serveur Express en mode production (NODE_ENV=production), site construit (client/dist),
+base de démonstration (FerretDB 1.24, compatible MongoDB), Stripe non configuré (paiement simulé, cas par défaut),
+navigateur Chromium piloté par Playwright. Comptes de démonstration : owner6 (propriétaire) et tenant16 (locataire).
+
+Étapes vérifiées :
+1. Le propriétaire se connecte, ouvre ses réservations, clique « Accepter » et confirme :
+   le site affiche « Réservation acceptée. » (capture captures/2026-10-12-proprietaire-accepte.png).
+2. Le locataire se connecte, ouvre « Mes réservations », clique « Payer » : le serveur répond 503 (Stripe non
+   configuré), le site bascule sur le paiement simulé et affiche « Paiement simulé avec succès. » ; la
+   réservation passe à « Confirmé » et « Payé », le bouton « Facture PDF » apparaît
+   (capture captures/2026-10-12-locataire-paie.png). La facture PDF générée contient bien les accents
+   (« Numéro », « Période », « Réservation »).
+
+  PASSED  chromium  parcours.spec.mjs > 1. le propriétaire accepte la demande (1826 ms)
+  PASSED  chromium  parcours.spec.mjs > 2. le locataire paie (paiement simulé, Stripe non configuré) (3248 ms)
+
+Total : 2 réussis, 0 échoués

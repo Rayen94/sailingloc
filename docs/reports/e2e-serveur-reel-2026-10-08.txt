@@ -1,0 +1,20 @@
+Rapport des tests E2E SailingLoc avec le vrai serveur - 08/10/2026
+Les tests E2E du dépôt tournent d'habitude avec le site seul (mode démo). Ici, ils ont été relancés une fois
+avec le serveur Express en mode production et une base remplie par le script de démonstration
+(FerretDB 1.24, compatible MongoDB), sur Chromium. À cette date, la suite comptait 12 tests (le 13e,
+lien d'évitement, a été ajouté le 09/10/2026).
+
+  PASSED  chromium  cookies.spec.js > Google Tag Manager is not loaded before consent or after refusal (3006 ms)
+  PASSED  chromium  cookies.spec.js > Google Tag Manager is loaded after consent and remembered (1819 ms)
+  PASSED  chromium  sailingloc.spec.js > homepage loads (813 ms)
+  PASSED  chromium  sailingloc.spec.js > navbar links work (1572 ms)
+  PASSED  chromium  sailingloc.spec.js > login page loads (723 ms)
+  PASSED  chromium  sailingloc.spec.js > admin dashboard and users pages load in local demo mode (1468 ms)
+  PASSED  chromium  sailingloc.spec.js > boats listing page loads (686 ms)
+  PASSED  chromium  sailingloc.spec.js > boat detail route loads or shows a handled not found state (4915 ms)
+  PASSED  chromium  sailingloc.spec.js > owner dashboard blocks unauthenticated access (2677 ms)
+  PASSED  chromium  sailingloc.spec.js > admin page blocks non-admin user (2708 ms)
+  PASSED  chromium  scroll-to-top.spec.js > footer legal navigation scrolls to top (4191 ms)
+  PASSED  chromium  scroll-to-top.spec.js > boat detail navigation scrolls to top (2094 ms)
+
+Total : 12 réussis, 0 échoués, durée 29.4 s

@@ -9,6 +9,8 @@
 | `e2e-chromium-2026-10-09.txt` | 13 tests E2E Playwright sur Chromium |
 | `e2e-chromium-2026-10-12.txt` | Mêmes 13 tests, relancés après la correction des accents du site |
 | `lighthouse/` | 5 rapports Lighthouse (accueil et catalogue, avant et après corrections) |
+| `e2e-serveur-reel-2026-10-08.txt` | Les tests E2E relancés une fois avec le vrai serveur et une base de démonstration (12 tests) |
+| `parcours-reservation-paiement-2026-10-12.txt` et `captures/` | Parcours complet dans le navigateur : acceptation par le propriétaire, paiement simulé, facture |
 | `../../load-tests/results/2026-10-08-local/` | Campagne de tests de charge k6 du 08/10/2026 |
 
 
