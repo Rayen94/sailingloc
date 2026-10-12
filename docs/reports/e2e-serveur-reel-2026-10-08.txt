@@ -1,6 +1,6 @@
 Rapport des tests E2E SailingLoc avec le vrai serveur - 08/10/2026
 Les tests E2E du dépôt tournent d'habitude avec le site seul (mode démo). Ici, ils ont été relancés une fois
-avec le serveur Express en mode production et une base remplie par le script de démonstration
+avec le serveur Express (API réelle, port local) et une base remplie par le script de démonstration
 (FerretDB 1.24, compatible MongoDB), sur Chromium. À cette date, la suite comptait 12 tests (le 13e,
 lien d'évitement, a été ajouté le 09/10/2026).
 
