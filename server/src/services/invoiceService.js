@@ -47,9 +47,9 @@ const generateInvoicePdf = async ({ booking, payment }) => {
     doc.fillColor('#b7c4d3').fontSize(10).font('Helvetica').text('Location de bateaux entre particuliers', 48, 76);
 
     doc.fillColor('#07192e').fontSize(26).font('Helvetica-Bold').text('Facture', 48, 150);
-    doc.fontSize(11).font('Helvetica').fillColor('#66758a').text(`Numero : ${invoiceNumber}`, 48, 186);
+    doc.fontSize(11).font('Helvetica').fillColor('#66758a').text(`Numéro : ${invoiceNumber}`, 48, 186);
     doc.text(`Date : ${formatDate(payment.paidAt || new Date())}`, 48, 204);
-    doc.text('Projet etudiant fictif - aucun paiement reel encaisse', 48, 222);
+    doc.text('Projet étudiant fictif - aucun paiement réel encaissé', 48, 222);
 
     doc.fillColor('#07192e').fontSize(13).font('Helvetica-Bold').text('Client', 330, 150);
     doc.fillColor('#344256').fontSize(11).font('Helvetica').text(customerName(booking.tenant), 330, 174);
@@ -57,21 +57,21 @@ const generateInvoicePdf = async ({ booking, payment }) => {
 
     line(doc, 256);
 
-    doc.fillColor('#07192e').fontSize(15).font('Helvetica-Bold').text('Reservation', 48, 284);
+    doc.fillColor('#07192e').fontSize(15).font('Helvetica-Bold').text('Réservation', 48, 284);
     doc
       .fillColor('#344256')
       .fontSize(11)
       .font('Helvetica')
       .text(`Bateau : ${booking.boat?.title || 'Bateau SailingLoc'}`, 48, 312);
     doc.text(`Lieu : ${booking.boat?.location || '-'}`, 48, 330);
-    doc.text(`Periode : ${formatDate(booking.startDate)} au ${formatDate(booking.endDate)}`, 48, 348);
+    doc.text(`Période : ${formatDate(booking.startDate)} au ${formatDate(booking.endDate)}`, 48, 348);
     doc.text(`Nombre de jours : ${booking.numberOfDays}`, 48, 366);
 
     const tableTop = 418;
     doc.roundedRect(48, tableTop, 499, 42, 8).fill('#edf3f7');
     doc.fillColor('#07192e').fontSize(10).font('Helvetica-Bold');
     doc.text('Description', 66, tableTop + 15);
-    doc.text('Quantite', 330, tableTop + 15);
+    doc.text('Quantité', 330, tableTop + 15);
     doc.text('Montant', 452, tableTop + 15);
 
     doc.fillColor('#344256').fontSize(11).font('Helvetica');
@@ -97,7 +97,7 @@ const generateInvoicePdf = async ({ booking, payment }) => {
       .fontSize(10)
       .font('Helvetica')
       .text(
-        'Cette facture est generee dans le cadre du projet etudiant fictif SailingLoc. Elle ne correspond a aucun achat, paiement ou contrat reel.',
+        'Cette facture est générée dans le cadre du projet étudiant fictif SailingLoc. Elle ne correspond à aucun achat, paiement ou contrat réel.',
         66,
         724,
         { width: 460 }

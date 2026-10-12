@@ -48,7 +48,7 @@ const ConfirmModal = ({ request, onResolve }) => {
             className="input-field mb-5"
             rows={3}
             placeholder={request.placeholder || ''}
-            aria-label={request.inputLabel || request.placeholder || 'Reponse'}
+            aria-label={request.inputLabel || request.placeholder || 'Réponse'}
             autoFocus
           />
         )}

@@ -220,16 +220,16 @@ const invoice = ({ tenant, boat, booking, payment }) =>
     title: 'Votre facture est disponible',
     intro: [
       `Bonjour ${tenant.firstName || ''},`,
-      `Le paiement simule de votre reservation pour ${boat.title} a bien ete enregistre.`,
-      'Vous trouverez votre facture SailingLoc en piece jointe PDF.',
+      `Le paiement simulé de votre réservation pour ${boat.title} a bien été enregistré.`,
+      'Vous trouverez votre facture SailingLoc en pièce jointe PDF.',
     ],
     details: [
       { label: 'Facture', value: payment.invoiceNumber || 'SailingLoc' },
       { label: 'Bateau', value: boat.title },
-      { label: 'Periode', value: `${formatDate(booking.startDate)} au ${formatDate(booking.endDate)}` },
+      { label: 'Période', value: `${formatDate(booking.startDate)} au ${formatDate(booking.endDate)}` },
       { label: 'Montant TTC', value: formatPrice(payment.amount) },
     ],
-    ctaLabel: 'Voir mes reservations',
+    ctaLabel: 'Voir mes réservations',
     ctaUrl: `${emailConfig.clientUrl}/my-bookings`,
   });
 
@@ -284,7 +284,7 @@ const newsletter = ({ user, subject, title, message }) =>
     intro: [
       `Bonjour ${user.firstName || ''},`,
       message,
-      'Retrouvez les bateaux disponibles et les nouveautes directement sur SailingLoc.',
+      'Retrouvez les bateaux disponibles et les nouveautés directement sur SailingLoc.',
     ],
     ctaLabel: 'Voir les bateaux',
     ctaUrl: `${emailConfig.clientUrl}/boats`,
@@ -292,20 +292,20 @@ const newsletter = ({ user, subject, title, message }) =>
 
 const newsletterSubscription = ({ email }) =>
   buildTemplate({
-    subject: 'Inscription newsletter SailingLoc confirmee',
-    title: 'Inscription newsletter confirmee',
+    subject: 'Inscription newsletter SailingLoc confirmée',
+    title: 'Inscription newsletter confirmée',
     intro: [
       'Bonjour,',
-      `Votre adresse ${email} est bien inscrite a la newsletter SailingLoc.`,
-      'Vous recevrez nos actualites, conseils de navigation et nouveautes bateaux.',
-      'Rappel : SailingLoc est un projet etudiant fictif, aucune reservation ou transaction reelle ne peut etre effectuee.',
+      `Votre adresse ${email} est bien inscrite à la newsletter SailingLoc.`,
+      'Vous recevrez nos actualités, conseils de navigation et nouveautés bateaux.',
+      'Rappel : SailingLoc est un projet étudiant fictif, aucune réservation ou transaction réelle ne peut être effectuée.',
     ],
     ctaLabel: 'Voir les bateaux',
     ctaUrl: `${emailConfig.clientUrl}/boats`,
   });
 
 const contactSubjects = {
-  technique: 'Probleme technique',
+  technique: 'Problème technique',
   location: 'Location',
   partenariat: 'Partenariat',
   autre: 'Autre demande',
@@ -316,7 +316,7 @@ const contactMessage = (message) =>
     subject: `Nouveau message contact SailingLoc - ${contactSubjects[message.subject] || message.subject}`,
     title: 'Nouveau message contact',
     intro: [
-      'Un visiteur vient d envoyer un message depuis le formulaire contact SailingLoc.',
+      'Un visiteur vient d’envoyer un message depuis le formulaire contact SailingLoc.',
       'Le message est aussi disponible dans le back-office administrateur.',
     ],
     details: [

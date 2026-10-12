@@ -51,7 +51,7 @@ const BookingForm = ({ boat }) => {
       inRange: startDate && endDate && iso > startDate && iso < endDate,
     };
   });
-  const rangeSelectionHint = startDate && !endDate ? "Selectionnez une date d'arrivee." : '';
+  const rangeSelectionHint = startDate && !endDate ? "Sélectionnez une date d'arrivée." : '';
 
   const changeCalendarMonth = (direction) => {
     setCalendarMonth((current) => {
@@ -73,7 +73,7 @@ const BookingForm = ({ boat }) => {
 
     if (isRangeUnavailable(startDate, day.iso, boat.unavailableDates)) {
       setEndDate('');
-      setError('Certaines dates de cette periode ne sont pas disponibles.');
+      setError('Certaines dates de cette période ne sont pas disponibles.');
       return;
     }
 
@@ -99,7 +99,7 @@ const BookingForm = ({ boat }) => {
     }
     if (value && isRangeUnavailable(startDate, value, boat.unavailableDates)) {
       setEndDate('');
-      setError('Certaines dates de cette periode ne sont pas disponibles.');
+      setError('Certaines dates de cette période ne sont pas disponibles.');
       return;
     }
     setEndDate(value);
@@ -210,7 +210,7 @@ const BookingForm = ({ boat }) => {
             <div className="booking-calendar__head">
               <span>Disponibilités</span>
               <div className="booking-calendar__month">
-                <button type="button" onClick={() => changeCalendarMonth(-1)} aria-label="Mois precedent">
+                <button type="button" onClick={() => changeCalendarMonth(-1)} aria-label="Mois précédent">
                   <ChevronLeft size={15} />
                 </button>
                 <small>{monthLabel}</small>

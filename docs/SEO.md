@@ -1,10 +1,10 @@
 # SEO SailingLoc
 
-## Probleme releve par le professeur
+## Problème relevé par le professeur
 
 Le retour indique : "Manque SSR, JavaScript contenu, page inspecter que la div root".
 
-Cela signifie que SailingLoc est une application React rendue cote client : le HTML initial envoye au navigateur contient surtout la balise racine React, puis le contenu public est injecte par JavaScript. C'est fonctionnel pour l'utilisateur, mais moins favorable au SEO qu'un rendu serveur ou qu'un prerender des pages publiques.
+Cela signifie que SailingLoc est une application React rendue cote client : le HTML initial envoyé au navigateur contient surtout la balise racine React, puis le contenu public est injecte par JavaScript. C'est fonctionnel pour l'utilisateur, mais moins favorable au SEO qu'un rendu serveur ou qu'un prerender des pages publiques.
 
 ## Architecture actuelle
 
@@ -13,25 +13,25 @@ Cela signifie que SailingLoc est une application React rendue cote client : le H
 - Backend : Express sert l'API et le build statique du frontend en production Render.
 - Pas de Next.js, pas de SSR Node, pas de SSG natif.
 
-Le projet ne pretend donc pas avoir un vrai SSR. Les corrections appliquees sont une mitigation SEO realiste pour le MVP.
+Le projet ne prétend donc pas avoir un vrai SSR. Les corrections appliquées sont une mitigation SEO réaliste pour le MVP.
 
-## Ameliorations mises en place
+## Améliorations mises en place
 
 - `react-helmet-async` configure avec `HelmetProvider`.
 - Composant `SEO` centralise : title, meta description, canonical, Open Graph, Twitter Card, robots et JSON-LD.
 - Titres et descriptions uniques sur les pages publiques principales :
   - accueil ;
   - bateaux ;
-  - categories ;
+  - catégories ;
   - catalogue / produits ;
   - contact ;
-  - pages legales ;
+  - pages légales ;
   - limites MVP.
-- Fiche bateau avec SEO dynamique selon les donnees :
+- Fiche bateau avec SEO dynamique selon les données :
   - titre du bateau ;
   - localisation ;
   - type ;
-  - capacite ;
+  - capacité ;
   - prix par jour ;
   - image principale ;
   - JSON-LD `Product` / `Offer`.
@@ -39,34 +39,34 @@ Le projet ne pretend donc pas avoir un vrai SSR. Les corrections appliquees sont
 - URLs bateaux avec slugs SEO :
   - exemple : `/boats/hanse-455-marseille`.
   - les anciennes URLs par identifiant restent compatibles.
-- Slugs sans accents ni caracteres speciaux via `server/src/utils/slugify.js`.
+- Slugs sans accents ni caractères spéciaux via `server/src/utils/slugify.js`.
 - Script de backfill pour les annonces existantes : `cd server && npm run backfill:slugs`.
-- Script de generation sitemap avec les bateaux approuves : `cd server && npm run generate:sitemap`.
-- Pages admin, proprietaire, profil, reservations, paiement et authentification en `noindex`.
-- `robots.txt` avec exclusion du back-office et des pages privees.
+- Script de génération sitemap avec les bateaux approuves : `cd server && npm run generate:sitemap`.
+- Pages admin, propriétaire, profil, réservations, paiement et authentification en `noindex`.
+- `robots.txt` avec exclusion du back-office et des pages privées.
 - `sitemap.xml` avec les pages publiques indexables.
 
 ## Limite restante
 
-React Helmet modifie le DOM une fois l'application chargee par le navigateur. Cela ameliore les balises SEO visibles dans DevTools et par certains crawlers modernes, mais ne remplace pas un vrai SSR.
+React Helmet modifie le DOM une fois l'application chargée par le navigateur. Cela amélioré les balises SEO visibles dans DevTools et par certains crawlers modernes, mais ne remplace pas un vrai SSR.
 
 En inspectant le "View Source" HTML brut, on verra encore principalement le conteneur React. C'est la limite structurelle d'une SPA Vite.
 
 ## Recommandation future
 
-Pour une version production orientee SEO avance, il faudrait choisir une de ces evolutions :
+Pour une version production orientée SEO avance, il faudrait choisir une de ces évolutions :
 
 - migration vers Next.js avec SSR/SSG pour les pages publiques ;
 - prerendering des routes publiques critiques au build ;
-- generation dynamique d'un sitemap avec tous les bateaux approuves ;
-- conservation de l'API Express en backend separe ou migration progressive vers des routes server-side.
+- génération dynamique d'un sitemap avec tous les bateaux approuves ;
+- conservation de l'API Express en backend séparé ou migration progressive vers des routes server-side.
 
-## Verification
+## Vérification
 
-1. Ouvrir `/` puis verifier le titre : `SailingLoc — Location de bateaux entre particuliers`.
-2. Ouvrir `/boats` et verifier la meta description dans DevTools.
+1. Ouvrir `/` puis vérifier le titre : `SailingLoc — Location de bateaux entre particuliers`.
+2. Ouvrir `/boats` et vérifier la meta description dans DevTools.
 3. Ouvrir une fiche bateau avec slug : `/boats/<slug-du-bateau>`.
-4. Verifier que le H1 contient le nom du bateau et sa ville.
-5. Verifier `robots.txt` : `/admin`, `/owner`, `/profile`, `/my-bookings` sont disallow.
-6. Verifier `sitemap.xml` : les pages publiques principales sont listees.
-7. Verifier que les pages privees renvoient `<meta name="robots" content="noindex,nofollow">` apres chargement React.
+4. Vérifier que le H1 contient le nom du bateau et sa ville.
+5. Vérifier `robots.txt` : `/admin`, `/owner`, `/profile`, `/my-bookings` sont disallow.
+6. Vérifier `sitemap.xml` : les pages publiques principales sont listées.
+7. Vérifier que les pages privées renvoient `<meta name="robots" content="noindex,nofollow">` après chargement React.

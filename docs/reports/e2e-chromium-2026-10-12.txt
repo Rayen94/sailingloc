@@ -1,0 +1,20 @@
+Rapport des tests E2E SailingLoc (Playwright) - 12/10/2026
+Commande : npx playwright test --project=chromium (dossier client), après la correction des accents du site
+Navigateur : Chromium (bac à sable). Firefox et WebKit : configurés dans playwright.config.js, pas encore lancés
+(ils le seront par GitHub Actions dès que les branches seront sur GitHub).
+
+  PASSED  chromium  cookies.spec.js > Google Tag Manager is not loaded before consent or after refusal (2204 ms)
+  PASSED  chromium  cookies.spec.js > Google Tag Manager is loaded after consent and remembered (1599 ms)
+  PASSED  chromium  sailingloc.spec.js > homepage loads (679 ms)
+  PASSED  chromium  sailingloc.spec.js > navbar links work (1201 ms)
+  PASSED  chromium  sailingloc.spec.js > login page loads (666 ms)
+  PASSED  chromium  sailingloc.spec.js > admin dashboard and users pages load in local demo mode (1091 ms)
+  PASSED  chromium  sailingloc.spec.js > boats listing page loads (669 ms)
+  PASSED  chromium  sailingloc.spec.js > boat detail route loads or shows a handled not found state (652 ms)
+  PASSED  chromium  sailingloc.spec.js > owner dashboard blocks unauthenticated access (604 ms)
+  PASSED  chromium  sailingloc.spec.js > admin page blocks non-admin user (668 ms)
+  PASSED  chromium  sailingloc.spec.js > keyboard users can skip directly to the main content (782 ms)
+  PASSED  chromium  scroll-to-top.spec.js > footer legal navigation scrolls to top (2267 ms)
+  PASSED  chromium  scroll-to-top.spec.js > boat detail navigation scrolls to top (2486 ms)
+
+Total : 13 réussis, 0 échoués, 0 ignorés, durée 18.8 s
