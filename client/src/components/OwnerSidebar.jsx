@@ -10,7 +10,7 @@ const links = [
 ];
 
 const LinkList = ({ onClick }) => (
-  <nav className="flex-1 px-3 py-4 space-y-0.5" aria-label="Navigation proprietaire">
+  <nav className="flex-1 px-3 py-4 space-y-0.5" aria-label="Navigation propriétaire">
     {links.map((link) => {
       const Icon = link.icon;
       return (

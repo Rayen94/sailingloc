@@ -11,11 +11,11 @@ const PaginationControls = ({ page, totalPages, onPageChange }) => {
         type="button"
         disabled={page <= 1}
         onClick={() => onPageChange(page - 1)}
-        aria-label={`Aller a la page precedente, page ${Math.max(page - 1, 1)}`}
+        aria-label={`Aller à la page précédente, page ${Math.max(page - 1, 1)}`}
         className="px-3 py-1.5 rounded-full text-xs font-bold disabled:opacity-40"
         style={{ background: '#EDF1F5', color: '#07192E' }}
       >
-        Precedent
+        Précédent
       </button>
       <span className="text-xs font-semibold" style={{ color: '#64748B' }} aria-live="polite">
         Page {page} / {totalPages}
@@ -24,7 +24,7 @@ const PaginationControls = ({ page, totalPages, onPageChange }) => {
         type="button"
         disabled={page >= totalPages}
         onClick={() => onPageChange(page + 1)}
-        aria-label={`Aller a la page suivante, page ${Math.min(page + 1, totalPages)}`}
+        aria-label={`Aller à la page suivante, page ${Math.min(page + 1, totalPages)}`}
         className="px-3 py-1.5 rounded-full text-xs font-bold disabled:opacity-40"
         style={{ background: '#07192E', color: '#fff' }}
       >

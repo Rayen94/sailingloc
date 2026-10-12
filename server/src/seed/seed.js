@@ -448,14 +448,14 @@ const boatBlueprints = [
   [
     'Pogo 36',
     'sailboat',
-    'La Trinite-sur-Mer',
-    'Port de la Trinite-sur-Mer',
+    'La Trinité-sur-Mer',
+    'Port de la Trinité-sur-Mer',
     330,
     6,
     10.9,
     'Volvo 30cv',
     false,
-    'Voilier leger et marin pour equipage autonome.',
+    'Voilier léger et marin pour équipage autonome.',
   ],
   [
     'Lagoon 46',
@@ -467,7 +467,7 @@ const boatBlueprints = [
     13.99,
     '2x Yanmar 57cv',
     true,
-    'Catamaran confortable pour croisiere familiale vers les iles d Hyeres.',
+    'Catamaran confortable pour croisière familiale vers les îles d’Hyères.',
   ],
   [
     'Bali 4.2',
@@ -479,7 +479,7 @@ const boatBlueprints = [
     12.85,
     '2x Volvo 45cv',
     true,
-    'Catamaran lumineux ideal pour caboter dans le sud de la Corse.',
+    'Catamaran lumineux idéal pour caboter dans le sud de la Corse.',
   ],
   [
     'Excess 14',
@@ -503,7 +503,7 @@ const boatBlueprints = [
     8.6,
     '2x Yamaha 250cv',
     false,
-    'Bateau moteur elegant pour sortie journee sur la baie de Saint-Tropez.',
+    'Bateau moteur élégant pour sortie journée sur la baie de Saint-Tropez.',
   ],
   [
     'Beneteau Flyer 8',
@@ -527,7 +527,7 @@ const boatBlueprints = [
     8.75,
     'Mercury 300cv',
     false,
-    'Bateau rapide et securisant pour navigation cotiere en Manche.',
+    'Bateau rapide et sécurisant pour navigation côtière en Manche.',
   ],
   [
     'Nuova Jolly Prince 30',
@@ -575,7 +575,7 @@ const boatBlueprints = [
     12.98,
     '2x Volvo D6 330cv',
     true,
-    'Vedette premium pour une experience charter elegante sur la Cote d Azur.',
+    'Vedette premium pour une expérience charter élégante sur la Côte d’Azur.',
   ],
 ];
 

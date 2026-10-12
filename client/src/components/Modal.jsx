@@ -33,7 +33,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
             type="button"
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
-            aria-label="Fermer la fenetre"
+            aria-label="Fermer la fenêtre"
           >
             &times;
           </button>

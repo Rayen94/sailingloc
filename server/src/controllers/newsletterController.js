@@ -36,7 +36,7 @@ const subscribeNewsletter = asyncHandler(async (req, res) => {
   const emailResult = await sendNewsletterSubscriptionEmail({ email });
 
   res.status(200).json({
-    message: 'Inscription newsletter confirmee.',
+    message: 'Inscription newsletter confirmée.',
     emailSent: emailResult.success === true,
     emailSkipped: emailResult.skipped || false,
     subscriber: {

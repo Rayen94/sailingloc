@@ -31,23 +31,23 @@ const createStripeCheckoutSession = asyncHandler(async (req, res) => {
     .populate('tenant', 'email');
   if (!booking) {
     res.status(404);
-    throw new Error('Reservation introuvable');
+    throw new Error('Réservation introuvable');
   }
   if (booking.tenant._id.toString() !== req.user._id.toString()) {
     res.status(403);
-    throw new Error('Vous ne pouvez pas payer cette reservation');
+    throw new Error('Vous ne pouvez pas payer cette réservation');
   }
   if (booking.status !== 'accepted') {
     res.status(400);
-    throw new Error('La reservation doit etre acceptee avant paiement');
+    throw new Error('La réservation doit être acceptée avant paiement');
   }
   if (booking.paymentStatus === 'paid') {
     res.status(400);
-    throw new Error('Cette reservation est deja payee');
+    throw new Error('Cette réservation est déjà payée');
   }
   if (!booking.totalPrice || booking.totalPrice <= 0) {
     res.status(400);
-    throw new Error('Montant de reservation invalide');
+    throw new Error('Montant de réservation invalide');
   }
 
   const currency = stripeConfig.currency.toUpperCase();
@@ -85,8 +85,8 @@ const createStripeCheckoutSession = asyncHandler(async (req, res) => {
           currency: stripeConfig.currency,
           unit_amount: Math.round(booking.totalPrice * 100),
           product_data: {
-            name: `Reservation SailingLoc - ${booking.boat.title}`,
-            description: `Reservation du ${new Date(booking.startDate).toLocaleDateString('fr-FR')} au ${new Date(
+            name: `Réservation SailingLoc - ${booking.boat.title}`,
+            description: `Réservation du ${new Date(booking.startDate).toLocaleDateString('fr-FR')} au ${new Date(
               booking.endDate
             ).toLocaleDateString('fr-FR')}`,
           },
@@ -166,8 +166,8 @@ const confirmStripePayment = async (session) => {
     await createNotification({
       user: booking.owner?._id || booking.owner,
       type: 'booking_paid',
-      title: 'Paiement confirme',
-      message: 'Le paiement Stripe de la reservation a ete valide.',
+      title: 'Paiement confirmé',
+      message: 'Le paiement Stripe de la réservation a été validé.',
       relatedBooking: booking._id,
       relatedBoat: booking.boat?._id || booking.boat,
     });
@@ -227,12 +227,12 @@ const confirmStripeCheckoutSession = asyncHandler(async (req, res) => {
   }
   if (session.payment_status !== 'paid') {
     res.status(400);
-    throw new Error("Le paiement Stripe n'est pas encore valide");
+    throw new Error("Le paiement Stripe n'est pas encore validé");
   }
 
   await confirmStripePayment(session);
   const refreshedPayment = await Payment.findById(payment._id).populate('booking', 'status paymentStatus');
-  res.json({ message: 'Paiement confirme', payment: refreshedPayment, booking: refreshedPayment.booking });
+  res.json({ message: 'Paiement confirmé', payment: refreshedPayment, booking: refreshedPayment.booking });
 });
 
 const stripeWebhook = async (req, res) => {

@@ -13,7 +13,7 @@ const ReviewForm = ({ boatId, bookingId, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!comment.trim()) {
-      setError('Veuillez ecrire un commentaire.');
+      setError('Veuillez écrire un commentaire.');
       return;
     }
     setLoading(true);
@@ -64,7 +64,7 @@ const ReviewForm = ({ boatId, bookingId, onSuccess }) => {
           rows={3}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Partagez votre experience..."
+          placeholder="Partagez votre expérience..."
           className="input-field text-sm"
           required
         />

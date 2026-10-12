@@ -70,8 +70,8 @@ const createBooking = asyncHandler(async (req, res) => {
   await createNotification({
     user: boat.owner,
     type: 'booking_created',
-    title: 'Nouvelle demande de reservation',
-    message: `${req.user.firstName} souhaite reserver ${boat.title}.`,
+    title: 'Nouvelle demande de réservation',
+    message: `${req.user.firstName} souhaite réserver ${boat.title}.`,
     relatedBooking: booking._id,
     relatedBoat: boat._id,
   });
@@ -129,8 +129,8 @@ const acceptBooking = asyncHandler(async (req, res) => {
   await createNotification({
     user: booking.tenant,
     type: 'booking_accepted',
-    title: 'Reservation acceptee',
-    message: `Votre demande pour ${booking.boat.title} a ete acceptee. Vous pouvez proceder au paiement.`,
+    title: 'Réservation acceptée',
+    message: `Votre demande pour ${booking.boat.title} a été acceptée. Vous pouvez procéder au paiement.`,
     relatedBooking: booking._id,
     relatedBoat: booking.boat._id,
   });
@@ -166,8 +166,8 @@ const rejectBooking = asyncHandler(async (req, res) => {
   await createNotification({
     user: booking.tenant,
     type: 'booking_rejected',
-    title: 'Reservation refusee',
-    message: 'Le proprietaire a refuse votre demande de reservation.',
+    title: 'Réservation refusée',
+    message: 'Le propriétaire a refusé votre demande de réservation.',
     relatedBooking: booking._id,
     relatedBoat: booking.boat,
   });
@@ -208,8 +208,8 @@ const cancelBooking = asyncHandler(async (req, res) => {
   await createNotification({
     user: notifyUser,
     type: 'booking_cancelled',
-    title: 'Reservation annulee',
-    message: 'Une reservation a ete annulee sur SailingLoc.',
+    title: 'Réservation annulée',
+    message: 'Une réservation a été annulée sur SailingLoc.',
     relatedBooking: booking._id,
     relatedBoat: booking.boat,
   });
@@ -226,7 +226,7 @@ const cancelBooking = asyncHandler(async (req, res) => {
 const payBooking = asyncHandler(async (req, res) => {
   if (stripeConfig.paymentMode === 'stripe' && process.env.NODE_ENV === 'production') {
     res.status(403);
-    throw new Error('Le paiement simule est indisponible en production Stripe');
+    throw new Error('Le paiement simulé est indisponible en production Stripe');
   }
   const booking = await Booking.findById(req.params.id);
   if (!booking) {
@@ -270,8 +270,8 @@ const payBooking = asyncHandler(async (req, res) => {
   await createNotification({
     user: booking.owner,
     type: 'booking_paid',
-    title: 'Paiement confirme',
-    message: 'Le paiement de la reservation a ete valide.',
+    title: 'Paiement confirmé',
+    message: 'Le paiement de la réservation a été validé.',
     relatedBooking: booking._id,
     relatedBoat: booking.boat,
   });
