@@ -80,7 +80,7 @@ const catalog = [
     'Merry Fisher 895',
     'motorboat',
     'Arcachon',
-    'Port d Arcachon',
+    'Port d’Arcachon',
     420,
     6,
     8.9,

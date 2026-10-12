@@ -3,10 +3,10 @@ import { AlertCircle, CheckCircle2, Loader2, Mail, Send, ShieldCheck } from 'luc
 import { sendAdminNewsletter, sendAdminTestEmail } from '../../services/adminEmailService';
 
 const initialNewsletter = {
-  subject: 'Les nouveautes SailingLoc vous attendent',
+  subject: 'Les nouveautés SailingLoc vous attendent',
   title: 'Cap sur votre prochaine sortie en mer',
   message:
-    'Notre catalogue SailingLoc s enrichit avec de nouveaux bateaux disponibles en France. Comparez les annonces, consultez les disponibilites et preparez votre prochaine navigation depuis votre espace client.',
+    'Notre catalogue SailingLoc s’enrichit avec de nouveaux bateaux disponibles en France. Comparez les annonces, consultez les disponibilités et préparez votre prochaine navigation depuis votre espace client.',
   includeAllTenants: true,
 };
 
@@ -25,22 +25,24 @@ const AdminEmailSettingsPage = () => {
     event.preventDefault();
     if (!to || loading) return;
     setLoading(true);
-    setStatus('Test email en cours. La reponse peut prendre quelques secondes...');
+    setStatus('Test d’e-mail en cours. La réponse peut prendre quelques secondes...');
     setMessage('');
     setError('');
 
     try {
       const { data } = await sendAdminTestEmail(to);
       if (data.skipped) {
-        setMessage('Email simule/logge : EMAIL_LOG_ONLY ou EMAIL_ENABLED desactive l envoi reel.');
+        setMessage('E-mail simulé (journal seulement) : EMAIL_LOG_ONLY ou EMAIL_ENABLED désactive l’envoi réel.');
       } else {
-        setMessage(`Email de test envoye a ${to}. Verifie aussi les spams ou promotions.`);
+        setMessage(`E-mail de test envoyé à ${to}. Vérifiez aussi les spams ou les promotions.`);
       }
     } catch (err) {
       if (err.code === 'ECONNABORTED') {
-        setError('Timeout email : aucune reponse apres 20 secondes. Verifie BREVO_API_KEY, EMAIL_MODE et Render Logs.');
+        setError(
+          'Délai dépassé : aucune réponse après 20 secondes. Vérifiez BREVO_API_KEY, EMAIL_MODE et les journaux Render.'
+        );
       } else {
-        const apiMessage = err.response?.data?.message || "L'email de test n'a pas pu etre envoye.";
+        const apiMessage = err.response?.data?.message || "L'e-mail de test n'a pas pu être envoyé.";
         const errorCode = err.response?.data?.errorCode;
         setError(errorCode ? `${apiMessage} Code : ${errorCode}` : apiMessage);
       }
@@ -62,9 +64,11 @@ const AdminEmailSettingsPage = () => {
       setNewsletterResult(data);
     } catch (err) {
       if (err.code === 'ECONNABORTED') {
-        setNewsletterError('Timeout newsletter : l envoi prend trop de temps. Verifie Render Logs pour le detail.');
+        setNewsletterError(
+          'Délai dépassé : l’envoi de la newsletter prend trop de temps. Vérifiez les journaux Render pour le détail.'
+        );
       } else {
-        setNewsletterError(err.response?.data?.message || "La newsletter n'a pas pu etre envoyee.");
+        setNewsletterError(err.response?.data?.message || "La newsletter n'a pas pu être envoyée.");
       }
     } finally {
       setNewsletterLoading(false);
@@ -88,8 +92,8 @@ const AdminEmailSettingsPage = () => {
           Emails et newsletter
         </h1>
         <p className="mt-2 max-w-2xl text-sm" style={{ color: '#66758A' }}>
-          Les identifiants Brevo sont configures uniquement dans les variables d'environnement Render. Aucun mot de
-          passe SMTP ni cle API n'est affiche dans l'interface.
+          Les identifiants Brevo sont configurés uniquement dans les variables d'environnement Render. Aucun mot de
+          passe SMTP ni clé API n'est affiché dans l'interface.
         </p>
       </div>
 
@@ -100,16 +104,16 @@ const AdminEmailSettingsPage = () => {
             Fournisseur
           </h2>
           <p className="mt-1 text-sm" style={{ color: '#66758A' }}>
-            Brevo API recommandee sur Render, SMTP disponible en fallback.
+            API Brevo recommandée sur Render, SMTP disponible en secours.
           </p>
         </div>
         <div className="rounded-2xl bg-white p-5 shadow-sm lg:col-span-2">
           <Mail size={24} color="#00C6E0" />
           <h2 className="mt-3 font-bold" style={{ color: '#07192E' }}>
-            Emails envoyes automatiquement
+            E-mails envoyés automatiquement
           </h2>
           <p className="mt-1 text-sm" style={{ color: '#66758A' }}>
-            Creation de compte, mot de passe oublie, validation d'annonce bateau, reservations et newsletter clients.
+            Création de compte, mot de passe oublié, validation d'annonce bateau, réservations et newsletter clients.
           </p>
         </div>
       </div>
@@ -228,8 +232,8 @@ const AdminEmailSettingsPage = () => {
               className="mt-1 h-4 w-4"
             />
             <span>
-              Envoyer a tous les locataires actifs. Decoche pour cibler uniquement les clients ayant accepte les emails
-              marketing.
+              Envoyer à tous les locataires actifs. Décochez pour cibler uniquement les clients ayant accepté les
+              e-mails marketing.
             </span>
           </label>
         </div>
@@ -244,8 +248,8 @@ const AdminEmailSettingsPage = () => {
           >
             <CheckCircle2 size={18} className="mt-0.5 shrink-0" />
             <span>
-              Newsletter traitee : {newsletterResult.total} destinataire(s), {newsletterResult.sent} envoye(s),{' '}
-              {newsletterResult.skipped} simule(s), {newsletterResult.failed} erreur(s).
+              Newsletter traitée : {newsletterResult.total} destinataire(s), {newsletterResult.sent} envoyé(s),{' '}
+              {newsletterResult.skipped} simulé(s), {newsletterResult.failed} erreur(s).
             </span>
           </p>
         )}

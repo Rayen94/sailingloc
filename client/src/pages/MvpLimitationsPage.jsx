@@ -3,47 +3,47 @@ import Breadcrumb from '../components/Breadcrumb';
 
 const sections = [
   {
-    title: 'Fonctionnalites realisees',
-    intro: 'Le MVP couvre les parcours principaux attendus pour une demonstration de fin d annee.',
+    title: 'Fonctionnalités réalisées',
+    intro: 'Le MVP couvre les parcours principaux attendus pour une démonstration de fin d’année.',
     items: [
-      'Catalogue public avec recherche, filtres, fiches bateaux et images par categorie.',
-      'Authentification JWT avec roles locataire, proprietaire et administrateur.',
-      'Parcours reservation : demande, acceptation proprietaire, paiement simule, annulation et historique.',
-      'Espace proprietaire : dashboard, annonces, reservations et documents.',
-      'Back-office admin : utilisateurs, bateaux, reservations, avis, documents, paiements, signalements et journal d actions.',
-      'Mot de passe oublie avec token securise, hash en base et expiration.',
+      'Catalogue public avec recherche, filtres, fiches bateaux et images par catégorie.',
+      'Authentification JWT avec rôles locataire, propriétaire et administrateur.',
+      'Parcours de réservation : demande, acceptation par le propriétaire, paiement simulé, annulation et historique.',
+      'Espace propriétaire : tableau de bord, annonces, réservations et documents.',
+      'Back-office admin : utilisateurs, bateaux, réservations, avis, documents, paiements, signalements et journal d’actions.',
+      'Mot de passe oublié avec jeton sécurisé, haché en base et expiration.',
       'Documentation technique, Swagger, Docker, CI, tests API et tests E2E de base.',
     ],
   },
   {
-    title: 'Limites assumees du MVP',
-    intro: 'Ces points sont volontaires ou dependants d une configuration externe pour une production reelle.',
+    title: 'Limites assumées du MVP',
+    intro: 'Ces points sont volontaires ou dépendent d’une configuration externe pour une production réelle.',
     items: [
-      'Le paiement est simule : aucune transaction bancaire reelle n est encaissee.',
-      'Les uploads sont stockes localement ; une production utiliserait un stockage cloud persistant.',
-      'L envoi email reel depend des variables SMTP configurees sur Render.',
-      'La verification documentaire est manuelle cote administration.',
-      'La gestion des litiges existe sous forme de signalements, mais pas encore comme workflow d arbitrage complet.',
-      'La securite est traitee au niveau MVP et necessiterait un audit externe avant exploitation commerciale.',
+      'Le paiement est simulé : aucune transaction bancaire réelle n’est encaissée.',
+      'Les fichiers envoyés sont stockés localement ; une production utiliserait un stockage cloud persistant.',
+      'L’envoi réel des e-mails dépend des variables configurées sur Render.',
+      'La vérification des documents est manuelle, côté administration.',
+      'La gestion des litiges existe sous forme de signalements, mais pas encore comme processus d’arbitrage complet.',
+      'La sécurité est traitée au niveau MVP et nécessiterait un audit externe avant une exploitation commerciale.',
     ],
   },
   {
-    title: 'Evolutions production',
-    intro: 'Les prochaines etapes permettent de passer d un MVP academique a une plateforme commercialisable.',
+    title: 'Évolutions pour la production',
+    intro: 'Les prochaines étapes permettent de passer d’un MVP académique à une plateforme commercialisable.',
     items: [
-      'Connecter Stripe ou un autre PSP avec webhooks et recus de paiement.',
-      'Migrer les images et documents vers S3, Cloudinary, Azure Blob ou equivalent.',
-      'Ajouter une messagerie locataire/proprietaire et un workflow litiges complet.',
-      'Generer les contrats de location en PDF et ajouter une signature electronique.',
-      'Automatiser les backups MongoDB, le monitoring applicatif et les alertes uptime.',
-      'Completer les audits Lighthouse, accessibilite, securite et charge avant ouverture publique.',
+      'Connecter Stripe ou un autre prestataire de paiement avec webhooks et reçus de paiement.',
+      'Migrer les images et documents vers S3, Cloudinary, Azure Blob ou équivalent.',
+      'Ajouter une messagerie locataire/propriétaire et un processus complet de gestion des litiges.',
+      'Générer les contrats de location en PDF et ajouter une signature électronique.',
+      'Automatiser les sauvegardes MongoDB, la surveillance de l’application et les alertes de disponibilité.',
+      'Compléter les audits Lighthouse, d’accessibilité, de sécurité et de charge avant l’ouverture publique.',
     ],
   },
 ];
 
 const MvpLimitationsPage = () => (
   <div style={{ background: '#F7F5F2', minHeight: '80vh' }}>
-    <SEO title="Limites du MVP | SailingLoc" description="Limites assumees du MVP academique SailingLoc." />
+    <SEO title="Limites du MVP | SailingLoc" description="Limites assumées du MVP académique SailingLoc." />
     <div className="container-max section-padding max-w-5xl">
       <Breadcrumb className="site-breadcrumb--card" items={[{ label: 'Limites MVP' }]} />
       <p className="text-xs uppercase font-bold tracking-wider mb-3" style={{ color: '#00AFC8' }}>
@@ -58,10 +58,10 @@ const MvpLimitationsPage = () => (
           color: '#07192E',
         }}
       >
-        Perimetre et limites du MVP
+        Périmètre et limites du MVP
       </h1>
       <p className="text-base leading-relaxed mb-8 max-w-3xl" style={{ color: '#64748B' }}>
-        Cette page clarifie ce qui est implemente, ce qui est simule pour la demonstration et ce qui resterait a
+        Cette page précise ce qui est réalisé, ce qui est simulé pour la démonstration et ce qui resterait à
         industrialiser avant une production commerciale.
       </p>
 

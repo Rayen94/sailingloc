@@ -83,7 +83,7 @@ Utiliser `mongodump`/`mongorestore` ou les backups automatiques du fournisseur M
 
 ## Brevo API configuration on Render
 
-Les emails transactionnels utilisent Brevo API par defaut sur Render. L'API HTTPS passe par le port 443 et evite les timeouts SMTP possibles sur certains hebergeurs. SMTP reste disponible en fallback avec `EMAIL_MODE=smtp`. Les secrets doivent etre configures uniquement dans Render, onglet `Environment` du Web Service :
+Les emails transactionnels utilisent Brevo API par défaut sur Render. L'API HTTPS passe par le port 443 et évite les timeouts SMTP possibles sur certains hébergeurs. SMTP reste disponible en fallback avec `EMAIL_MODE=smtp`. Les secrets doivent être configures uniquement dans Render, onglet `Environment` du Web Service :
 
 ```env
 EMAIL_PROVIDER=brevo
@@ -122,4 +122,4 @@ Pour une production avec argent réel, ajouter ensuite un webhook Stripe signé 
 
 ### Brevo IP / authorized sender note
 
-Le code ne peut pas forcer Brevo a accepter une IP Render dynamique. Si Brevo demande une validation d'expediteur ou de domaine, elle doit etre faite manuellement dans le dashboard Brevo. Le mode API limite les problemes de ports SMTP bloques, mais l'expediteur ou le domaine doit rester verifie dans Brevo.
+Le code ne peut pas forcer Brevo a accepter une IP Render dynamique. Si Brevo demande une validation d'expéditeur ou de domaine, elle doit être faite manuellement dans le dashboard Brevo. Le mode API limite les problèmes de ports SMTP bloques, mais l'expéditeur ou le domaine doit rester vérifié dans Brevo.

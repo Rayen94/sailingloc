@@ -14,55 +14,55 @@ Preuves dans le code :
 
 Conclusion : il n'y a pas de vrai SSR aujourd'hui.
 
-## Etat SSR / SSG / prerender
+## État SSR / SSG / prerender
 
 - SSR : absent.
 - SSG : absent.
 - Prerender : absent.
-- Metadata dynamiques : presentes via `react-helmet-async`.
-- URLs slug : presentes pour les fiches bateaux.
+- Metadata dynamiques : présentes via `react-helmet-async`.
+- URLs slug : présentes pour les fiches bateaux.
 
 ## Retour professeur
 
-Le professeur a indique que l'inspection du HTML initial ne montre que la div root. Ce constat est exact pour une SPA. Les contenus sont injectes par JavaScript apres chargement du bundle.
+Le professeur a indique que l'inspection du HTML initial ne montre que la div root. Ce constat est exact pour une SPA. Les contenus sont injectes par JavaScript après chargement du bundle.
 
-## Corrections appliquees
+## Corrections appliquées
 
 La solution retenue est une mitigation SEO MVP, sans migration lourde :
 
-- ajout/verification de `react-helmet-async` ;
+- ajout ou vérification de `react-helmet-async` ;
 - composant `SEO` centralise ;
 - meta title/description par page ;
 - fiche bateau avec metadata dynamiques ;
 - canonical sur fiches bateaux ;
 - JSON-LD produit/offre sur fiche bateau ;
-- pages privees/admin en `noindex` ;
+- pages privées et admin en `noindex` ;
 - robots.txt propre ;
 - sitemap.xml public ;
-- slugs bateaux sans accents ni caracteres speciaux.
+- slugs bateaux sans accents ni caractères spéciaux.
 
 ## Pourquoi ne pas migrer en SSR maintenant
 
-Une migration SSR complete vers Next.js ou vers un serveur React SSR changerait fortement :
+Une migration SSR complète vers Next.js ou vers un serveur React SSR changerait fortement :
 
 - le routing ;
 - le build ;
-- le deploiement Render ;
-- la gestion des donnees initiales ;
-- les pages protegees admin/owner ;
-- les flux authentification, paiement et reservation.
+- le déploiement Render ;
+- la gestion des données initiales ;
+- les pages protégées admin/owner ;
+- les flux authentification, paiement et réservation.
 
-Pour un projet de fin d'annee proche du rendu, le risque de regression est superieur au gain immediat. La correction appliquee est donc honnete : SEO ameliore, mais pas vrai SSR.
+Pour un projet de fin d'année proche du rendu, le risque de régression est supérieur au gain immédiat. La correction appliquée est donc honnête : SEO amélioré, mais pas vrai SSR.
 
 ## Limite a expliquer en soutenance
 
-Le projet reste une SPA React. Les balises SEO sont injectees dynamiquement par React Helmet apres chargement JavaScript. Cela ameliore l'indexabilite pour les crawlers modernes, mais le HTML source initial ne contient pas encore tout le contenu public.
+Le projet reste une SPA React. Les balises SEO sont injectées dynamiquement par React Helmet après chargement JavaScript. Cela amélioré l'indexabilite pour les crawlers modernes, mais le HTML source initial ne contient pas encore tout le contenu public.
 
-Pour une version production SEO avancee, une migration vers Next.js SSR/SSG ou un prerendering des pages publiques est recommandee.
+Pour une version production SEO avancée, une migration vers Next.js SSR/SSG ou un prerendering des pages publiques est recommandée.
 
 ## Option future : prerender
 
-Un prerender statique pourrait etre ajoute pour :
+Un prerender statique pourrait être ajoute pour :
 
 - `/` ;
 - `/boats` ;
@@ -70,5 +70,5 @@ Un prerender statique pourrait etre ajoute pour :
 - `/products` ;
 - `/contact`.
 
-Il faudrait cependant tester soigneusement les routes dynamiques, l'hydratation React, les appels API Render et les pages protegees. Cette evolution est notee comme amelioration future, pas comme correction MVP.
+Il faudrait cependant tester soigneusement les routes dynamiques, l'hydratation React, les appels API Render et les pages protégées. Cette évolution est notée comme amélioration future, pas comme correction MVP.
 

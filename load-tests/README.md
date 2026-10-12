@@ -1,6 +1,6 @@
 # SailingLoc Load Testing
 
-Ces scripts k6 fournissent des scenarios realistes pour un MVP academique. Ils ne contiennent pas de resultats fictifs.
+Ces scripts k6 fournissent des scénarios réalistes pour un MVP académique. Ils ne contiennent pas de résultats fictifs.
 
 ## Installation
 
@@ -20,14 +20,14 @@ $env:DURATION="90s"
 npm run load:oral
 ```
 
-Sorties generees :
+Sorties générées :
 
-- `load-tests/results/oral-demo.json` : resume k6 brut.
+- `load-tests/results/oral-demo.json` : résumé k6 brut.
 - `load-tests/results/oral-demo-report.md` : rapport lisible pour la soutenance.
 
-Ce profil teste un parcours public simple : accueil, catalogue bateaux API et healthcheck. Les seuils sont volontairement adaptes a Render gratuit pour presenter un resultat honnete et exploitable.
+Ce profil teste un parcours public simple : accueil, catalogue bateaux API et healthcheck. Les seuils sont volontairement adaptes a Render gratuit pour présenter un résultat honnête et exploitable.
 
-## Comparaison avant / apres
+## Comparaison avant / après
 
 ```powershell
 $env:BASE_URL="https://dsp-dev-o24a-g6-fr.onrender.com"
@@ -36,7 +36,7 @@ $env:DURATION="2m"
 npm run load:compare
 ```
 
-La commande compare l'ancien smoke test progressif et le test constant-load optimise, puis genere des JSON dans `load-tests/results`.
+La commande compare l'ancien smoke test progressif et le test constant-load optimise, puis généré des JSON dans `load-tests/results`.
 
 ## Autres commandes
 
@@ -52,8 +52,8 @@ k6 run -e BASE_URL=https://dsp-dev-o24a-g6-fr.onrender.com -e MAX_VUS=30 load-te
 
 ## Profils lourds demandes par le cahier de recette
 
-Le test 10 000 utilisateurs pendant 24h et le pic 1 000 a 50 000 utilisateurs ne doivent pas etre lances sur un poste local ni sur un hebergement gratuit Render. Les scripts exposent les variables `VUS`, `DURATION`, `PEAK_1` et `PEAK_2` pour executer ces profils dans une infrastructure dediee.
+Le test 10 000 utilisateurs pendant 24h et le pic 1 000 a 50 000 utilisateurs ne doivent pas être lances sur un poste local ni sur un hébergement gratuit Render. Les scripts exposent les variables `VUS`, `DURATION`, `PEAK_1` et `PEAK_2` pour exécuter ces profils dans une infrastructure dédiée.
 
-Formulation soutenance conseillee :
+Formulation soutenance conseillée :
 
-> Les tests de charge ont ete prepares avec k6. Sur l'hebergement gratuit Render, nous avons execute un profil modere pour verifier la disponibilite des parcours publics. Les profils lourds sont documentes mais necessitent une infrastructure dediee afin d'eviter des resultats biaises par les limites de l'offre gratuite.
+> Les tests de charge ont été préparés avec k6. Sur l'hébergement gratuit Render, nous avons exécuté un profil modéré pour vérifier la disponibilité des parcours publics. Les profils lourds sont documentes mais nécessitent une infrastructure dédiée afin d'éviter des résultats biaises par les limites de l'offre gratuite.

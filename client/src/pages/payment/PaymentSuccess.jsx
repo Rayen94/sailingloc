@@ -8,7 +8,7 @@ const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const [status, setStatus] = useState('loading');
-  const [message, setMessage] = useState('Verification du paiement Stripe...');
+  const [message, setMessage] = useState('Vérification du paiement Stripe...');
 
   useEffect(() => {
     const confirmPayment = async () => {
@@ -21,7 +21,7 @@ const PaymentSuccess = () => {
       try {
         await confirmStripeCheckoutSession(sessionId);
         setStatus('success');
-        setMessage('Reservation confirmee. Votre facture PDF a ete generee et envoyee par email.');
+        setMessage('Réservation confirmée. Votre facture PDF a été générée et envoyée par e-mail.');
       } catch (error) {
         setStatus('error');
         setMessage(error.response?.data?.message || 'Impossible de confirmer le paiement pour le moment.');
@@ -51,14 +51,14 @@ const PaymentSuccess = () => {
             className="mb-3"
             style={{ fontFamily: "'Playfair Display', serif", fontSize: 34, fontWeight: 800, color: '#07192E' }}
           >
-            {status === 'success' ? 'Paiement confirme' : 'Paiement en cours de confirmation'}
+            {status === 'success' ? 'Paiement confirmé' : 'Paiement en cours de confirmation'}
           </h1>
           <p className="mb-6" style={{ color: '#64748B' }}>
             {message}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
             <Link to="/my-bookings" className="btn-primary">
-              Voir mes reservations
+              Voir mes réservations
             </Link>
             <Link to="/boats" className="btn-secondary inline-flex items-center justify-center gap-2">
               <Ship size={18} /> Retour aux bateaux

@@ -54,7 +54,7 @@ const AdminContactMessagesPage = () => {
       const { data } = await api.patch(`/admin/contact-messages/${id}`, { status: nextStatus });
       setMessages((prev) => prev.map((item) => (item._id === id ? data : item)));
       window.dispatchEvent(new Event('sailingloc:admin-stats-refresh'));
-      toast('Message mis a jour.', 'success');
+      toast('Message mis à jour.', 'success');
     } catch (err) {
       toast(err.response?.data?.message || 'Action impossible.', 'error');
     }

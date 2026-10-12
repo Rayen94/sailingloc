@@ -24,7 +24,7 @@ const createDocument = asyncHandler(async (req, res) => {
   await createNotification({
     user: req.user._id,
     type: 'document_submitted',
-    title: 'Document envoye',
+    title: 'Document envoyé',
     message: 'Votre document est en attente de validation administrative.',
     relatedBoat: boatId,
   });

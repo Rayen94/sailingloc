@@ -39,7 +39,7 @@ const requireTurnstile = async (req) => {
   });
 
   if (!result.success) {
-    const error = new Error('Verification captcha echouee');
+    const error = new Error('Vérification captcha échouée');
     error.statusCode = 400;
     throw error;
   }
