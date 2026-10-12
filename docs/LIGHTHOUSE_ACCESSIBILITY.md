@@ -68,14 +68,24 @@ Verifier :
 - images principales avec attribut `alt` ;
 - aucun scroll horizontal involontaire en 360px.
 
-## Grille de resultats a remplir
+## Résultats (08 et 09/10/2026)
 
-| Page | Mobile perf | Mobile a11y | Desktop perf | Desktop a11y | Commentaire |
-| --- | ---: | ---: | ---: | ---: | --- |
-| Accueil | A remplir | A remplir | A remplir | A remplir |  |
-| Catalogue | A remplir | A remplir | A remplir | A remplir |  |
-| Fiche bateau | A remplir | A remplir | A remplir | A remplir |  |
-| Connexion | A remplir | A remplir | A remplir | A remplir |  |
+Lighthouse 12.8.2, site construit en mode production et lancé sur la machine de test (pas sur Render).
+Rapports complets (JSON, à ouvrir avec le Lighthouse Viewer de Chrome) : `docs/reports/lighthouse/`.
+
+| Page | Mode | Performance | Accessibilité | Bonnes pratiques | SEO |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Accueil, avant corrections (08/10) | Ordinateur | 96 | 91 | 96 | 100 |
+| Accueil, après corrections (09/10) | Ordinateur | 99 | 100 | 96 | 100 |
+| Accueil, après corrections (08/10) | Mobile | 78 | 100 | 96 | 100 |
+| Catalogue, avant corrections (08/10) | Ordinateur | 88 | 95 | 96 | 100 |
+| Catalogue, après corrections (09/10) | Ordinateur | 94 | 100 | 96 | 100 |
+
+Corrections faites : contrastes des textes gris et cyan, ordre des titres du pied de page, rôle des étoiles
+des avis, noms accessibles identiques au texte affiché, lien d'évitement, compression gzip.
+Restent à auditer : fiche bateau, connexion, contact, et le site en ligne sur Render (la performance au
+premier chargement y sera plus basse : offre gratuite, mise en veille). La performance mobile (78) est
+limitée par le poids des photos (passage au format WebP prévu dans le plan de maintenance).
 
 ## Formulation soutenance
 

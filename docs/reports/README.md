@@ -1,5 +1,17 @@
 # Rapports et captures
 
+## Rapports du rattrapage (octobre 2026)
+
+| Fichier | Contenu |
+| --- | --- |
+| `couverture-serveur-avant-2026-10-08.txt` | Tests serveur et couverture du code d'origine (32 tests, 74,7 % des lignes) |
+| `couverture-serveur-2026-10-08.txt` | Tests serveur et couverture après corrections (57 tests, 80,18 % des lignes) |
+| `e2e-chromium-2026-10-09.txt` | 13 tests E2E Playwright sur Chromium |
+| `e2e-chromium-2026-10-12.txt` | Mêmes 13 tests, relancés après la correction des accents du site |
+| `lighthouse/` | 5 rapports Lighthouse (accueil et catalogue, avant et après corrections) |
+| `../../load-tests/results/2026-10-08-local/` | Campagne de tests de charge k6 du 08/10/2026 |
+
+
 Ce dossier sert a stocker les preuves de soutenance generees localement :
 
 - rapports Lighthouse ;

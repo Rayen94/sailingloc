@@ -187,10 +187,12 @@ SERVER_URL=http://localhost:5000
 - Sécurité : Node 24, Multer 2, Morgan 1.12, Nodemailer 10, `npm audit fix` (0 faille en production côté serveur) ;
   réglage `TRUST_PROXY` pour le limiteur de requêtes ; données de démonstration désactivées par défaut en production.
 - Accessibilité et SEO : contrastes, lien d'évitement, titres, textes alternatifs, une seule meta description
-  (Lighthouse : 100/100 en accessibilité et en SEO sur l'accueil).
+  (Lighthouse : 100/100 en accessibilité et en SEO sur l'accueil et la page Bateaux, rapports dans `docs/reports/lighthouse`).
 - Performance : compression gzip, cache de la liste des bateaux limité, index MongoDB.
-- Tests : 57 tests serveur (couverture 80 % des lignes), 13 tests E2E sur Chromium, Firefox et WebKit,
-  campagne de tests de charge k6 (`load-tests/results/2026-10-08-local`).
+- Tests : 57 tests serveur (couverture 80 % des lignes), 13 tests E2E réussis sur Chromium (Firefox et WebKit
+  configurés, lancés par la CI dès que les branches sont sur GitHub), campagne de tests de charge k6
+  (`load-tests/results/2026-10-08-local`). Rapports dans `docs/reports`.
+- Textes : accents corrigés dans les messages du site, des e-mails et de la facture PDF.
 - Maintenance : Dependabot, audit de sécurité dans l'intégration continue, modèles de tickets GitHub.
 
 ## Commandes de validation
@@ -224,7 +226,7 @@ Pour tester le parcours :
 
 1. Créer une réservation avec un compte locataire.
 2. Accepter la réservation avec un compte propriétaire.
-3. Cliquer sur `Payer avec Stripe` dans `/my-bookings`.
+3. Cliquer sur `Payer` dans `/my-bookings`.
 4. Finaliser le paiement dans Stripe Checkout avec les cartes de test officielles Stripe.
 5. Vérifier que la page `/payment/success` confirme la réservation, crée la facture PDF et met à jour l'admin après validation serveur de la session Stripe.
 
@@ -267,7 +269,7 @@ cd server
 npm run test:admin
 ```
 
-E2E Playwright (13 tests, sur Chromium, Firefox et WebKit) :
+E2E Playwright (13 tests, configurés pour Chromium, Firefox et WebKit) :
 
 ```bash
 cd client

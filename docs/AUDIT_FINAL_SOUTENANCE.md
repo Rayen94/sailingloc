@@ -56,8 +56,8 @@ Le projet est presentable en soutenance comme MVP academique deploye. Les limite
 3. Pas de contrat de location genere automatiquement.
 4. Pas de workflow complet de litige.
 5. Pas de messagerie interne.
-6. Pas de test de charge avec rapport chiffre final commite si k6 n'est pas relance avant rendu.
-7. Pas de rapport Lighthouse/Axe commite tant qu'il n'est pas genere manuellement.
+6. Test de charge : rapport chiffré commité le 08/10/2026 (`load-tests/results/2026-10-08-local`).
+7. Rapports Lighthouse commités le 12/10/2026 (`docs/reports/lighthouse`) ; audit Axe manuel encore à faire.
 8. Auth JWT stockee cote client en `localStorage`, acceptable MVP mais moins robuste qu'un cookie HttpOnly.
 9. Monitoring production limite au healthcheck et logs HTTP.
 10. RGPD present mais incomplet pour une production commerciale.
