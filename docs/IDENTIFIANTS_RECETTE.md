@@ -10,42 +10,42 @@ Document a fournir avec le rendu de soutenance.
 | Swagger API | `https://dsp-dev-o24a-g6-fr.onrender.com/api-docs` |
 | Healthcheck API | `https://dsp-dev-o24a-g6-fr.onrender.com/api/health` |
 
-## Comptes applicatifs de demonstration
+## Comptes applicatifs de démonstration
 
-Ces comptes sont crees par le seed de demonstration.
+Ces comptes sont créés par le seed de démonstration.
 
-| Role | Email | Mot de passe | Acces principal |
+| Rôle | Email | Mot de passe | Accès principal |
 | --- | --- | --- | --- |
 | Administrateur | `admin@sailingloc.fr` | `Admin123!` | `/admin/dashboard` |
-| Proprietaire | `owner1@sailingloc.fr` | `Owner123!` | `/owner/dashboard` |
+| Propriétaire | `owner1@sailingloc.fr` | `Owner123!` | `/owner/dashboard` |
 | Locataire | `tenant1@sailingloc.fr` | `Tenant123!` | `/my-bookings` |
 
-Comptes supplementaires :
+Comptes supplémentaires :
 
-| Role | Emails | Mot de passe |
+| Rôle | Emails | Mot de passe |
 | --- | --- | --- |
-| Proprietaires | `owner1@sailingloc.fr` a `owner14@sailingloc.fr` | `Owner123!` |
+| Propriétaires | `owner1@sailingloc.fr` a `owner14@sailingloc.fr` | `Owner123!` |
 | Locataires | `tenant1@sailingloc.fr` a `tenant20@sailingloc.fr` | `Tenant123!` |
 
 ## Parcours de test conseilles
 
 1. Connexion administrateur.
 2. Consulter le dashboard admin.
-3. Gerer utilisateurs, bateaux, avis, documents et paiements.
-4. Connexion proprietaire.
-5. Creer une annonce, consulter les reservations, uploader un document.
+3. Gérer utilisateurs, bateaux, avis, documents et paiements.
+4. Connexion propriétaire.
+5. Créer une annonce, consulter les réservations, uploader un document.
 6. Connexion locataire.
-7. Consulter les bateaux, demander une reservation, payer une reservation acceptee.
+7. Consulter les bateaux, demander une réservation, payer une réservation acceptée.
 8. Tester mot de passe oublie si SMTP configure.
 
-## Acces Git
+## Accès Git
 
 | Element | Valeur |
 | --- | --- |
 | Repository | `https://github.com/zerkor/sailingloc` |
 | Branche principale | `main` |
 
-Ne pas fournir de mot de passe Git personnel dans le dossier de rendu. Fournir plutot un acces GitHub invite ou un token limite si l'ecole l'exige.
+Ne pas fournir de mot de passe Git personnel dans le dossier de rendu. Fournir plutôt un accès GitHub invite ou un token limite si l'école l'exige.
 
 ## Gestion de projet
 
@@ -53,16 +53,16 @@ Ne pas fournir de mot de passe Git personnel dans le dossier de rendu. Fournir p
 | --- | --- |
 | Trello | `https://trello.com/b/w9pMhsou/suivi-de-projet-sailingloc` |
 
-Si un login est demande, creer un acces invite au tableau plutot que partager un mot de passe personnel.
+Si un login est demande, créer un accès invite au tableau plutôt que partager un mot de passe personnel.
 
-## Acces techniques utiles
+## Accès techniques utiles
 
 | Outil | Usage |
 | --- | --- |
-| Render | Hebergement du service web |
-| MongoDB Atlas / Compass | Verification base de donnees |
+| Render | Hébergement du service web |
+| MongoDB Atlas / Compass | Vérification base de données |
 | SMTP provider | Test reset password |
 
-## Note securite
+## Note sécurité
 
-Les identifiants ci-dessus sont des comptes de demonstration. Ils ne doivent pas etre reutilises en production commerciale.
+Les identifiants ci-dessus sont des comptes de démonstration. Ils ne doivent pas être réutilisés en production commerciale.

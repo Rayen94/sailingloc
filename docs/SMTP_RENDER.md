@@ -2,7 +2,7 @@
 
 ## Statut projet
 
-Le backend SailingLoc contient deja :
+Le backend SailingLoc contient déjà :
 
 - `nodemailer` ;
 - `server/src/utils/mailService.js` ;
@@ -46,16 +46,16 @@ Pour une soutenance, choisir un fournisseur simple :
 | Fournisseur | Usage |
 | --- | --- |
 | Brevo | Simple pour SMTP transactionnel |
-| Mailtrap | Tres pratique pour test sans envoyer a de vrais utilisateurs |
+| Mailtrap | Très pratique pour test sans envoyer a de vrais utilisateurs |
 | Gmail App Password | Possible mais moins propre pour projet pro |
 | SendGrid | Adapte production, configuration un peu plus longue |
 
 ## Test manuel
 
-1. Deployer Render apres ajout des variables.
+1. Déployer Render après ajout des variables.
 2. Ouvrir `/forgot-password`.
 3. Saisir un compte existant, par exemple `tenant1@sailingloc.fr`.
-4. Verifier la reception du mail.
+4. Vérifier la réception du mail.
 5. Cliquer le lien `/reset-password/:token`.
 6. Changer le mot de passe.
 7. Se connecter avec le nouveau mot de passe.
@@ -68,18 +68,18 @@ curl -X POST https://dsp-dev-o24a-g6-fr.onrender.com/api/auth/forgot-password \
   -d "{\"email\":\"tenant1@sailingloc.fr\"}"
 ```
 
-Reponse attendue :
+Réponse attendue :
 
 ```json
 {
-  "message": "Si un compte existe pour cet email, un lien de reinitialisation sera envoye."
+  "message": "Si un compte existe pour cet email, un lien de réinitialisation sera envoyé."
 }
 ```
 
 ## Point de vigilance
 
-La reponse est volontairement generique pour ne pas reveler si un email existe en base.
+La réponse est volontairement générique pour ne pas révéler si un email existe en base.
 
 ## Phrase soutenance
 
-> Le systeme de mot de passe oublie est implemente de bout en bout. Le token n'est jamais stocke en clair, il est hashe en base et expire automatiquement. L'envoi reel depend de la configuration SMTP Render, documentee dans le projet.
+> Le système de mot de passe oublie est implémenté de bout en bout. Le token n'est jamais stocke en clair, il est hashe en base et expire automatiquement. L'envoi réel dépend de la configuration SMTP Render, documentée dans le projet.

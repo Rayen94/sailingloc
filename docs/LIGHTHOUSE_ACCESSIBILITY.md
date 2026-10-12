@@ -1,14 +1,14 @@
-# Audit Lighthouse et accessibilite - SailingLoc
+# Audit Lighthouse et accessibilité - SailingLoc
 
 ## Objectif
 
-Produire une preuve de qualite front-end pour la soutenance :
+Produire une preuve de qualité front-end pour la soutenance :
 
-- performance percue ;
-- accessibilite ;
+- performance perçue ;
+- accessibilité ;
 - bonnes pratiques ;
 - SEO ;
-- absence de regressions responsive majeures.
+- absence de régressions responsive majeures.
 
 ## Pages a tester
 
@@ -22,13 +22,13 @@ Produire une preuve de qualite front-end pour la soutenance :
 | Contact | `https://dsp-dev-o24a-g6-fr.onrender.com/contact` |
 | Limites MVP | `https://dsp-dev-o24a-g6-fr.onrender.com/mvp-limitations` |
 
-## Procedure Chrome DevTools
+## Procédure Chrome DevTools
 
-1. Ouvrir Chrome en navigation privee.
+1. Ouvrir Chrome en navigation privée.
 2. Aller sur la page a tester.
 3. Ouvrir DevTools.
 4. Onglet `Lighthouse`.
-5. Mode `Mobile`, categories :
+5. Mode `Mobile`, catégories :
    - Performance ;
    - Accessibility ;
    - Best Practices ;
@@ -37,7 +37,7 @@ Produire une preuve de qualite front-end pour la soutenance :
 7. Exporter le rapport en HTML/PDF.
 8. Refaire sur `Desktop` pour l'accueil et le catalogue.
 
-## Procedure CLI optionnelle
+## Procédure CLI optionnelle
 
 ```bash
 npx lighthouse https://dsp-dev-o24a-g6-fr.onrender.com/ \
@@ -56,9 +56,9 @@ npx lighthouse https://dsp-dev-o24a-g6-fr.onrender.com/ \
   --output-path=docs/reports/lighthouse-home-mobile.html
 ```
 
-## Tests accessibilite manuels
+## Tests accessibilité manuels
 
-Verifier :
+Vérifier :
 
 - navigation clavier avec `Tab`, `Shift+Tab`, `Enter` ;
 - focus visible sur liens, boutons, champs ;
@@ -89,4 +89,4 @@ limitée par le poids des photos (passage au format WebP prévu dans le plan de 
 
 ## Formulation soutenance
 
-> Une passe UI responsive a ete realisee sur les composants critiques : navigation, cards, formulaires, galeries, dashboards et footer. Les controles Lighthouse/accessibilite servent de preuve qualite. Les optimisations restantes avant production concernent surtout l'optimisation avancee des images et le suivi automatise des Core Web Vitals.
+> Une passe UI responsive a été réalisée sur les composants critiques : navigation, cards, formulaires, galeries, dashboards et footer. Les contrôles Lighthouse et accessibilité servent de preuve qualité. Les optimisations restantes avant production concernent surtout l'optimisation avancée des images et le suivi automatise des Core Web Vitals.

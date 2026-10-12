@@ -12,14 +12,14 @@
 | `../../load-tests/results/2026-10-08-local/` | Campagne de tests de charge k6 du 08/10/2026 |
 
 
-Ce dossier sert a stocker les preuves de soutenance generees localement :
+Ce dossier sert a stocker les preuves de soutenance générées localement :
 
 - rapports Lighthouse ;
-- exports accessibilite ;
-- captures ecran Playwright ;
-- resultats de test de charge.
+- exports accessibilité ;
+- captures écran Playwright ;
+- résultats de test de charge.
 
-Les fichiers lourds generes automatiquement peuvent rester locaux et etre fournis dans le dossier de rendu final.
+Les fichiers lourds générés automatiquement peuvent rester locaux et être fournis dans le dossier de rendu final.
 
 ## Captures
 

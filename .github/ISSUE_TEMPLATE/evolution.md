@@ -1,8 +1,8 @@
 ---
 name: Demander une évolution (maintenance évolutive)
 about: Une nouvelle fonction ou une amélioration
-title: '[EVOLUTION] '
-labels: evolution
+title: '[ÉVOLUTION] '
+labels: évolution
 ---
 
 ## Le besoin

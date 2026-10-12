@@ -1,4 +1,4 @@
-# Tests de montee en charge - SailingLoc
+# Tests de montée en charge - SailingLoc
 
 ## Objectif
 
@@ -9,7 +9,7 @@ Valider que le MVP SailingLoc reste stable sur les parcours publics les plus con
 - healthcheck API ;
 - endpoint API catalogue.
 
-Le test ne remplace pas un audit performance production. Il fournit une preuve de soutenance sur la stabilite du service deploye.
+Le test ne remplace pas un audit performance production. Il fournit une preuve de soutenance sur la stabilité du service déployé.
 
 ## Outil retenu
 
@@ -29,7 +29,7 @@ macOS :
 brew install k6
 ```
 
-## Execution
+## Exécution
 
 Depuis la racine du projet :
 
@@ -43,14 +43,14 @@ Pour tester une autre URL :
 k6 run -e BASE_URL=https://dsp-dev-o24a-g6-fr.onrender.com load-tests/k6/sailingloc-smoke.js
 ```
 
-## Scenario
+## Scénario
 
-Le scenario `progressive_load` simule :
+Le scénario `progressive_load` simule :
 
-| Phase | Duree | Utilisateurs virtuels |
+| Phase | Durée | Utilisateurs virtuels |
 | --- | ---: | ---: |
-| Montee initiale | 30 s | 5 |
-| Charge moderee | 1 min | 15 |
+| Montée initiale | 30 s | 5 |
+| Charge modérée | 1 min | 15 |
 | Charge soutenue MVP | 1 min | 30 |
 | Descente | 30 s | 0 |
 
@@ -59,12 +59,12 @@ Le scenario `progressive_load` simule :
 | Indicateur | Seuil |
 | --- | --- |
 | Taux d'erreur HTTP | < 5 % |
-| p95 temps de reponse | < 1200 ms |
+| p95 temps de réponse | < 1200 ms |
 | Checks fonctionnels | > 95 % |
 
-## Resultats a reporter
+## Résultats a reporter
 
-Apres execution, copier ici les lignes k6 importantes :
+Après exécution, copier ici les lignes k6 importantes :
 
 ```txt
 checks.........................:
@@ -74,12 +74,12 @@ iterations.....................:
 vus_max........................:
 ```
 
-## Interpretation soutenance
+## Interprétation soutenance
 
 Si les seuils passent, formuler ainsi :
 
-> Le MVP supporte une charge progressive moderee sur les pages publiques et endpoints principaux. Les tests montrent une stabilite suffisante pour une demonstration et une premiere mise en ligne. Une campagne plus large serait necessaire avant une production commerciale.
+> Le MVP supporte une charge progressive modérée sur les pages publiques et endpoints principaux. Les tests montrent une stabilité suffisante pour une démonstration et une première mise en ligne. Une campagne plus large serait nécessaire avant une production commerciale.
 
-Si les seuils echouent :
+Si les seuils échouent :
 
-> Les resultats montrent une limite de performance a corriger avant production. Les pistes principales sont l'optimisation MongoDB, le cache, la compression assets, le dimensionnement Render et le stockage cloud pour les fichiers.
+> Les résultats montrent une limite de performance a corriger avant production. Les pistes principales sont l'optimisation MongoDB, le cache, la compression assets, le dimensionnement Render et le stockage cloud pour les fichiers.

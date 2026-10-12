@@ -5,7 +5,7 @@ Plateforme full-stack de location de bateaux entre particuliers, avec espaces vi
 ## Fonctionnalités
 
 - Catalogue public avec filtres, fiches bateaux et avis.
-- Optimisations SEO MVP : titres/metas dynamiques, fiches bateaux avec slugs, robots.txt, sitemap.xml et pages privees en noindex.
+- Optimisations SEO MVP : titres/metas dynamiques, fiches bateaux avec slugs, robots.txt, sitemap.xml et pages privées en noindex.
 - Mot de passe oublie avec token hashe en base et envoi Brevo configurable.
 - Authentification JWT avec rôles `tenant`, `owner`, `admin`.
 - Réservations, acceptation propriétaire, paiement simulé et intégration Stripe Checkout optionnelle.
@@ -103,7 +103,7 @@ Pour la production, voir `.env.production.example` et [docs/PRODUCTION.md](docs/
 
 SailingLoc est une SPA React/Vite rendue cote client. Le projet ne met pas en place un vrai SSR : le HTML source initial contient principalement le conteneur React, puis le contenu est rendu par JavaScript.
 
-Des mitigations SEO ont ete mises en place pour le MVP : `react-helmet-async`, titles/metas par page, fiches bateaux avec slugs, JSON-LD, `robots.txt`, `sitemap.xml` et `noindex` sur les zones privees. Voir [docs/SEO.md](docs/SEO.md) et [docs/SEO_SSR_AUDIT.md](docs/SEO_SSR_AUDIT.md).
+Des mitigations SEO ont été mises en place pour le MVP : `react-helmet-async`, titles/metas par page, fiches bateaux avec slugs, JSON-LD, `robots.txt`, `sitemap.xml` et `noindex` sur les zones privées. Voir [docs/SEO.md](docs/SEO.md) et [docs/SEO_SSR_AUDIT.md](docs/SEO_SSR_AUDIT.md).
 
 Les fiches bateaux publiques utilisent des URLs lisibles :
 
@@ -151,7 +151,7 @@ En local, garder `EMAIL_ENABLED=false` ou `EMAIL_LOG_ONLY=true` pour tester sans
 
 Note Brevo IP / expéditeur autorisé : l'application ne peut pas valider automatiquement un domaine, un expéditeur ou une IP dans Brevo. Ces réglages se font manuellement dans le dashboard Brevo. En mode API, la connexion sortante utilise HTTPS 443, mais l'expéditeur/domaine doit quand même être vérifié dans Brevo.
 
-## Stripe payment integration
+## Stripe payment intégration
 
 SailingLoc conserve le paiement simulé pour la démonstration, et peut utiliser Stripe Checkout pour un paiement réel de réservation. La version Render peut fonctionner sans webhook : après le retour Stripe sur `/payment/success`, le frontend appelle le backend, et le backend vérifie la session avec la clé privée Stripe avant de confirmer la réservation.
 
