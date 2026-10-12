@@ -1,6 +1,7 @@
 Rapport des tests E2E SailingLoc (Playwright) - 09/10/2026
 Commande : npx playwright test --project=chromium (dossier client)
-Navigateur : Chromium (bac à sable). Firefox et WebKit : lancés par GitHub Actions.
+Navigateur : Chromium (bac à sable). Firefox et WebKit : configurés dans playwright.config.js, pas encore lancés
+(ils le seront par GitHub Actions dès que les branches seront sur GitHub).
 
   PASSED  chromium  cookies.spec.js > Google Tag Manager is not loaded before consent or after refusal (2290 ms)
   PASSED  chromium  cookies.spec.js > Google Tag Manager is loaded after consent and remembered (1318 ms)

@@ -8,7 +8,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import StatusBadge from '../../components/StatusBadge';
 
 const typeLabels = {
-  identity: 'Identite',
+  identity: 'Identité',
   insurance: 'Assurance',
   registration: 'Acte de francisation',
   contract: 'Contrat',
@@ -63,10 +63,10 @@ const OwnerDocumentsPage = () => {
     <div className="space-y-6">
       <div>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 800, color: '#07192E' }}>
-          Documents proprietaire
+          Documents propriétaire
         </h1>
         <p className="text-sm mt-1" style={{ color: '#8896A8' }}>
-          Ajoutez les pieces demandees pour faciliter la validation administrative de vos annonces.
+          Ajoutez les pièces demandées pour faciliter la validation administrative de vos annonces.
         </p>
       </div>
 
@@ -88,7 +88,7 @@ const OwnerDocumentsPage = () => {
               value={form.boatId}
               onChange={(event) => setForm((prev) => ({ ...prev, boatId: event.target.value }))}
             >
-              <option value="">Compte proprietaire</option>
+              <option value="">Compte propriétaire</option>
               {boats.map((boat) => (
                 <option key={boat._id} value={boat._id}>
                   {boat.title}
@@ -163,12 +163,12 @@ const OwnerDocumentsPage = () => {
 
         <div className="bg-white rounded-2xl p-6 xl:col-span-2" style={{ boxShadow: '0 4px 24px rgba(7,25,46,0.08)' }}>
           <h2 className="font-bold text-lg mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#07192E' }}>
-            Documents envoyes
+            Documents envoyés
           </h2>
           <div className="space-y-3">
             {documents.length === 0 ? (
               <p className="text-sm" style={{ color: '#8896A8' }}>
-                Aucun document envoye pour le moment.
+                Aucun document envoyé pour le moment.
               </p>
             ) : (
               documents.map((document) => (
@@ -183,7 +183,7 @@ const OwnerDocumentsPage = () => {
                     </p>
                     <p className="text-xs mt-1" style={{ color: '#8896A8' }}>
                       {typeLabels[document.type] || document.type}
-                      {document.boat?.title ? ` - ${document.boat.title}` : ' - Compte proprietaire'}
+                      {document.boat?.title ? ` - ${document.boat.title}` : ' - Compte propriétaire'}
                     </p>
                     {document.rejectionReason && (
                       <p className="text-xs mt-1 text-red-600">{document.rejectionReason}</p>

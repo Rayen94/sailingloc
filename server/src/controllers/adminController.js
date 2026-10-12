@@ -88,19 +88,19 @@ const assertAdminChangeAllowed = async ({ targetUser, currentAdminId, nextRole, 
   const deactivatingAdmin = targetUser.role === 'admin' && nextIsActive === false;
 
   if (nextRole && !roleValues.includes(nextRole)) {
-    const error = new Error('Role invalide');
+    const error = new Error('Rôle invalide');
     error.statusCode = 400;
     throw error;
   }
 
   if (isSelf && nextIsActive === false) {
-    const error = new Error('Un administrateur ne peut pas desactiver son propre compte');
+    const error = new Error('Un administrateur ne peut pas désactiver son propre compte');
     error.statusCode = 403;
     throw error;
   }
 
   if (isSelf && downgradingAdmin) {
-    const error = new Error('Un administrateur ne peut pas retirer son propre role admin');
+    const error = new Error('Un administrateur ne peut pas retirer son propre rôle admin');
     error.statusCode = 403;
     throw error;
   }
@@ -246,7 +246,7 @@ const updateUser = asyncHandler(async (req, res) => {
       action: 'change_user_role',
       entityType: 'user',
       entityId: updated._id,
-      description: `${adminName(req)} a change le role de ${updated.email} en ${updated.role}`,
+      description: `${adminName(req)} a changé le rôle de ${updated.email} en ${updated.role}`,
       metadata: previous,
     });
   }
@@ -257,7 +257,7 @@ const updateUser = asyncHandler(async (req, res) => {
       action: updated.isActive ? 'reactivate_user' : 'deactivate_user',
       entityType: 'user',
       entityId: updated._id,
-      description: `${adminName(req)} a ${updated.isActive ? 'reactive' : 'desactive'} ${updated.email}`,
+      description: `${adminName(req)} a ${updated.isActive ? 'réactivé' : 'désactivé'} ${updated.email}`,
       metadata: previous,
     });
   }
@@ -293,9 +293,9 @@ const disableUser = asyncHandler(async (req, res) => {
     action: 'deactivate_user',
     entityType: 'user',
     entityId: user._id,
-    description: `${adminName(req)} a desactive ${user.email}`,
+    description: `${adminName(req)} a désactivé ${user.email}`,
   });
-  res.json({ message: 'Utilisateur desactive' });
+  res.json({ message: 'Utilisateur désactivé' });
 });
 
 const getAdminBoats = asyncHandler(async (req, res) => {
@@ -329,13 +329,13 @@ const approveBoat = asyncHandler(async (req, res) => {
   const effectiveOwner = await resolveBoatOwner({ boat, adminId: req.user._id });
   if (!effectiveOwner?._id) {
     res.status(400);
-    throw new Error('Impossible d approuver ce bateau : aucun proprietaire disponible');
+    throw new Error('Impossible d’approuver ce bateau : aucun propriétaire disponible');
   }
   await repairBoatOwner({ boat, owner: effectiveOwner });
   const rejectedDocs = await OwnerDocument.countDocuments({ boat: boat._id, status: 'rejected' });
   if (rejectedDocs > 0) {
     res.status(400);
-    throw new Error('Des documents lies a ce bateau sont rejetes');
+    throw new Error('Des documents liés à ce bateau sont rejetés');
   }
   boat.status = 'approved';
   await boat.save();
@@ -344,7 +344,7 @@ const approveBoat = asyncHandler(async (req, res) => {
     action: 'approve_boat',
     entityType: 'boat',
     entityId: boat._id,
-    description: `${adminName(req)} a approuve ${boat.title}`,
+    description: `${adminName(req)} a approuvé ${boat.title}`,
   });
   const emailResult = await sendBoatApprovedEmail({ owner: effectiveOwner, boat });
   await logEmailAttempt({
@@ -365,7 +365,7 @@ const rejectBoat = asyncHandler(async (req, res) => {
   const effectiveOwner = await resolveBoatOwner({ boat, adminId: req.user._id });
   if (!effectiveOwner?._id) {
     res.status(400);
-    throw new Error('Impossible de rejeter ce bateau : aucun proprietaire disponible');
+    throw new Error('Impossible de rejeter ce bateau : aucun propriétaire disponible');
   }
   await repairBoatOwner({ boat, owner: effectiveOwner });
   boat.status = 'rejected';
@@ -375,7 +375,7 @@ const rejectBoat = asyncHandler(async (req, res) => {
     action: 'reject_boat',
     entityType: 'boat',
     entityId: boat._id,
-    description: `${adminName(req)} a rejete ${boat.title}`,
+    description: `${adminName(req)} a rejeté ${boat.title}`,
   });
   const emailResult = await sendBoatRejectedEmail({ owner: effectiveOwner, boat, reason: req.body?.reason });
   await logEmailAttempt({
@@ -453,7 +453,7 @@ const sendNewsletter = asyncHandler(async (req, res) => {
     action: 'send_newsletter',
     entityType: 'email',
     entityId: req.user._id,
-    description: `${adminName(req)} a envoye une newsletter a ${recipients.length} client(s)`,
+    description: `${adminName(req)} a envoyé une newsletter à ${recipients.length} client(s)`,
   });
 
   res.json({
@@ -478,9 +478,9 @@ const deleteBoat = asyncHandler(async (req, res) => {
     action: 'delete_boat',
     entityType: 'boat',
     entityId: req.params.id,
-    description: `${adminName(req)} a supprime ${boat.title}`,
+    description: `${adminName(req)} a supprimé ${boat.title}`,
   });
-  res.json({ message: 'Bateau supprime' });
+  res.json({ message: 'Bateau supprimé' });
 });
 
 const getAdminBookings = asyncHandler(async (req, res) => {
@@ -530,7 +530,7 @@ const refundBookingPayment = async ({ booking, adminId }) => {
   if (payment && paidPaymentStatuses.includes(payment.status)) {
     if (payment.provider === 'stripe') {
       if (!isStripeEnabled() || !stripe || !payment.stripePaymentIntentId) {
-        throw new Error('Remboursement Stripe impossible : paiement introuvable ou deja rembourse.');
+        throw new Error('Remboursement Stripe impossible : paiement introuvable ou déjà remboursé.');
       }
       await stripe.refunds.create({ payment_intent: payment.stripePaymentIntentId });
     }
@@ -550,11 +550,11 @@ const cancelAdminBooking = asyncHandler(async (req, res) => {
   const booking = await Booking.findById(req.params.id);
   if (!booking) {
     res.status(404);
-    throw new Error('Reservation introuvable');
+    throw new Error('Réservation introuvable');
   }
   if (['cancelled', 'completed', 'rejected'].includes(booking.status)) {
     res.status(400);
-    throw new Error('La reservation ne peut pas etre annulee dans son etat actuel');
+    throw new Error('La réservation ne peut pas être annulée dans son état actuel');
   }
   const result = await refundBookingPayment({ booking, adminId: req.user._id });
   await logAdminAction({
@@ -562,7 +562,7 @@ const cancelAdminBooking = asyncHandler(async (req, res) => {
     action: 'refund_payment',
     entityType: 'booking',
     entityId: booking._id,
-    description: `${adminName(req)} a annule la reservation et rembourse le paiement si necessaire`,
+    description: `${adminName(req)} a annulé la réservation et remboursé le paiement si nécessaire`,
     metadata: { paymentId: result.payment?._id },
   });
   res.json(result.booking);
@@ -578,20 +578,20 @@ const acceptAdminBooking = asyncHandler(async (req, res) => {
     .populate('owner', 'firstName lastName email');
   if (!booking) {
     res.status(404);
-    throw new Error('Reservation introuvable');
+    throw new Error('Réservation introuvable');
   }
   if (booking.status !== 'pending') {
     res.status(400);
-    throw new Error('La reservation doit etre en attente pour etre acceptee');
+    throw new Error('La réservation doit être en attente pour être acceptée');
   }
   if (!booking.boat || !booking.tenant) {
     res.status(400);
-    throw new Error('Reservation incomplete : bateau ou locataire introuvable');
+    throw new Error('Réservation incomplète : bateau ou locataire introuvable');
   }
   const effectiveOwner = await resolveBookingOwner({ booking, adminId: req.user._id });
   if (!effectiveOwner?._id) {
     res.status(400);
-    throw new Error('Reservation incomplete : aucun proprietaire disponible');
+    throw new Error('Réservation incomplète : aucun propriétaire disponible');
   }
   await repairBookingOwner({ booking, owner: effectiveOwner });
 
@@ -607,8 +607,8 @@ const acceptAdminBooking = asyncHandler(async (req, res) => {
   await createNotification({
     user: booking.tenant._id,
     type: 'booking_accepted',
-    title: 'Reservation acceptee',
-    message: `Votre demande pour ${booking.boat.title} a ete acceptee par l'administration.`,
+    title: 'Réservation acceptée',
+    message: `Votre demande pour ${booking.boat.title} a été acceptée par l'administration.`,
     relatedBooking: booking._id,
     relatedBoat: booking.boat._id,
   });
@@ -623,8 +623,8 @@ const acceptAdminBooking = asyncHandler(async (req, res) => {
     action: 'accept_booking',
     entityType: 'booking',
     entityId: booking._id,
-    description: `${adminName(req)} a accepte la reservation ${booking._id}${
-      effectiveOwner?._id ? '' : ' sans proprietaire rattache'
+    description: `${adminName(req)} a accepté la réservation ${booking._id}${
+      effectiveOwner?._id ? '' : ' sans propriétaire rattaché'
     }`,
   });
 
@@ -642,20 +642,20 @@ const rejectAdminBooking = asyncHandler(async (req, res) => {
     .populate('owner', 'firstName lastName email');
   if (!booking) {
     res.status(404);
-    throw new Error('Reservation introuvable');
+    throw new Error('Réservation introuvable');
   }
   if (booking.status !== 'pending') {
     res.status(400);
-    throw new Error('La reservation doit etre en attente pour etre refusee');
+    throw new Error('La réservation doit être en attente pour être refusée');
   }
   if (!booking.boat || !booking.tenant) {
     res.status(400);
-    throw new Error('Reservation incomplete : bateau ou locataire introuvable');
+    throw new Error('Réservation incomplète : bateau ou locataire introuvable');
   }
   const effectiveOwner = await resolveBookingOwner({ booking, adminId: req.user._id });
   if (!effectiveOwner?._id) {
     res.status(400);
-    throw new Error('Reservation incomplete : aucun proprietaire disponible');
+    throw new Error('Réservation incomplète : aucun propriétaire disponible');
   }
   await repairBookingOwner({ booking, owner: effectiveOwner });
 
@@ -664,8 +664,8 @@ const rejectAdminBooking = asyncHandler(async (req, res) => {
   await createNotification({
     user: booking.tenant._id,
     type: 'booking_rejected',
-    title: 'Reservation refusee',
-    message: "L'administration a refuse votre demande de reservation.",
+    title: 'Réservation refusée',
+    message: "L'administration a refusé votre demande de réservation.",
     relatedBooking: booking._id,
     relatedBoat: booking.boat._id,
   });
@@ -680,8 +680,8 @@ const rejectAdminBooking = asyncHandler(async (req, res) => {
     action: 'reject_booking',
     entityType: 'booking',
     entityId: booking._id,
-    description: `${adminName(req)} a refuse la reservation ${booking._id}${
-      effectiveOwner?._id ? '' : ' sans proprietaire rattache'
+    description: `${adminName(req)} a refusé la réservation ${booking._id}${
+      effectiveOwner?._id ? '' : ' sans propriétaire rattaché'
     }`,
   });
 
@@ -695,11 +695,11 @@ const completeAdminBooking = asyncHandler(async (req, res) => {
     .populate('owner', 'firstName lastName email');
   if (!booking) {
     res.status(404);
-    throw new Error('Reservation introuvable');
+    throw new Error('Réservation introuvable');
   }
   if (booking.status !== 'confirmed') {
     res.status(400);
-    throw new Error('La reservation doit etre confirmee avant cloture');
+    throw new Error('La réservation doit être confirmée avant clôture');
   }
   booking.status = 'completed';
   await booking.save();
@@ -743,7 +743,7 @@ const approveReview = asyncHandler(async (req, res) => {
     action: 'approve_review',
     entityType: 'review',
     entityId: review._id,
-    description: `${adminName(req)} a approuve un avis`,
+    description: `${adminName(req)} a approuvé un avis`,
   });
   res.json(review);
 });
@@ -781,9 +781,9 @@ const deleteReview = asyncHandler(async (req, res) => {
     action: 'delete_review',
     entityType: 'review',
     entityId: req.params.id,
-    description: `${adminName(req)} a supprime un avis`,
+    description: `${adminName(req)} a supprimé un avis`,
   });
-  res.json({ message: 'Avis supprime' });
+  res.json({ message: 'Avis supprimé' });
 });
 
 const getAdminPayments = asyncHandler(async (req, res) => {
@@ -850,12 +850,12 @@ const refundPayment = asyncHandler(async (req, res) => {
   }
   if (!paidPaymentStatuses.includes(payment.status)) {
     res.status(400);
-    throw new Error('Seul un paiement reussi peut etre rembourse');
+    throw new Error('Seul un paiement réussi peut être remboursé');
   }
   const booking = await Booking.findById(payment.booking);
   if (!booking) {
     res.status(404);
-    throw new Error('Reservation introuvable');
+    throw new Error('Réservation introuvable');
   }
   await refundBookingPayment({ booking, adminId: req.user._id });
   await logAdminAction({
@@ -863,7 +863,7 @@ const refundPayment = asyncHandler(async (req, res) => {
     action: 'refund_payment',
     entityType: 'payment',
     entityId: payment._id,
-    description: `${adminName(req)} a rembourse le paiement ${payment.providerReference}`,
+    description: `${adminName(req)} a remboursé le paiement ${payment.providerReference}`,
   });
   res.json(await Payment.findById(payment._id).populate('booking', 'status paymentStatus'));
 });

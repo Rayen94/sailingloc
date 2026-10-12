@@ -5,7 +5,7 @@ Plateforme full-stack de location de bateaux entre particuliers, avec espaces vi
 ## Fonctionnalités
 
 - Catalogue public avec filtres, fiches bateaux et avis.
-- Optimisations SEO MVP : titres/metas dynamiques, fiches bateaux avec slugs, robots.txt, sitemap.xml et pages privees en noindex.
+- Optimisations SEO MVP : titres/metas dynamiques, fiches bateaux avec slugs, robots.txt, sitemap.xml et pages privées en noindex.
 - Mot de passe oublie avec token hashe en base et envoi Brevo configurable.
 - Authentification JWT avec rôles `tenant`, `owner`, `admin`.
 - Réservations, acceptation propriétaire, paiement simulé et intégration Stripe Checkout optionnelle.
@@ -103,7 +103,7 @@ Pour la production, voir `.env.production.example` et [docs/PRODUCTION.md](docs/
 
 SailingLoc est une SPA React/Vite rendue cote client. Le projet ne met pas en place un vrai SSR : le HTML source initial contient principalement le conteneur React, puis le contenu est rendu par JavaScript.
 
-Des mitigations SEO ont ete mises en place pour le MVP : `react-helmet-async`, titles/metas par page, fiches bateaux avec slugs, JSON-LD, `robots.txt`, `sitemap.xml` et `noindex` sur les zones privees. Voir [docs/SEO.md](docs/SEO.md) et [docs/SEO_SSR_AUDIT.md](docs/SEO_SSR_AUDIT.md).
+Des mitigations SEO ont été mises en place pour le MVP : `react-helmet-async`, titles/metas par page, fiches bateaux avec slugs, JSON-LD, `robots.txt`, `sitemap.xml` et `noindex` sur les zones privées. Voir [docs/SEO.md](docs/SEO.md) et [docs/SEO_SSR_AUDIT.md](docs/SEO_SSR_AUDIT.md).
 
 Les fiches bateaux publiques utilisent des URLs lisibles :
 
@@ -151,7 +151,7 @@ En local, garder `EMAIL_ENABLED=false` ou `EMAIL_LOG_ONLY=true` pour tester sans
 
 Note Brevo IP / expéditeur autorisé : l'application ne peut pas valider automatiquement un domaine, un expéditeur ou une IP dans Brevo. Ces réglages se font manuellement dans le dashboard Brevo. En mode API, la connexion sortante utilise HTTPS 443, mais l'expéditeur/domaine doit quand même être vérifié dans Brevo.
 
-## Stripe payment integration
+## Stripe payment intégration
 
 SailingLoc conserve le paiement simulé pour la démonstration, et peut utiliser Stripe Checkout pour un paiement réel de réservation. La version Render peut fonctionner sans webhook : après le retour Stripe sur `/payment/success`, le frontend appelle le backend, et le backend vérifie la session avec la clé privée Stripe avant de confirmer la réservation.
 
@@ -187,10 +187,12 @@ SERVER_URL=http://localhost:5000
 - Sécurité : Node 24, Multer 2, Morgan 1.12, Nodemailer 10, `npm audit fix` (0 faille en production côté serveur) ;
   réglage `TRUST_PROXY` pour le limiteur de requêtes ; données de démonstration désactivées par défaut en production.
 - Accessibilité et SEO : contrastes, lien d'évitement, titres, textes alternatifs, une seule meta description
-  (Lighthouse : 100/100 en accessibilité et en SEO sur l'accueil).
+  (Lighthouse : 100/100 en accessibilité et en SEO sur l'accueil et la page Bateaux, rapports dans `docs/reports/lighthouse`).
 - Performance : compression gzip, cache de la liste des bateaux limité, index MongoDB.
-- Tests : 57 tests serveur (couverture 80 % des lignes), 13 tests E2E sur Chromium, Firefox et WebKit,
-  campagne de tests de charge k6 (`load-tests/results/2026-10-08-local`).
+- Tests : 57 tests serveur (couverture 80 % des lignes), 13 tests E2E réussis sur Chromium (Firefox et WebKit
+  configurés, lancés par la CI dès que les branches sont sur GitHub), campagne de tests de charge k6
+  (`load-tests/results/2026-10-08-local`). Rapports dans `docs/reports`.
+- Textes : accents corrigés dans les messages du site, des e-mails et de la facture PDF.
 - Maintenance : Dependabot, audit de sécurité dans l'intégration continue, modèles de tickets GitHub.
 
 ## Commandes de validation
@@ -224,7 +226,7 @@ Pour tester le parcours :
 
 1. Créer une réservation avec un compte locataire.
 2. Accepter la réservation avec un compte propriétaire.
-3. Cliquer sur `Payer avec Stripe` dans `/my-bookings`.
+3. Cliquer sur `Payer` dans `/my-bookings`.
 4. Finaliser le paiement dans Stripe Checkout avec les cartes de test officielles Stripe.
 5. Vérifier que la page `/payment/success` confirme la réservation, crée la facture PDF et met à jour l'admin après validation serveur de la session Stripe.
 
@@ -267,7 +269,7 @@ cd server
 npm run test:admin
 ```
 
-E2E Playwright (13 tests, sur Chromium, Firefox et WebKit) :
+E2E Playwright (13 tests, configurés pour Chromium, Firefox et WebKit) :
 
 ```bash
 cd client

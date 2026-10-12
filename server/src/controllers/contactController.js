@@ -29,7 +29,7 @@ const createContactMessage = asyncHandler(async (req, res) => {
   await message.save();
 
   res.status(201).json({
-    message: 'Message recu. Notre equipe vous repondra rapidement.',
+    message: 'Message reçu. Notre équipe vous répondra rapidement.',
     id: message._id,
     emailSent: emailResult.success,
     emailSkipped: emailResult.skipped || false,

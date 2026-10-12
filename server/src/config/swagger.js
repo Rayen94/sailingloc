@@ -7,7 +7,7 @@ const swaggerDefinition = {
     title: 'SailingLoc API',
     version: '1.0.0',
     description:
-      'Documentation OpenAPI de la plateforme de location de bateaux entre particuliers SailingLoc. Les emails transactionnels utilisent Brevo API ou SMTP via variables d environnement serveur.',
+      'Documentation OpenAPI de la plateforme de location de bateaux entre particuliers SailingLoc. Les emails transactionnels utilisent Brevo API ou SMTP via les variables d’environnement du serveur.',
   },
   servers: [{ url: process.env.SERVER_URL || 'http://localhost:5000', description: 'API SailingLoc' }],
   tags: [
@@ -205,7 +205,7 @@ const swaggerDefinition = {
     '/api/boats/{id}': {
       get: {
         tags: ['Boats'],
-        summary: 'Détail d un bateau',
+        summary: 'Détail d’un bateau',
         parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }],
         responses: { 200: { description: 'Bateau' }, 404: { description: 'Introuvable' } },
       },

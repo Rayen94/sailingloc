@@ -1,0 +1,391 @@
+Rapport de tests serveur SailingLoc - AVANT les corrections du rattrapage - 08/10/2026
+Code : branche main (code d'origine, 32 tests) ; commande : npm run test:coverage (dossier server)
+Node.js 22.22.0 (bac à sable) ; base : FerretDB 1.24 (compatible MongoDB), via TEST_MONGO_URI
+Résultat : 32 tests réussis sur 32 ; couverture : 74,70 % des lignes, 56,39 % des branches, 69,70 % des fonctions.
+
+TAP version 13
+# POST /api/auth/login 200 141.086 ms - 466
+# GET /api/admin/users 403 6.816 ms - 1246
+# Subtest: Admin security: non-admin cannot access admin routes
+ok 1 - Admin security: non-admin cannot access admin routes
+  ---
+  duration_ms: 432.247887
+  type: 'test'
+  ...
+# POST /api/auth/login 200 116.195 ms - 463
+# PUT /api/admin/users/6ac7c1d18f1702f06637321b 403 8.593 ms - 532
+# PUT /api/admin/users/6ac7c1d18f1702f06637321b 403 7.801 ms - 535
+# Subtest: Admin security: admin cannot deactivate or downgrade themselves
+ok 2 - Admin security: admin cannot deactivate or downgrade themselves
+  ---
+  duration_ms: 287.885502
+  type: 'test'
+  ...
+# POST /api/auth/login 200 133.933 ms - 463
+# PATCH /api/admin/users/6ac7c1d18f1702f06637322c/disable 403 6.286 ms - 532
+# PUT /api/admin/users/6ac7c1d18f1702f06637322c 403 6.492 ms - 535
+# Subtest: Admin security: last active admin cannot be deactivated or downgraded
+ok 3 - Admin security: last active admin cannot be deactivated or downgraded
+  ---
+  duration_ms: 283.405768
+  type: 'test'
+  ...
+# POST /api/auth/login 200 141.137 ms - 464
+# PATCH /api/admin/boats/6ac7c1d28f1702f066373242/approve 200 41.818 ms - 446
+# PATCH /api/admin/boats/6ac7c1d28f1702f066373242/reject 200 21.575 ms - 446
+# Subtest: Admin moderation: approve and reject boats
+ok 4 - Admin moderation: approve and reject boats
+  ---
+  duration_ms: 474.511431
+  type: 'test'
+  ...
+# POST /api/auth/login 200 122.062 ms - 472
+# GET /api/admin/boats 200 14.880 ms - 596
+# PATCH /api/admin/boats/6ac7c1d28f1702f066373267/approve 200 20.537 ms - 449
+# Subtest: Admin moderation: assigns active owner fallback when boat owner is broken
+ok 5 - Admin moderation: assigns active owner fallback when boat owner is broken
+  ---
+  duration_ms: 500.170638
+  type: 'test'
+  ...
+# Subtest: Demo repair: restores approved boats for every category
+ok 6 - Demo repair: restores approved boats for every category
+  ---
+  duration_ms: 395.68859
+  type: 'test'
+  ...
+# POST /api/auth/login 200 118.279 ms - 465
+# PATCH /api/admin/reviews/6ac7c1d38f1702f0663732f0/approve 200 19.587 ms - 295
+# GET /api/admin/stats 200 27.488 ms - 399
+# Subtest: Admin moderation: approve review and expose dashboard stats
+ok 7 - Admin moderation: approve review and expose dashboard stats
+  ---
+  duration_ms: 621.955911
+  type: 'test'
+  ...
+# POST /api/auth/login 200 111.829 ms - 462
+# PATCH /api/admin/payments/6ac7c1d48f1702f066373328/refund 200 22.481 ms - 527
+# Subtest: Admin payments: refund updates payment and booking consistently
+ok 8 - Admin payments: refund updates payment and booking consistently
+  ---
+  duration_ms: 536.027937
+  type: 'test'
+  ...
+# POST /api/auth/login 200 113.198 ms - 473
+# GET /api/admin/bookings 200 20.671 ms - 815
+# PATCH /api/admin/bookings/6ac7c1d48f1702f06637334b/accept 200 47.012 ms - 924
+# Subtest: Admin bookings: repairs missing owner from boat owner and can accept pending booking
+ok 9 - Admin bookings: repairs missing owner from boat owner and can accept pending booking
+  ---
+  duration_ms: 573.494122
+  type: 'test'
+  ...
+# POST /api/auth/login 200 110.566 ms - 475
+# GET /api/admin/bookings 200 16.464 ms - 825
+# PATCH /api/admin/bookings/6ac7c1d58f1702f066373379/reject 200 26.133 ms - 581
+# Subtest: Admin bookings: assigns active owner fallback when booking and boat owners are broken
+ok 10 - Admin bookings: assigns active owner fallback when booking and boat owners are broken
+  ---
+  duration_ms: 528.531455
+  type: 'test'
+  ...
+# POST /api/auth/login 200 117.482 ms - 469
+# GET /api/admin/users?page=2&limit=5 200 14.143 ms - 1439
+# Subtest: Admin users endpoint supports pagination
+ok 11 - Admin users endpoint supports pagination
+  ---
+  duration_ms: 1656.395744
+  type: 'test'
+  ...
+# POST /api/auth/register 201 212.805 ms - 525
+# POST /api/auth/login 200 144.691 ms - 508
+# GET /api/auth/me 200 5.642 ms - 317
+# Subtest: Auth API: registers, logs in and returns the connected profile
+ok 12 - Auth API: registers, logs in and returns the connected profile
+  ---
+  duration_ms: 433.769338
+  type: 'test'
+  ...
+# POST /api/auth/forgot-password 200 11.472 ms - 92
+# POST /api/auth/reset-password/0101010101010101010101010101010101010101010101010101010101010101 200 137.259 ms - 54
+# POST /api/auth/login 401 112.492 ms - 205
+# POST /api/auth/login 200 119.900 ms - 483
+# Subtest: Auth API: sends a reset token and updates the password through the reset flow
+ok 13 - Auth API: sends a reset token and updates the password through the reset flow
+  ---
+  duration_ms: 519.98646
+  type: 'test'
+  ...
+# POST /api/auth/reset-password/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 400 3.934 ms - 342
+# Subtest: Auth API: rejects expired password reset tokens
+ok 14 - Auth API: rejects expired password reset tokens
+  ---
+  duration_ms: 130.165134
+  type: 'test'
+  ...
+# POST /api/auth/login 200 119.235 ms - 484
+# POST /api/auth/login 200 111.993 ms - 482
+# POST /api/auth/login 200 109.299 ms - 482
+# POST /api/boats 403 7.511 ms - 778
+# POST /api/boats 201 13.378 ms - 478
+# GET /api/boats 200 9.129 ms - 41
+# PATCH /api/admin/boats/6ac7c1d920936d0c4a9e2d2b/approve 200 40.407 ms - 479
+# GET /api/boats 200 6.626 ms - 518
+# GET /api/boats/dufour-390-brest 200 6.190 ms - 524
+# GET /api/boats/6ac7c1d920936d0c4a9e2d2b 200 10.440 ms - 524
+# Subtest: Boats API: owner creates a pending boat and admin approves it for public listing
+ok 15 - Boats API: owner creates a pending boat and admin approves it for public listing
+  ---
+  duration_ms: 817.818316
+  type: 'test'
+  ...
+# POST /api/auth/login 200 130.902 ms - 482
+# POST /api/boats 201 9.711 ms - 538
+# Subtest: Boats API: accepts persisted data URL images for owner uploads
+ok 16 - Boats API: accepts persisted data URL images for owner uploads
+  ---
+  duration_ms: 267.726227
+  type: 'test'
+  ...
+# GET /api/boats 200 17.582 ms - 571
+# GET /api/boats/6ac7c1da20936d0c4a9e2d61 200 9.051 ms - 577
+# Subtest: Boats API: backfills missing slugs on legacy public boats
+ok 17 - Boats API: backfills missing slugs on legacy public boats
+  ---
+  duration_ms: 160.46038
+  type: 'test'
+  ...
+# GET /api/health 200 0.665 ms - 98
+# GET /api/boats?limit=6 200 11.745 ms - 565
+# GET /api/health 200 0.388 ms - 98
+# GET /api/boats?limit=6 200 5.707 ms - 565
+# GET /api/health 200 0.316 ms - 98
+# GET /api/boats?limit=6 200 21.476 ms - 565
+# GET /api/health 200 0.329 ms - 98
+# GET /api/boats?limit=6 200 5.909 ms - 565
+# GET /api/health 200 0.314 ms - 98
+# GET /api/boats?limit=6 200 5.693 ms - 565
+# GET /api/health 200 0.276 ms - 98
+# GET /api/boats?limit=6 200 5.432 ms - 565
+# GET /api/health 200 0.372 ms - 98
+# GET /api/boats?limit=6 200 5.911 ms - 565
+# GET /api/health 200 0.287 ms - 98
+# GET /api/boats?limit=6 200 4.815 ms - 565
+# GET /api/health 200 0.251 ms - 98
+# GET /api/boats?limit=6 200 4.682 ms - 565
+# GET /api/health 200 0.352 ms - 98
+# GET /api/boats?limit=6 200 6.557 ms - 565
+# GET /api/health 200 0.377 ms - 98
+# GET /api/boats?limit=6 200 7.287 ms - 565
+# GET /api/health 200 0.329 ms - 98
+# GET /api/boats?limit=6 200 5.101 ms - 565
+# Subtest: Public health and boats endpoints bypass global API rate limit
+ok 18 - Public health and boats endpoints bypass global API rate limit
+  ---
+  duration_ms: 271.611507
+  type: 'test'
+  ...
+# GET /api/boats?startDate=2026-10-29&endDate=2026-10-30 200 14.970 ms - 575
+# Subtest: Boats API: filters out boats unavailable for selected dates
+ok 19 - Boats API: filters out boats unavailable for selected dates
+  ---
+  duration_ms: 259.7483
+  type: 'test'
+  ...
+# GET /api/boats/slug/6ac7c1db20936d0c4a9e2dcb 200 12.150 ms - 678
+# Subtest: Boats API: exposes active booking dates as unavailable on boat detail
+ok 20 - Boats API: exposes active booking dates as unavailable on boat detail
+  ---
+  duration_ms: 291.743943
+  type: 'test'
+  ...
+# POST /api/auth/login 200 110.269 ms - 482
+# POST /api/auth/login 200 107.202 ms - 484
+# POST /api/auth/login 200 112.113 ms - 483
+# POST /api/bookings 201 37.568 ms - 664
+# POST /api/bookings 409 7.295 ms - 513
+# PATCH /api/bookings/6ac7c1db20936d0c4a9e2ded/accept 200 20.694 ms - 882
+# PATCH /api/bookings/6ac7c1db20936d0c4a9e2ded/pay 200 62.439 ms - 1001
+# PATCH /api/bookings/6ac7c1db20936d0c4a9e2ded/complete 200 26.792 ms - 450
+# Subtest: Bookings API: creates, accepts, pays and completes a booking while blocking overlaps
+ok 21 - Bookings API: creates, accepts, pays and completes a booking while blocking overlaps
+  ---
+  duration_ms: 892.003167
+  type: 'test'
+  ...
+# POST /api/auth/login 200 109.477 ms - 482
+# POST /api/auth/login 200 110.001 ms - 484
+# POST /api/bookings 201 17.377 ms - 664
+# PATCH /api/bookings/6ac7c1dc20936d0c4a9e2e32/accept 200 21.978 ms - 882
+# POST /api/payments/stripe/create-checkout-session 503 3.148 ms - 1363
+# Subtest: Payments API: Stripe checkout returns a clean error when Stripe is disabled
+ok 22 - Payments API: Stripe checkout returns a clean error when Stripe is disabled
+  ---
+  duration_ms: 511.96546
+  type: 'test'
+  ...
+# Subtest: Payments API: Stripe completion confirms booking once and generates invoice
+ok 23 - Payments API: Stripe completion confirms booking once and generates invoice
+  ---
+  duration_ms: 379.657685
+  type: 'test'
+  ...
+# POST /api/auth/login 200 124.112 ms - 482
+# POST /api/auth/login 200 124.218 ms - 482
+# POST /api/documents 201 11.486 ms - 320
+# PATCH /api/documents/6ac7c1dd20936d0c4a9e2e89/review 200 12.800 ms - 401
+# GET /api/auth/me/export 200 7.976 ms - 826
+# Subtest: Documents and RGPD API: owner submits a document, admin reviews it, user exports data
+ok 24 - Documents and RGPD API: owner submits a document, admin reviews it, user exports data
+  ---
+  duration_ms: 547.683285
+  type: 'test'
+  ...
+# POST /api/auth/login 200 150.868 ms - 484
+# POST /api/bookings 409 8.148 ms - 493
+# Subtest: Bookings API: rejects a booking when the owner marked a date unavailable
+ok 25 - Bookings API: rejects a booking when the owner marked a date unavailable
+  ---
+  duration_ms: 406.136548
+  type: 'test'
+  ...
+# POST /api/auth/login 200 125.894 ms - 484
+# POST /api/auth/login 200 131.208 ms - 482
+# POST /api/reviews 201 16.072 ms - 333
+# GET /api/boats/6ac7c1de20936d0c4a9e2ebf/reviews 200 3.293 ms - 2
+# PATCH /api/admin/reviews/6ac7c1de20936d0c4a9e2ec6/approve 200 33.074 ms - 334
+# GET /api/boats/6ac7c1de20936d0c4a9e2ebf/reviews 200 7.417 ms - 381
+# Subtest: Reviews API: tenant reviews a completed booking and admin approves the review
+ok 26 - Reviews API: tenant reviews a completed booking and admin approves the review
+  ---
+  duration_ms: 775.39346
+  type: 'test'
+  ...
+# GET /api/reviews/latest?limit=2 200 6.927 ms - 832
+# Subtest: Reviews API: latest public reviews are ordered by most recent approval update
+ok 27 - Reviews API: latest public reviews are ordered by most recent approval update
+  ---
+  duration_ms: 282.619051
+  type: 'test'
+  ...
+# POST /api/contact 201 13.863 ms - 135
+# Subtest: Contact API: stores message and triggers transactional email flow
+ok 28 - Contact API: stores message and triggers transactional email flow
+  ---
+  duration_ms: 33.211961
+  type: 'test'
+  ...
+# POST /api/newsletter/subscribe 200 10.506 ms - 191
+# Subtest: Newsletter API: subscribes a public email and updates existing user consent
+ok 29 - Newsletter API: subscribes a public email and updates existing user consent
+  ---
+  duration_ms: 157.663743
+  type: 'test'
+  ...
+# Subtest: slugify creates SEO-safe boat URLs
+ok 30 - slugify creates SEO-safe boat URLs
+  ---
+  duration_ms: 7.904913
+  type: 'test'
+  ...
+# Subtest: slugify removes accents and special characters
+ok 31 - slugify removes accents and special characters
+  ---
+  duration_ms: 1.613532
+  type: 'test'
+  ...
+# Subtest: slugify trims duplicated hyphens
+ok 32 - slugify trims duplicated hyphens
+  ---
+  duration_ms: 0.209596
+  type: 'test'
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15868.416357
+# start of coverage report
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# file                        | line % | branch % | funcs % | uncovered lines
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# src                         |        |          |         | 
+#  app.js                     |  87.77 |    61.11 |   62.50 | 34 45-46 59-62 64-67 139-145 179-183
+#  config                     |        |          |         | 
+#   email.js                  |  66.67 |    62.50 |   57.14 | 5 16-17 66-77 81-97 101-106
+#   stripe.js                 |  93.33 |    62.50 |  100.00 | 12-13
+#   swagger.js                | 100.00 |   100.00 |  100.00 | 
+#  controllers                |        |          |         | 
+#   adminController.js        |  59.55 |    43.53 |   69.70 | 39-40 64-65 91-94 107 109-115 200-202 214-216 229-258 260-269 275-277 283-292 320-322 325-327 331-333 356-358 361-363 385-399 403-460 464-477 523 526-530 544-562 574-576 578-580 582-584 587-589 638-640 642-644 646-648 651-653 686-708 712-723 729-731 746-761 765-780 784-827 833-835 837-839 842-844 857-869
+#   authController.js         |  80.50 |    55.00 |   77.78 | 22-24 48-50 65 75-76 89-94 141-156
+#   boatController.js         |  75.09 |    60.00 |   84.21 | 106-108 116-119 150-151 164-166 168-174 216-253 257-268 272-273
+#   bookingController.js      |  62.16 |    26.92 |   55.56 | 30-32 34-36 40-42 44-46 88-93 97-101 107-109 111-113 115-117 145-175 179-217 222-224 227-229 231-233 235-237 240-242 297-299 303-305 307-309
+#   contactController.js      |  62.82 |    40.00 |   33.33 | 40-49 53-71
+#   documentController.js     |  71.60 |    30.00 |   50.00 | 13-15 35-36 40-51 57-59 62-64
+#   newsletterController.js   |  92.00 |    33.33 |  100.00 | 11 18-20
+#   notificationController.js |  50.00 |   100.00 |    0.00 | 5-6 10-17
+#   paymentController.js      |  48.57 |    28.57 |   50.00 | 18-20 28-45 47-56 74-99 104-110 114-122 137-141 203-231 235-271
+#   reportController.js       |  22.06 |   100.00 |    0.00 | 7-21 25-36 40-65
+#   reviewController.js       |  78.57 |    44.44 |  100.00 | 9-11 13-15 17-19 22-24
+#   uploadController.js       |  41.67 |   100.00 |    0.00 | 5-6 10-21
+#   userController.js         |  27.66 |   100.00 |    0.00 | 5 9-15 19-44
+#  middleware                 |        |          |         | 
+#   authMiddleware.js         |  58.00 |    30.00 |  100.00 | 11-13 18-20 24-26 33-34 37-45 47
+#   errorMiddleware.js        |  54.17 |    50.00 |   50.00 | 2-4 10-17
+#   roleMiddleware.js         | 100.00 |   100.00 |  100.00 | 
+#   uploadMiddleware.js       |  64.41 |   100.00 |   14.29 | 9 13-17 22-25 28-30 40-45 55-56
+#   validateMiddleware.js     |  52.94 |    66.67 |   50.00 | 6-13
+#   validators.js             |  98.73 |    71.43 |  100.00 | 65-66
+#  models                     |        |          |         | 
+#   AdminActionLog.js         | 100.00 |   100.00 |  100.00 | 
+#   Boat.js                   | 100.00 |   100.00 |  100.00 | 
+#   Booking.js                | 100.00 |   100.00 |  100.00 | 
+#   ContactMessage.js         | 100.00 |   100.00 |  100.00 | 
+#   NewsletterSubscriber.js   | 100.00 |   100.00 |  100.00 | 
+#   Notification.js           | 100.00 |   100.00 |  100.00 | 
+#   OwnerDocument.js          | 100.00 |   100.00 |  100.00 | 
+#   Payment.js                | 100.00 |   100.00 |  100.00 | 
+#   Report.js                 | 100.00 |   100.00 |  100.00 | 
+#   Review.js                 | 100.00 |   100.00 |  100.00 | 
+#   User.js                   | 100.00 |   100.00 |  100.00 | 
+#  routes                     |        |          |         | 
+#   adminRoutes.js            | 100.00 |   100.00 |  100.00 | 
+#   authRoutes.js             | 100.00 |   100.00 |  100.00 | 
+#   boatRoutes.js             | 100.00 |   100.00 |  100.00 | 
+#   bookingRoutes.js          | 100.00 |   100.00 |  100.00 | 
+#   contactRoutes.js          | 100.00 |   100.00 |  100.00 | 
+#   demoRoutes.js             |  27.78 |   100.00 |    0.00 | 9-22 26-53 57-68 72-82
+#   documentRoutes.js         |  95.12 |    50.00 |  100.00 | 26-27
+#   newsletterRoutes.js       | 100.00 |   100.00 |  100.00 | 
+#   notificationRoutes.js     | 100.00 |   100.00 |  100.00 | 
+#   paymentRoutes.js          | 100.00 |   100.00 |  100.00 | 
+#   reportRoutes.js           | 100.00 |   100.00 |  100.00 | 
+#   reviewRoutes.js           | 100.00 |   100.00 |  100.00 | 
+#   uploadRoutes.js           | 100.00 |   100.00 |  100.00 | 
+#   userRoutes.js             | 100.00 |   100.00 |  100.00 | 
+#  seed                       |        |          |         | 
+#   repairBoats.js            |  72.22 |    66.67 |  100.00 | 39-49 79-97
+#  services                   |        |          |         | 
+#   emailService.js           |  65.68 |    83.33 |   60.87 | 9-13 17-50 54-64 79-95 97-102 173-176 204-207
+#   emailTemplates.js         |  88.22 |    55.32 |   82.14 | 100-109 113-122 234-240 271-274 279-288
+#   invoiceService.js         | 100.00 |    45.00 |  100.00 | 
+#   turnstileService.js       |  50.00 |    50.00 |  100.00 | 9-27 31-32 42-45
+#  utils                      |        |          |         | 
+#   adminActionLog.js         | 100.00 |    66.67 |  100.00 | 
+#   asyncHandler.js           | 100.00 |   100.00 |  100.00 | 
+#   bookingAvailability.js    | 100.00 |    90.91 |   83.33 | 
+#   calculateBookingPrice.js  | 100.00 |   100.00 |  100.00 | 
+#   createNotification.js     | 100.00 |    66.67 |  100.00 | 
+#   ensureUniqueSlug.js       |  85.71 |    66.67 |  100.00 | 14-16
+#   generateToken.js          | 100.00 |    66.67 |  100.00 | 
+#   paginate.js               | 100.00 |   100.00 |  100.00 | 
+#   recalculateBoatRating.js  | 100.00 |    75.00 |  100.00 | 
+#   slugify.js                | 100.00 |    42.86 |  100.00 | 
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# all files                   |  74.70 |    56.39 |   69.70 | 
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# end of coverage report
