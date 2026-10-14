@@ -285,7 +285,7 @@ const getPublicStats = asyncHandler(async (req, res) => {
   const Review = require('../models/Review');
   const [boats, ports, trips, reviews] = await Promise.all([
     Boat.countDocuments({ status: 'approved' }),
-    Boat.distinct('location', { status: 'approved' }),
+    Boat.distinct('port', { status: 'approved', port: { $nin: [null, ''] } }),
     Booking.countDocuments({ status: { $in: ['confirmed', 'completed'] } }),
     Review.find({ status: 'approved' }).select('rating').lean(),
   ]);

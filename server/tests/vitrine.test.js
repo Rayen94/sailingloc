@@ -38,7 +38,7 @@ const boatData = (owner, overrides) => ({
   type: 'sailboat',
   description: 'Bateau de test suffisamment décrit pour valider les règles.',
   location: overrides.location,
-  port: 'Port de test',
+  port: overrides.port,
   pricePerDay: 200,
   capacity: 6,
   images: ['https://example.com/boat.jpg'],
@@ -66,10 +66,10 @@ test('Accueil : les chiffres clés sont calculés depuis la base (bateaux, ports
     role: 'tenant',
   });
   const [boatA, boatB] = await Boat.create([
-    boatData(owner._id, { title: 'Voilier A', location: 'Marseille' }),
-    boatData(owner._id, { title: 'Voilier B', location: 'Marseille' }),
-    boatData(owner._id, { title: 'Voilier C', location: 'Brest' }),
-    boatData(owner._id, { title: 'Voilier en attente', location: 'Nice', status: 'pending' }),
+    boatData(owner._id, { title: 'Voilier A', location: 'Marseille', port: 'Vieux-Port' }),
+    boatData(owner._id, { title: 'Voilier B', location: 'Marseille', port: 'Vieux-Port' }),
+    boatData(owner._id, { title: 'Voilier C', location: 'Brest', port: 'Port du Château' }),
+    boatData(owner._id, { title: 'Voilier en attente', location: 'Nice', port: 'Port Lympia', status: 'pending' }),
   ]);
 
   const bookingBase = {

@@ -150,7 +150,7 @@ const ForgotPasswordPage = () => {
             entre particuliers.
           </p>
           <p className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
-            +1 200 bateaux disponibles dans toute la France et l'Europe.
+            Voiliers, catamarans et bateaux à moteur, loués entre particuliers.
           </p>
         </div>
       </div>
