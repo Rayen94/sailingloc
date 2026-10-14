@@ -23,7 +23,7 @@ if (existsSync(summaryPath)) {
     shell: process.platform === 'win32',
   });
 } else {
-  console.log('Aucun resume k6 genere. Verifie la connectivite reseau ou relance depuis ton terminal local.');
+  console.log('Aucun résumé k6 généré. Vérifie la connexion réseau ou relance depuis ton terminal local.');
 }
 
 process.exitCode = k6.status || 0;

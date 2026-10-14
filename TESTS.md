@@ -1,4 +1,4 @@
-# TESTS.md — SailingLoc Manuel de test
+# TESTS.md — Manuel de test de SailingLoc
 
 Scénarios de test manuels pour valider les fonctionnalités principales du MVP SailingLoc.
 
@@ -9,7 +9,7 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 1. MongoDB démarré localement
 2. Serveur démarré : `cd server && npm run dev`
 3. Client démarré : `cd client && npm run dev`
-4. Base de données seeded : `cd server && npm run seed`
+4. Base de données remplie avec les données de démonstration : `cd server && npm run seed`
 5. Navigateur ouvert sur **http://localhost:5173**
 
 ---
@@ -18,12 +18,12 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 
 **Action :**
 - Aller sur `/register`
-- Remplir : Prénom `Test`, Nom `User`, Email `test@example.com`, Mot de passe `Test123!`, Rôle `Locataire`
+- Remplir : Prénom `Test`, Nom `User`, E-mail `test@example.com`, Mot de passe `Test123!`, Rôle `Locataire`
 - Cliquer "S'inscrire"
 
 **Résultat attendu :**
 - Redirection vers la page d'accueil
-- L'utilisateur est connecté (nom visible dans le header)
+- L'utilisateur est connecté (nom visible dans l'en-tête)
 - Rôle "Locataire" dans le menu
 
 ---
@@ -33,13 +33,13 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 **Action :**
 - Se déconnecter si connecté
 - Aller sur `/login`
-- Email : `tenant1@sailingloc.fr` / Mot de passe : `Tenant123!`
+- E-mail : `tenant1@sailingloc.fr` / Mot de passe : `Tenant123!`
 - Cliquer "Se connecter"
 
 **Résultat attendu :**
 - Redirection vers la page d'accueil
-- Prénom "Jean" visible dans le header
-- Menu affiche "Mes réservations"
+- Prénom "Jean" visible dans l'en-tête
+- Le menu affiche "Mes réservations"
 
 ---
 
@@ -48,12 +48,12 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 **Action :**
 - Aller sur `/boats`
 - Appliquer le filtre "Catamaran"
-- Puis filtrer par location "Nice"
+- Puis filtrer par lieu "Nice"
 
 **Résultat attendu :**
 - Affichage des bateaux avec statut `approved` uniquement
-- Filtre "Catamaran" réduit la liste
-- Filtre "Nice" affiche le Lagoon 42
+- Le filtre "Catamaran" réduit la liste
+- Le filtre "Nice" affiche le Lagoon 42
 - Les cartes affichent : titre, lieu, prix/jour, capacité, type
 
 ---
@@ -63,14 +63,14 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 **Action :**
 - Connecté en tant que `tenant1@sailingloc.fr`
 - Aller sur `/boats` → Cliquer sur "Sun Odyssey 349"
-- Dans le formulaire de réservation : choisir des dates futures (ex: demain + 3 jours)
+- Dans le formulaire de réservation : choisir des dates futures (par exemple : de demain à dans 3 jours)
 - Cliquer "Demander une réservation"
 
 **Résultat attendu :**
 - Message de confirmation affiché
 - Redirection vers `/my-bookings`
 - Nouvelle réservation visible avec statut `En attente`
-- Prix total = (pricePerDay × jours) + 10% de frais de service
+- Prix total = (pricePerDay × jours) + 10 % de frais de service
 
 ---
 
@@ -83,9 +83,9 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 - Cliquer "Payer maintenant"
 
 **Résultat attendu :**
-- Statut passe de `Acceptée` à `Confirmée`
-- Statut de paiement devient `Payé`
-- Bouton "Payer maintenant" disparaît
+- Le statut passe de `Acceptée` à `Confirmée`
+- Le statut de paiement devient `Payé`
+- Le bouton "Payer maintenant" disparaît
 
 ---
 
@@ -97,7 +97,7 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 
 **Résultat attendu :**
 - Redirection vers `/owner/dashboard`
-- Sidebar propriétaire visible (Tableau de bord, Mes bateaux, Réservations)
+- Menu latéral du propriétaire visible (Tableau de bord, Mes bateaux, Réservations)
 - Statistiques : nombre de bateaux, réservations en attente, revenus
 
 ---
@@ -107,7 +107,7 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 **Action :**
 - Connecté en tant que propriétaire
 - Aller sur `/owner/boats/new`
-- Remplir : Titre `Voilier Test`, Type `Voilier`, Description (>10 chars), Location `Toulon`, Prix `200`, Capacité `4`
+- Remplir : Titre `Voilier Test`, Type `Voilier`, Description (plus de 10 caractères), Lieu `Toulon`, Prix `200`, Capacité `4`
 - Cliquer "Publier le bateau"
 
 **Résultat attendu :**
@@ -125,7 +125,7 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 
 **Résultat attendu :**
 - Le bateau créé montre le badge `En attente`
-- Si on tente de l'accéder via `/boats/:id` en tant que visiteur → 404 ou message d'erreur
+- Si on tente d'y accéder via `/boats/:id` en tant que visiteur → 404 ou message d'erreur
 
 ---
 
@@ -137,7 +137,7 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 
 **Résultat attendu :**
 - Redirection vers `/admin/dashboard`
-- Sidebar admin visible (Tableau de bord, Utilisateurs, Bateaux, Réservations, Avis)
+- Menu latéral de l'administrateur visible (Tableau de bord, Utilisateurs, Bateaux, Réservations, Avis)
 - Statistiques : total utilisateurs, bateaux, réservations, revenus simulés
 
 ---
@@ -169,7 +169,7 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 
 ---
 
-## Test 12 — Propriétaire accepte une réservation
+## Test 12 — Le propriétaire accepte une réservation
 
 **Action :**
 - Connecté en `owner1@sailingloc.fr`
@@ -183,22 +183,22 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 
 ---
 
-## Test 13 — Locataire paie une réservation
+## Test 13 — Le locataire paie une réservation
 
 **Action :**
-- Se connecter en tant que le locataire correspondant
+- Se connecter avec le compte du locataire correspondant
 - Aller sur `/my-bookings`
 - Trouver la réservation au statut `Acceptée`
 - Cliquer "Payer maintenant"
 
 **Résultat attendu :**
 - Statut → `Confirmée`
-- Statut paiement → `Payé`
+- Statut du paiement → `Payé`
 - Le bouton de paiement disparaît
 
 ---
 
-## Test 14 — Administration modère un avis
+## Test 14 — L'administrateur modère un avis
 
 **Action :**
 - Connecté en tant qu'admin
@@ -229,24 +229,24 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 
 **Action :**
 - Ouvrir les outils développeur du navigateur
-- Passer en mode responsive (ex: iPhone 375px de largeur)
+- Passer en mode responsive (par exemple un iPhone de 375 px de largeur)
 - Naviguer sur : accueil, liste des bateaux, détail bateau, connexion
 
 **Résultat attendu :**
 - Menu hamburger visible sur mobile
 - Les cartes bateaux s'affichent en une colonne
 - Le formulaire de réservation est lisible
-- Footer et navigation sont utilisables
+- Le pied de page et la navigation sont utilisables
 
 ---
 
-## Tests supplémentaires (edge cases)
+## Tests supplémentaires (cas limites)
 
 ### Réservation impossible sans connexion
 - Aller sur `/boats/:id` sans être connecté
 - Le formulaire de réservation affiche "Connectez-vous pour réserver"
 
-### Propriétaire ne peut pas réserver son propre bateau
+### Un propriétaire ne peut pas réserver son propre bateau
 - Connecté en tant que propriétaire
 - Accéder à la fiche d'un de ses bateaux
 - Le formulaire de réservation indique "Les propriétaires ne peuvent pas réserver"
@@ -259,4 +259,4 @@ Scénarios de test manuels pour valider les fonctionnalités principales du MVP 
 ### Annulation d'une réservation
 - Locataire : annuler une réservation `En attente` ou `Acceptée`
 - Le statut passe à `Annulée`
-- Si payée, le statut paiement passe à `Remboursé`
+- Si elle est payée, le statut du paiement passe à `Remboursé`

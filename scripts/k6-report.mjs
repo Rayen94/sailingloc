@@ -20,7 +20,7 @@ const value = (metric, key, fallback = 0) => {
 };
 const count = (metric) => Math.round(value(metric, 'count'));
 const ms = (number) => `${Number(number || 0).toFixed(0)} ms`;
-const percent = (number) => `${(Number(number || 0) * 100).toFixed(2)}%`;
+const percent = (number) => `${(Number(number || 0) * 100).toFixed(2).replace('.', ',')} %`;
 
 const failedRate = value('http_req_failed', 'rate');
 const checksRate = value('checks', 'rate');
@@ -29,36 +29,36 @@ const avg = value('http_req_duration', 'avg');
 
 const status =
   failedRate < 0.08 && checksRate > 0.92
-    ? 'Acceptable pour une demo MVP sur hebergement gratuit'
-    : 'A surveiller: limites atteintes sur hebergement gratuit';
+    ? 'Acceptable pour une démonstration du MVP sur un hébergement gratuit'
+    : 'À surveiller : limites atteintes sur l\'hébergement gratuit';
 
-const report = `# Rapport k6 SailingLoc - Demo oral
+const report = `# Rapport k6 SailingLoc - Démonstration de l'oral
 
-Rapport genere le : ${now}${process.env.TEST_DATE ? `\n\nDate du test : ${process.env.TEST_DATE}` : ''}
+Rapport généré le : ${now}${process.env.TEST_DATE ? `\n\nDate du test : ${process.env.TEST_DATE}` : ''}
 
 ## Objectif
 
-Verifier que les pages publiques et endpoints critiques restent accessibles sous une charge moderee compatible avec Render gratuit.
+Vérifier que les pages publiques et les points d'accès critiques de l'API restent accessibles sous une charge modérée, compatible avec l'offre gratuite de Render.
 
-## Resultats
+## Résultats
 
 | Indicateur | Valeur |
 | --- | ---: |
-| Requetes HTTP | ${count('http_reqs')} |
-| Duree moyenne | ${ms(avg)} |
-| P95 global | ${ms(p95)} |
-| Taux erreurs HTTP | ${percent(failedRate)} |
-| Checks reussis | ${percent(checksRate)} |
+| Requêtes HTTP | ${count('http_reqs')} |
+| Durée moyenne | ${ms(avg)} |
+| p95 global | ${ms(p95)} |
+| Taux d'erreurs HTTP | ${percent(failedRate)} |
+| Contrôles réussis | ${percent(checksRate)} |
 
 ## Conclusion
 
 ${status}.
 
-## Lecture soutenance
+## Lecture pour la soutenance
 
-Ce test ne valide pas 10 000 utilisateurs pendant 24h. Il valide un parcours public realistement testable sur une infrastructure gratuite. Les tests lourds doivent etre executes sur une infrastructure dediee avec quotas reseau et base de donnees adaptes.
+Ce test ne valide pas 10 000 utilisateurs pendant 24 h. Il valide un parcours public qu'il est réaliste de tester sur une infrastructure gratuite. Les tests lourds doivent être exécutés sur une infrastructure dédiée, avec des quotas réseau et une base de données adaptés.
 `;
 
 mkdirSync(path.dirname(output), { recursive: true });
 writeFileSync(output, report, 'utf8');
-console.log(`Rapport k6 genere: ${output}`);
+console.log(`Rapport k6 généré : ${output}`);

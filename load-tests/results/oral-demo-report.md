@@ -1,27 +1,27 @@
-# Rapport k6 SailingLoc - Demo oral
+# Rapport k6 SailingLoc - Démonstration de l'oral
 
-Rapport genere le : 2026-10-08T16:50:27.529Z
+Rapport généré le : 2026-10-08T16:50:27.529Z
 
-Date du test : 10/08/2026 vers 20 h 55 (heure de Paris), sur Render, avant le correctif du limiteur de requetes
+Date du test : 10/08/2026 vers 20 h 55 (heure de Paris), sur Render, avant le correctif du limiteur de requêtes
 
 ## Objectif
 
-Verifier que les pages publiques et endpoints critiques restent accessibles sous une charge moderee compatible avec Render gratuit.
+Vérifier que les pages publiques et les points d'accès critiques de l'API restent accessibles sous une charge modérée, compatible avec l'offre gratuite de Render.
 
-## Resultats
+## Résultats
 
 | Indicateur | Valeur |
 | --- | ---: |
-| Requetes HTTP | 1155 |
-| Duree moyenne | 294 ms |
-| P95 global | 844 ms |
-| Taux erreurs HTTP | 49.35% |
-| Checks reussis | 55.64% |
+| Requêtes HTTP | 1155 |
+| Durée moyenne | 294 ms |
+| p95 global | 844 ms |
+| Taux d'erreurs HTTP | 49,35 % |
+| Contrôles réussis | 55,64 % |
 
 ## Conclusion
 
-A surveiller: limites atteintes sur hebergement gratuit.
+À surveiller : limites atteintes sur l'hébergement gratuit.
 
-## Lecture soutenance
+## Lecture pour la soutenance
 
-Ce test ne valide pas 10 000 utilisateurs pendant 24h. Il valide un parcours public realistement testable sur une infrastructure gratuite. Les tests lourds doivent etre executes sur une infrastructure dediee avec quotas reseau et base de donnees adaptes.
+Ce test ne valide pas 10 000 utilisateurs pendant 24 h. Il valide un parcours public qu'il est réaliste de tester sur une infrastructure gratuite. Les tests lourds doivent être exécutés sur une infrastructure dédiée, avec des quotas réseau et une base de données adaptés.

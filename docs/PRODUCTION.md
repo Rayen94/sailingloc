@@ -1,28 +1,28 @@
 # Production SailingLoc
 
-SailingLoc est une application React/Vite + API Express + MongoDB. En production, le client est servi par un serveur statique ou Nginx, l API Express tourne derrière HTTPS/reverse proxy, et MongoDB doit être hébergé sur un service managé ou un serveur sauvegardé.
+SailingLoc est une application React/Vite + API Express + MongoDB. En production, le client est servi par un serveur statique ou Nginx, l'API Express tourne derrière HTTPS/reverse proxy, et MongoDB doit être hébergé sur un service managé ou un serveur sauvegardé.
 
-## Variables d environnement
+## Variables d'environnement
 
 Voir `.env.production.example`.
 
 - `NODE_ENV=production`
 - `PORT=5000`
-- `MONGO_URI`: URI MongoDB de production.
-- `JWT_SECRET`: secret long, aléatoire, non commité.
-- `JWT_EXPIRES_IN`: durée de vie des JWT.
-- `CLIENT_URL`: URL publique du front pour CORS.
-- `FRONTEND_URL`: URL publique utilisée pour générer les liens de réinitialisation de mot de passe.
-- `SERVER_URL`: URL publique de l API pour Swagger et liens.
-- `PAYMENT_MODE`: `simulated` pour la démo, `stripe` pour forcer le paiement réel.
-- `STRIPE_ENABLED`, `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_CURRENCY`: configuration Stripe Checkout. `STRIPE_WEBHOOK_SECRET` est optionnel dans le mode simplifié sans webhook.
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `SMTP_SECURE`: configuration SMTP pour les e-mails de mot de passe oublié.
-- `VITE_TURNSTILE_SITE_KEY`: clé publique Cloudflare Turnstile utilisée par le frontend.
-- `TURNSTILE_SECRET_KEY`: clé secrète Cloudflare Turnstile utilisée par le backend pour vérifier les formulaires publics.
-- `UPLOAD_DIR`: dossier local des fichiers uploadés.
-- `MAX_FILE_SIZE_MB`: limite d upload.
-- `RATE_LIMIT_WINDOW_MS` et `RATE_LIMIT_MAX`: limitation anti-abus.
-- `LOG_LEVEL`: niveau de journalisation attendu.
+- `MONGO_URI` : URI MongoDB de production.
+- `JWT_SECRET` : secret long, aléatoire, non commité.
+- `JWT_EXPIRES_IN` : durée de vie des JWT.
+- `CLIENT_URL` : URL publique du front pour CORS.
+- `FRONTEND_URL` : URL publique utilisée pour générer les liens de réinitialisation de mot de passe.
+- `SERVER_URL` : URL publique de l'API pour Swagger et liens.
+- `PAYMENT_MODE` : `simulated` pour la démo, `stripe` pour forcer le paiement réel.
+- `STRIPE_ENABLED`, `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_CURRENCY` : configuration Stripe Checkout. `STRIPE_WEBHOOK_SECRET` est optionnel dans le mode simplifié sans webhook.
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `SMTP_SECURE` : configuration SMTP pour les e-mails de mot de passe oublié.
+- `VITE_TURNSTILE_SITE_KEY` : clé publique Cloudflare Turnstile utilisée par le frontend.
+- `TURNSTILE_SECRET_KEY` : clé secrète Cloudflare Turnstile utilisée par le backend pour vérifier les formulaires publics.
+- `UPLOAD_DIR` : dossier local des fichiers uploadés.
+- `MAX_FILE_SIZE_MB` : taille maximale d'un fichier envoyé.
+- `RATE_LIMIT_WINDOW_MS` et `RATE_LIMIT_MAX` : limitation anti-abus.
+- `LOG_LEVEL` : niveau de journalisation attendu.
 
 ## Déploiement Docker
 
@@ -60,12 +60,12 @@ Pages protégées par captcha : contact, inscription, newsletter. La connexion a
 - Garder CORS limité à `CLIENT_URL`.
 - Ne jamais commiter `.env`.
 - Auditer les dépendances avant production.
-- Limiter la taille et les types d uploads.
-- Scanner les fichiers si l application devient publique.
+- Limiter la taille et les types des fichiers envoyés.
+- Scanner les fichiers si l'application devient publique.
 
 ## Uploads
 
-L upload local est suffisant pour la démo. En production, utiliser un stockage objet privé type S3, Azure Blob, GCS ou Cloudinary avec URLs signées.
+L'envoi de fichiers en local est suffisant pour la démo. En production, utiliser un stockage objet privé type S3, Azure Blob, GCS ou Cloudinary avec URLs signées.
 
 ## Monitoring et logs
 
@@ -77,13 +77,13 @@ Utiliser `mongodump`/`mongorestore` ou les backups automatiques du fournisseur M
 
 ## Hébergement recommandé
 
-- Front: Netlify, Vercel, Nginx, Render static.
-- API: Render, Railway, Fly.io, VPS avec PM2.
-- DB: MongoDB Atlas ou MongoDB managé.
+- Front : Netlify, Vercel, Nginx, Render static.
+- API : Render, Railway, Fly.io, VPS avec PM2.
+- Base de données : MongoDB Atlas ou MongoDB managé.
 
-## Brevo API configuration on Render
+## Configuration de l'API Brevo sur Render
 
-Les emails transactionnels utilisent Brevo API par défaut sur Render. L'API HTTPS passe par le port 443 et évite les timeouts SMTP possibles sur certains hébergeurs. SMTP reste disponible en fallback avec `EMAIL_MODE=smtp`. Les secrets doivent être configures uniquement dans Render, onglet `Environment` du Web Service :
+Les e-mails transactionnels utilisent l'API Brevo par défaut sur Render. L'API HTTPS passe par le port 443 et évite les timeouts SMTP possibles sur certains hébergeurs. SMTP reste disponible en fallback avec `EMAIL_MODE=smtp`. Les secrets doivent être configurés uniquement dans Render, onglet `Environment` du Web Service :
 
 ```env
 EMAIL_PROVIDER=brevo
@@ -120,6 +120,6 @@ Stripe doit être configuré uniquement dans les variables d'environnement Rende
 
 Pour une production avec argent réel, ajouter ensuite un webhook Stripe signé afin de confirmer aussi les paiements si l'utilisateur ferme son navigateur avant le retour sur le site.
 
-### Brevo IP / authorized sender note
+### Note sur l'adresse IP et l'expéditeur autorisé (Brevo)
 
-Le code ne peut pas forcer Brevo a accepter une IP Render dynamique. Si Brevo demande une validation d'expéditeur ou de domaine, elle doit être faite manuellement dans le dashboard Brevo. Le mode API limite les problèmes de ports SMTP bloques, mais l'expéditeur ou le domaine doit rester vérifié dans Brevo.
+Le code ne peut pas forcer Brevo à accepter une IP Render dynamique. Si Brevo demande une validation d'expéditeur ou de domaine, elle doit être faite manuellement dans le dashboard Brevo. Le mode API limite les problèmes de ports SMTP bloqués, mais l'expéditeur ou le domaine doit rester vérifié dans Brevo.

@@ -18,11 +18,11 @@
 | `lighthouse/2026-10-14-*.json` | Lighthouse relancé après les corrections du 14/10 (accueil et catalogue) |
 
 
-Ce dossier sert a stocker les preuves de soutenance générées localement :
+Ce dossier sert à stocker les preuves de soutenance générées localement :
 
 - rapports Lighthouse ;
 - exports accessibilité ;
-- captures écran Playwright ;
+- captures d'écran Playwright ;
 - résultats de test de charge.
 
 Les fichiers lourds générés automatiquement peuvent rester locaux et être fournis dans le dossier de rendu final.
