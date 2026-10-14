@@ -194,8 +194,8 @@ SERVER_URL=http://localhost:5000
   la CI dès que les branches sont sur GitHub), campagne de tests de charge k6
   (`load-tests/results/2026-10-08-local`). Rapports dans `docs/reports`.
 - SEO : une adresse inconnue renvoie un vrai code 404 (avant : 200).
-- Page d'accueil : chiffres clés calculés depuis la base (`GET /api/boats/stats`) et seuls les vrais avis
-  publiés sont affichés (avant : chiffres et avis d'exemple écrits dans le code).
+- Accueil et connexion : chiffres clés calculés depuis la base (`GET /api/boats/stats`), seuls les vrais avis
+  publiés sont affichés, accroche vérifiable (avant : chiffres, avis et « n°1 en France » écrits dans le code).
 - Paiement : paramètre Stripe `payment_method_types` retiré (supprimé par l'API Stripe du 2026-09-30).
 - Textes : accents corrigés dans les messages du site, des e-mails et de la facture PDF.
 - Maintenance : Dependabot, audit de sécurité dans l'intégration continue, modèles de tickets GitHub.
