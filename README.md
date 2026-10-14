@@ -189,9 +189,14 @@ SERVER_URL=http://localhost:5000
 - Accessibilité et SEO : contrastes, lien d'évitement, titres, textes alternatifs, une seule meta description
   (Lighthouse : 100/100 en accessibilité et en SEO sur l'accueil et la page Bateaux, rapports dans `docs/reports/lighthouse`).
 - Performance : compression gzip, cache de la liste des bateaux limité, index MongoDB.
-- Tests : 57 tests serveur (couverture 80 % des lignes), 13 tests E2E réussis sur Chromium (Firefox et WebKit
-  configurés, lancés par la CI dès que les branches sont sur GitHub), campagne de tests de charge k6
+- Tests (relancés le 14/10/2026 avec Node 24) : 60 tests serveur (couverture 80 % des lignes), 19 tests
+  unitaires du site avec Vitest, 13 tests E2E réussis sur Chromium (Firefox et WebKit configurés, lancés par
+  la CI dès que les branches sont sur GitHub), campagne de tests de charge k6
   (`load-tests/results/2026-10-08-local`). Rapports dans `docs/reports`.
+- SEO : une adresse inconnue renvoie un vrai code 404 (avant : 200).
+- Page d'accueil : chiffres clés calculés depuis la base (`GET /api/boats/stats`) et seuls les vrais avis
+  publiés sont affichés (avant : chiffres et avis d'exemple écrits dans le code).
+- Paiement : paramètre Stripe `payment_method_types` retiré (supprimé par l'API Stripe du 2026-09-30).
 - Textes : accents corrigés dans les messages du site, des e-mails et de la facture PDF.
 - Maintenance : Dependabot, audit de sécurité dans l'intégration continue, modèles de tickets GitHub.
 
@@ -254,7 +259,7 @@ Healthcheck :
 
 ## Tests
 
-Backend complet (57 tests) et couverture :
+Backend complet (60 tests) et couverture :
 
 ```bash
 cd server
@@ -267,6 +272,14 @@ Tests admin critiques :
 ```bash
 cd server
 npm run test:admin
+```
+
+Tests unitaires du site (19 tests, Vitest et Testing Library) et couverture :
+
+```bash
+cd client
+npm test
+npm run test:coverage
 ```
 
 E2E Playwright (13 tests, configurés pour Chromium, Firefox et WebKit) :
@@ -297,6 +310,7 @@ Le pipeline `.github/workflows/ci.yml` s'exécute sur `push` et `pull_request`, 
 - audit de sécurité des dépendances de production (échec si faille haute ou critique) ;
 - lint et contrôle de la mise en forme ;
 - tests serveur avec couverture ;
+- tests unitaires du site avec couverture (Vitest) ;
 - construction du client ;
 - tests E2E Playwright sur Chromium, Firefox et WebKit.
 
