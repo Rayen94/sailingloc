@@ -97,12 +97,7 @@
     },
     "reviewsEyebrow": "Témoignages",
     "reviewsTitle": "Ils ont navigué avec SailingLoc",
-    "reviewAria": "5 sur 5",
-    "reviews": {
-      "marie": "Le voilier était impeccable. Réservation simple et propriétaire très réactif.",
-      "thomas": "Parfait pour une sortie en famille. Le bateau correspondait exactement à l'annonce.",
-      "sarah": "Très bonne expérience, paiement clair et support rassurant avant le départ."
-    },
+    "reviewAria": "{{rating}} sur 5",
     "trust": {
       "owners": "Propriétaires vérifiés",
       "support": "Support réservation",

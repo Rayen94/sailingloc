@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   getBoats,
+  getPublicStats,
   getBoatBySlug,
   getBoatByIdentifier,
   createBoat,
@@ -15,6 +16,7 @@ const { validate } = require('../middleware/validateMiddleware');
 const { mongoId, pagination, boatRules, updateBoatRules } = require('../middleware/validators');
 
 router.get('/', pagination, validate, getBoats);
+router.get('/stats', getPublicStats);
 router.get('/owner/my-boats', protect, requireRole('owner', 'admin'), getOwnerBoats);
 router.get('/slug/:slug', optionalProtect, getBoatBySlug);
 router.get('/:identifier', optionalProtect, getBoatByIdentifier);

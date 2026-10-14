@@ -92,12 +92,7 @@
     },
     "reviewsEyebrow": "Erfahrungen",
     "reviewsTitle": "Sie sind mit SailingLoc gesegelt",
-    "reviewAria": "5 von 5",
-    "reviews": {
-      "marie": "Das Segelboot war tadellos. Die Buchung war einfach und der Eigentümer sehr reaktionsschnell.",
-      "thomas": "Perfekt für einen Familienausflug. Das Boot entsprach genau der Anzeige.",
-      "sarah": "Sehr gute Erfahrung, klare Zahlung und beruhigender Support vor der Abfahrt."
-    },
+    "reviewAria": "{{rating}} von 5",
     "trust": {
       "owners": "Geprüfte Eigentümer",
       "support": "Buchungssupport",

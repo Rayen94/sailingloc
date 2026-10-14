@@ -279,8 +279,26 @@ const getOwnerBoats = asyncHandler(async (req, res) => {
   res.json(boats);
 });
 
+// Chiffres clés de la page d'accueil, calculés depuis la base (et non écrits en dur).
+// La moyenne est calculée en JavaScript pour rester compatible avec toutes les bases de test.
+const getPublicStats = asyncHandler(async (req, res) => {
+  const Review = require('../models/Review');
+  const [boats, ports, trips, reviews] = await Promise.all([
+    Boat.countDocuments({ status: 'approved' }),
+    Boat.distinct('location', { status: 'approved' }),
+    Booking.countDocuments({ status: { $in: ['confirmed', 'completed'] } }),
+    Review.find({ status: 'approved' }).select('rating').lean(),
+  ]);
+  const ratings = reviews.map((review) => Number(review.rating)).filter((rating) => rating > 0);
+  const averageRating = ratings.length
+    ? Math.round((ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length) * 10) / 10
+    : null;
+  res.json({ boats, ports: ports.length, trips, averageRating, reviewCount: ratings.length });
+});
+
 module.exports = {
   getBoats,
+  getPublicStats,
   getBoatById: getBoatByIdentifier,
   getBoatBySlug: getBoatByIdentifier,
   getBoatByIdentifier,
