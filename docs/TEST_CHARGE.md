@@ -2,18 +2,18 @@
 
 ## Objectif
 
-Valider que le MVP SailingLoc reste stable sur les parcours publics les plus consultes :
+Valider que le MVP SailingLoc reste stable sur les parcours publics les plus consultés :
 
 - page d'accueil ;
 - catalogue bateaux ;
 - healthcheck API ;
 - endpoint API catalogue.
 
-Le test ne remplace pas un audit performance production. Il fournit une preuve de soutenance sur la stabilité du service déployé.
+Le test ne remplace pas un audit de performance en production. Il fournit une preuve de soutenance sur la stabilité du service déployé.
 
 ## Outil retenu
 
-`k6`, car il est simple a installer, scriptable en JavaScript et adapte aux tests HTTP.
+`k6`, car il est simple à installer, programmable en JavaScript et adapté aux tests HTTP.
 
 ## Installation
 
@@ -54,7 +54,7 @@ Le scénario `progressive_load` simule :
 | Charge soutenue MVP | 1 min | 30 |
 | Descente | 30 s | 0 |
 
-## Seuils acceptes
+## Seuils acceptés
 
 | Indicateur | Seuil |
 | --- | --- |
@@ -62,19 +62,14 @@ Le scénario `progressive_load` simule :
 | p95 temps de réponse | < 1200 ms |
 | Checks fonctionnels | > 95 % |
 
-## Résultats a reporter
+## Résultats
 
-Après exécution, copier ici les lignes k6 importantes :
+Campagne du 08/10/2026 (7 tests k6, machine de test) : voir `load-tests/results/2026-10-08-local/README.md`.
+Le scénario progressif ci-dessus (test C) a donné 0 % d'erreur sur 4 888 requêtes. Le rapport complet, avec
+l'analyse des 49 % d'erreurs du test d'août sur Render (refus du limiteur de requêtes, corrigé), est dans le
+livrable 15.
 
-```txt
-checks.........................:
-http_req_failed................:
-http_req_duration..............:
-iterations.....................:
-vus_max........................:
-```
-
-## Interprétation soutenance
+## Interprétation pour la soutenance
 
 Si les seuils passent, formuler ainsi :
 
@@ -82,4 +77,4 @@ Si les seuils passent, formuler ainsi :
 
 Si les seuils échouent :
 
-> Les résultats montrent une limite de performance a corriger avant production. Les pistes principales sont l'optimisation MongoDB, le cache, la compression assets, le dimensionnement Render et le stockage cloud pour les fichiers.
+> Les résultats montrent une limite de performance à corriger avant production. Les pistes principales sont l'optimisation MongoDB, le cache, la compression des ressources, le dimensionnement Render et le stockage cloud pour les fichiers.

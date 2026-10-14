@@ -2,7 +2,7 @@
 
 ## Mode de rendu actuel
 
-SailingLoc est une SPA React/Vite rendue cote client.
+SailingLoc est une SPA React/Vite rendue côté client.
 
 Preuves dans le code :
 
@@ -10,7 +10,7 @@ Preuves dans le code :
 - `client/src/main.jsx` monte l'application avec `ReactDOM.createRoot(document.getElementById('root')).render(...)`.
 - `client/src/App.jsx` utilise `BrowserRouter`.
 - `client/vite.config.js` ne contient pas de configuration SSR ou prerender.
-- Le serveur Express sert le build statique du frontend, mais ne rend pas les pages React cote serveur.
+- Le serveur Express sert le build statique du frontend, mais ne rend pas les pages React côté serveur.
 
 Conclusion : il n'y a pas de vrai SSR aujourd'hui.
 
@@ -22,16 +22,16 @@ Conclusion : il n'y a pas de vrai SSR aujourd'hui.
 - Metadata dynamiques : présentes via `react-helmet-async`.
 - URLs slug : présentes pour les fiches bateaux.
 
-## Retour professeur
+## Retour du professeur
 
-Le professeur a indique que l'inspection du HTML initial ne montre que la div root. Ce constat est exact pour une SPA. Les contenus sont injectes par JavaScript après chargement du bundle.
+Le professeur a indiqué que l'inspection du HTML initial ne montre que la div root. Ce constat est exact pour une SPA. Les contenus sont injectés par JavaScript après chargement du bundle.
 
 ## Corrections appliquées
 
 La solution retenue est une mitigation SEO MVP, sans migration lourde :
 
 - ajout ou vérification de `react-helmet-async` ;
-- composant `SEO` centralise ;
+- composant `SEO` centralisé ;
 - meta title/description par page ;
 - fiche bateau avec metadata dynamiques ;
 - canonical sur fiches bateaux ;
@@ -54,15 +54,15 @@ Une migration SSR complète vers Next.js ou vers un serveur React SSR changerait
 
 Pour un projet de fin d'année proche du rendu, le risque de régression est supérieur au gain immédiat. La correction appliquée est donc honnête : SEO amélioré, mais pas vrai SSR.
 
-## Limite a expliquer en soutenance
+## Limite à expliquer en soutenance
 
-Le projet reste une SPA React. Les balises SEO sont injectées dynamiquement par React Helmet après chargement JavaScript. Cela amélioré l'indexabilite pour les crawlers modernes, mais le HTML source initial ne contient pas encore tout le contenu public.
+Le projet reste une SPA React. Les balises SEO sont injectées dynamiquement par React Helmet après chargement JavaScript. Cela améliore l'indexabilité pour les crawlers modernes, mais le HTML source initial ne contient pas encore tout le contenu public.
 
 Pour une version production SEO avancée, une migration vers Next.js SSR/SSG ou un prerendering des pages publiques est recommandée.
 
 ## Option future : prerender
 
-Un prerender statique pourrait être ajoute pour :
+Un prerender statique pourrait être ajouté pour :
 
 - `/` ;
 - `/boats` ;

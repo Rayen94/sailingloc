@@ -1,6 +1,6 @@
 # Configuration SMTP Render - SailingLoc
 
-## Statut projet
+## État du projet
 
 Le backend SailingLoc contient déjà :
 
@@ -8,13 +8,13 @@ Le backend SailingLoc contient déjà :
 - `server/src/utils/mailService.js` ;
 - route `POST /api/auth/forgot-password` ;
 - route `POST /api/auth/reset-password/:token` ;
-- stockage du token hash en base ;
-- expiration du token ;
+- stockage du jeton haché en base ;
+- expiration du jeton ;
 - page front `/reset-password/:token`.
 
-Il reste a configurer un vrai fournisseur SMTP dans Render.
+Il reste à configurer un vrai fournisseur SMTP dans Render.
 
-## Variables Render a renseigner
+## Variables Render à renseigner
 
 Dans Render :
 
@@ -46,9 +46,9 @@ Pour une soutenance, choisir un fournisseur simple :
 | Fournisseur | Usage |
 | --- | --- |
 | Brevo | Simple pour SMTP transactionnel |
-| Mailtrap | Très pratique pour test sans envoyer a de vrais utilisateurs |
-| Gmail App Password | Possible mais moins propre pour projet pro |
-| SendGrid | Adapte production, configuration un peu plus longue |
+| Mailtrap | Très pratique pour test sans envoyer à de vrais utilisateurs |
+| Gmail App Password | Possible mais moins propre pour un projet professionnel |
+| SendGrid | Adapté à la production, configuration un peu plus longue |
 
 ## Test manuel
 
@@ -56,7 +56,7 @@ Pour une soutenance, choisir un fournisseur simple :
 2. Ouvrir `/forgot-password`.
 3. Saisir un compte existant, par exemple `tenant1@sailingloc.fr`.
 4. Vérifier la réception du mail.
-5. Cliquer le lien `/reset-password/:token`.
+5. Cliquer sur le lien `/reset-password/:token`.
 6. Changer le mot de passe.
 7. Se connecter avec le nouveau mot de passe.
 
@@ -78,8 +78,8 @@ Réponse attendue :
 
 ## Point de vigilance
 
-La réponse est volontairement générique pour ne pas révéler si un email existe en base.
+La réponse est volontairement générique pour ne pas révéler si un e-mail existe en base.
 
-## Phrase soutenance
+## Phrase pour la soutenance
 
-> Le système de mot de passe oublie est implémenté de bout en bout. Le token n'est jamais stocke en clair, il est hashe en base et expire automatiquement. L'envoi réel dépend de la configuration SMTP Render, documentée dans le projet.
+> Le système de mot de passe oublié est implémenté de bout en bout. Le jeton n'est jamais stocké en clair, il est haché en base et expire automatiquement. L'envoi réel dépend de la configuration SMTP Render, documentée dans le projet.

@@ -3,8 +3,8 @@
 ## Actuel
 
 - Morgan journalise chaque requête HTTP.
-- Le middleware d erreur centralise les erreurs Express.
-- `/api/health` retourne l état de l API, l horodatage et l environnement.
+- Le middleware d'erreur centralise les erreurs Express.
+- `/api/health` retourne l'état de l'API, l'horodatage et l environnement.
 
 ## Bonnes pratiques production
 
@@ -21,7 +21,7 @@
 curl https://api.example.com/api/health
 ```
 
-Réponse attendue:
+Réponse attendue :
 
 ```json
 {

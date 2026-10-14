@@ -6,10 +6,10 @@ Plateforme full-stack de location de bateaux entre particuliers, avec espaces vi
 
 - Catalogue public avec filtres, fiches bateaux et avis.
 - Optimisations SEO MVP : titres/metas dynamiques, fiches bateaux avec slugs, robots.txt, sitemap.xml et pages privées en noindex.
-- Mot de passe oublie avec token hashe en base et envoi Brevo configurable.
+- Mot de passe oublié avec jeton haché en base et envoi Brevo configurable.
 - Authentification JWT avec rôles `tenant`, `owner`, `admin`.
 - Réservations, acceptation propriétaire, paiement simulé et intégration Stripe Checkout optionnelle.
-- Back-office admin : utilisateurs, bateaux, réservations, avis, documents, paiements, signalements, journal d actions.
+- Back-office admin : utilisateurs, bateaux, réservations, avis, documents, paiements, signalements, journal d'actions.
 - Upload local réel pour images de bateaux et documents propriétaire.
 - Swagger/OpenAPI, tests API, E2E Playwright, Docker, CI GitHub Actions.
 
@@ -60,7 +60,7 @@ npm run dev
 
 Ouvrir [http://localhost:5173](http://localhost:5173).
 
-## Variables d environnement
+## Variables d'environnement
 
 Créer `server/.env` :
 
@@ -101,7 +101,7 @@ Pour la production, voir `.env.production.example` et [docs/PRODUCTION.md](docs/
 
 ## SEO / SSR
 
-SailingLoc est une SPA React/Vite rendue cote client. Le projet ne met pas en place un vrai SSR : le HTML source initial contient principalement le conteneur React, puis le contenu est rendu par JavaScript.
+SailingLoc est une SPA React/Vite rendue côté client. Le projet ne met pas en place un vrai SSR : le HTML source initial contient principalement le conteneur React, puis le contenu est rendu par JavaScript.
 
 Des mitigations SEO ont été mises en place pour le MVP : `react-helmet-async`, titles/metas par page, fiches bateaux avec slugs, JSON-LD, `robots.txt`, `sitemap.xml` et `noindex` sur les zones privées. Voir [docs/SEO.md](docs/SEO.md) et [docs/SEO_SSR_AUDIT.md](docs/SEO_SSR_AUDIT.md).
 
@@ -123,7 +123,7 @@ npm run generate:sitemap
 
 ## Brevo API sur Render
 
-Les emails transactionnels SailingLoc utilisent Brevo API par défaut sur Render, car l'API HTTPS passe par le port 443 et évite les timeouts SMTP possibles sur certains hébergements. SMTP reste disponible en fallback avec `EMAIL_MODE=smtp`. Les identifiants ne doivent jamais être écrits dans le code ni envoyés au frontend.
+Les e-mails transactionnels de SailingLoc utilisent l'API Brevo par défaut sur Render, car l'API HTTPS passe par le port 443 et évite les timeouts SMTP possibles sur certains hébergements. SMTP reste disponible en fallback avec `EMAIL_MODE=smtp`. Les identifiants ne doivent jamais être écrits dans le code ni envoyés au frontend.
 
 Variables à ajouter dans Render :
 
@@ -147,11 +147,11 @@ EMAIL_ENABLED=true
 EMAIL_LOG_ONLY=false
 ```
 
-En local, garder `EMAIL_ENABLED=false` ou `EMAIL_LOG_ONLY=true` pour tester sans envoyer de vrais emails.
+En local, garder `EMAIL_ENABLED=false` ou `EMAIL_LOG_ONLY=true` pour tester sans envoyer de vrais e-mails.
 
-Note Brevo IP / expéditeur autorisé : l'application ne peut pas valider automatiquement un domaine, un expéditeur ou une IP dans Brevo. Ces réglages se font manuellement dans le dashboard Brevo. En mode API, la connexion sortante utilise HTTPS 443, mais l'expéditeur/domaine doit quand même être vérifié dans Brevo.
+Note sur l'adresse IP et l'expéditeur autorisé (Brevo) : l'application ne peut pas valider automatiquement un domaine, un expéditeur ou une IP dans Brevo. Ces réglages se font manuellement dans le dashboard Brevo. En mode API, la connexion sortante utilise HTTPS 443, mais l'expéditeur/domaine doit quand même être vérifié dans Brevo.
 
-## Stripe payment intégration
+## Intégration du paiement Stripe
 
 SailingLoc conserve le paiement simulé pour la démonstration, et peut utiliser Stripe Checkout pour un paiement réel de réservation. La version Render peut fonctionner sans webhook : après le retour Stripe sur `/payment/success`, le frontend appelle le backend, et le backend vérifie la session avec la clé privée Stripe avant de confirmer la réservation.
 
@@ -168,14 +168,14 @@ CLIENT_URL=http://localhost:5173
 SERVER_URL=http://localhost:5000
 ```
 
-## Corrections qualité soutenance
+## Corrections de qualité pour la soutenance
 
 - SEO dynamique via `react-helmet-async`.
 - Titres, descriptions, Open Graph, Twitter Cards et canoniques par page.
 - Fiches bateaux avec SEO dynamique, H1 spécifique et JSON-LD.
 - URLs bateaux par slug sans accents ni caractères spéciaux, avec fallback ID.
 - Pages admin/propriétaire/légales en `noindex`.
-- Suppression compte implémentée en soft delete/anonymisation.
+- Suppression de compte implémentée en soft delete/anonymisation.
 - Calendrier de réservation clarifié : disponible, indisponible, sélectionné, aujourd'hui.
 - Scripts de tests API, couverture, validation DB, validation déploiement et k6.
 
@@ -221,7 +221,7 @@ npm run load:bookings
 npm run load:payments
 ```
 
-Les scénarios lourds 10 000 utilisateurs pendant 24h et 1 000 à 50 000 utilisateurs sont documentés dans `load-tests/README.md`. Ils ne doivent pas être lancés sur un poste local ou un hébergement gratuit.
+Les scénarios lourds (10 000 utilisateurs pendant 24 h, puis de 1 000 à 50 000 utilisateurs) sont documentés dans `load-tests/README.md`. Ils ne doivent pas être lancés sur un poste local ou un hébergement gratuit.
 
 ## Limite SEO MVP
 
@@ -235,7 +235,7 @@ Pour tester le parcours :
 4. Finaliser le paiement dans Stripe Checkout avec les cartes de test officielles Stripe.
 5. Vérifier que la page `/payment/success` confirme la réservation, crée la facture PDF et met à jour l'admin après validation serveur de la session Stripe.
 
-Sur Render, ajouter les variables dans `Environment`. Pour ce mode simplifié, `STRIPE_WEBHOOK_SECRET` peut rester vide. Notes sécurité : ne jamais exposer `STRIPE_SECRET_KEY`, ne pas stocker de données carte, et garder `PAYMENT_MODE=simulated` tant que le projet reste en démo fictive.
+Sur Render, ajouter les variables dans `Environment`. Pour ce mode simplifié, `STRIPE_WEBHOOK_SECRET` peut rester vide. Notes de sécurité : ne jamais exposer `STRIPE_SECRET_KEY`, ne pas stocker de données carte, et garder `PAYMENT_MODE=simulated` tant que le projet reste en démo fictive.
 
 ## Docker
 
@@ -357,12 +357,12 @@ administrateur à `Admin123!` et le seed refuse d'effacer la base. Pour une dém
 La page `/mvp-limitations` clarifie les limites pour la soutenance :
 
 - paiement simulé ;
-- envoi email actif uniquement si les variables Brevo sont configurées ;
+- envoi d'e-mails actif uniquement si les variables Brevo sont configurées ;
 - upload local à remplacer par du cloud en production ;
 - vérification documentaire manuelle ;
 - pas encore de messagerie temps réel, application mobile, assurance partenaire ni arbitrage complet.
 
-## Captures écran soutenance
+## Captures d'écran pour la soutenance
 
 Installer les dépendances Playwright du client puis lancer :
 

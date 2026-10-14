@@ -21,9 +21,9 @@ docker compose cp mongodb:/tmp/backup ./backups/sailingloc
 
 ## Politique recommandée
 
-- Démo locale: backup manuel avant soutenance.
-- Production: backup quotidien automatisé.
-- Rétention: 7 backups journaliers, 4 hebdomadaires, 6 mensuels.
+- Démo locale : backup manuel avant soutenance.
+- Production : backup quotidien automatisé.
+- Rétention : 7 backups journaliers, 4 hebdomadaires, 6 mensuels.
 - Tester une restauration au moins une fois par mois.
 - Préférer MongoDB Atlas backups pour une vraie production.
 
