@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage';
 import { useAuth } from '../../context/AuthContext';
 import { login } from '../../services/authService';
+import { getPublicStats } from '../../services/boatService';
 import TurnstileCaptcha, { isTurnstileConfigured } from '../../components/TurnstileCaptcha';
 import SEO from '../../components/SEO';
 
@@ -52,6 +53,14 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [stats, setStats] = useState(null);
+
+  // Chiffres réels du catalogue (les mêmes que sur l'accueil).
+  useEffect(() => {
+    getPublicStats()
+      .then(({ data }) => setStats(data))
+      .catch(() => setStats(null));
+  }, []);
   const [failedAttempts, setFailedAttempts] = useState(() =>
     Number(sessionStorage.getItem('sailingloc_login_failures') || 0)
   );
@@ -242,14 +251,14 @@ const LoginPage = () => {
               className="rounded-full px-3 py-1 text-xs font-bold"
               style={{ background: '#00C6E0', color: '#07192E' }}
             >
-              Live
+              En direct
             </span>
           </div>
           <div className="space-y-3">
             {[
-              ['1 200+', 'bateaux'],
-              ['320', 'ports'],
-              ['4.9/5', 'note moyenne'],
+              [stats ? String(stats.boats) : '–', 'bateaux'],
+              [stats ? String(stats.ports) : '–', 'ports'],
+              [stats?.averageRating ? `${String(stats.averageRating).replace('.', ',')}/5` : '–', 'note moyenne'],
             ].map(([value, label]) => (
               <div key={label} className="flex items-center justify-between border-t border-white/10 pt-3">
                 <span className="text-sm text-white/65">{label}</span>

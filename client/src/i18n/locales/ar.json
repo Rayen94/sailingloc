@@ -140,7 +140,7 @@
     "noAccount": "ليس لديك حساب بعد؟",
     "registerLink": "إنشاء حساب",
     "loginHeroTitle": "أبحر بحرية، بين الأفراد.",
-    "loginHeroText": "+1 200 قارب متاح في فرنسا وأوروبا.",
+    "loginHeroText": "قوارب شراعية وكاتاماران وقوارب بمحرك، تُؤجَّر بين الأفراد.",
     "registerTitle": "إنشاء حساب",
     "registerSubtitle": "انضم إلى مجتمع SailingLoc.",
     "firstName": "الاسم الأول",
@@ -161,7 +161,7 @@
     "registerLoading": "جار الإنشاء...",
     "registerCta": "إنشاء حسابي",
     "alreadyAccount": "لديك حساب بالفعل؟",
-    "registerHeroTitle": "انضم إلى +1 200 مالك ومستأجر",
+    "registerHeroTitle": "انضم إلى مجتمع SailingLoc",
     "registerHeroText": "تسجيل مجاني في أقل من دقيقتين."
   }
 }

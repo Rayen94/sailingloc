@@ -140,7 +140,7 @@
     "noAccount": "Noch kein Konto?",
     "registerLink": "Registrieren",
     "loginHeroTitle": "Frei segeln, direkt von privat.",
-    "loginHeroText": "+1 200 verfügbare Boote in ganz Frankreich und Europa.",
+    "loginHeroText": "Segelboote, Katamarane und Motorboote, von privat zu privat vermietet.",
     "registerTitle": "Konto erstellen",
     "registerSubtitle": "Werden Sie Teil der SailingLoc-Community.",
     "firstName": "Vorname",
@@ -161,7 +161,7 @@
     "registerLoading": "Erstellung...",
     "registerCta": "Mein Konto erstellen",
     "alreadyAccount": "Bereits ein Konto?",
-    "registerHeroTitle": "Schließen Sie sich +1 200 Eigentümern und Mietern an",
+    "registerHeroTitle": "Werden Sie Teil der SailingLoc-Community",
     "registerHeroText": "Kostenlose Registrierung in weniger als 2 Minuten."
   }
 }
