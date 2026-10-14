@@ -92,12 +92,7 @@
     },
     "reviewsEyebrow": "Testimonianze",
     "reviewsTitle": "Hanno navigato con SailingLoc",
-    "reviewAria": "5 su 5",
-    "reviews": {
-      "marie": "La barca a vela era impeccabile. Prenotazione semplice e proprietario molto reattivo.",
-      "thomas": "Perfetta per un'uscita in famiglia. La barca corrispondeva esattamente all'annuncio.",
-      "sarah": "Ottima esperienza, pagamento chiaro e supporto rassicurante prima della partenza."
-    },
+    "reviewAria": "{{rating}} su 5",
     "trust": {
       "owners": "Proprietari verificati",
       "support": "Supporto prenotazione",

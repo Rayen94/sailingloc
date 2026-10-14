@@ -70,7 +70,7 @@ const AdminReviewsPage = () => {
   const handleDelete = async (id) => {
     if (
       !(await requestApproval('Supprimer définitivement cet avis ?', {
-        title: 'Supprimer l avis',
+        title: 'Supprimer l’avis',
         variant: 'danger',
         confirmLabel: 'Supprimer',
       }))
