@@ -13,7 +13,9 @@ const ScrollToTop = () => {
       }
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    // 'instant' : retour en haut immédiat au changement de page, même si le CSS demande un défilement doux
+    // (scroll-behavior: smooth), que Safari n'applique pas toujours.
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [pathname, hash]);
 
   return null;
