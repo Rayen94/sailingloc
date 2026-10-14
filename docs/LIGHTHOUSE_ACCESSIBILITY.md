@@ -10,7 +10,7 @@ Produire une preuve de qualité front-end pour la soutenance :
 - SEO ;
 - absence de régressions responsive majeures.
 
-## Pages a tester
+## Pages à tester
 
 | Page | URL production |
 | --- | --- |
@@ -25,7 +25,7 @@ Produire une preuve de qualité front-end pour la soutenance :
 ## Procédure Chrome DevTools
 
 1. Ouvrir Chrome en navigation privée.
-2. Aller sur la page a tester.
+2. Aller sur la page à tester.
 3. Ouvrir DevTools.
 4. Onglet `Lighthouse`.
 5. Mode `Mobile`, catégories :
@@ -63,7 +63,7 @@ Vérifier :
 - navigation clavier avec `Tab`, `Shift+Tab`, `Enter` ;
 - focus visible sur liens, boutons, champs ;
 - labels lisibles sur formulaires ;
-- textes contrastes sur fonds sombres ;
+- textes contrastés sur fonds sombres ;
 - menu mobile ouvrable au clavier ;
 - images principales avec attribut `alt` ;
 - aucun scroll horizontal involontaire en 360px.
@@ -89,4 +89,4 @@ limitée par le poids des photos (passage au format WebP prévu dans le plan de 
 
 ## Formulation soutenance
 
-> Une passe UI responsive a été réalisée sur les composants critiques : navigation, cards, formulaires, galeries, dashboards et footer. Les contrôles Lighthouse et accessibilité servent de preuve qualité. Les optimisations restantes avant production concernent surtout l'optimisation avancée des images et le suivi automatise des Core Web Vitals.
+> Une passe UI responsive a été réalisée sur les composants critiques : navigation, cards, formulaires, galeries, dashboards et footer. Les contrôles Lighthouse et accessibilité servent de preuve qualité. Les optimisations restantes avant production concernent surtout l'optimisation avancée des images et le suivi automatisé des Core Web Vitals.

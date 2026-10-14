@@ -1,12 +1,12 @@
-# Validation de Déploiement SailingLoc
+# Validation du déploiement SailingLoc
 
 ## Pré-déploiement
 
 - Vérifier `MONGO_URI`.
 - Vérifier `JWT_SECRET`.
 - Vérifier `CLIENT_URL`, `FRONTEND_URL` et `SERVER_URL`.
-- Vérifier `BREVO_API_KEY` si emails réels activés.
-- Vérifier `STRIPE_SECRET_KEY` et `VITE_STRIPE_PUBLISHABLE_KEY` si Stripe activé.
+- Vérifier `BREVO_API_KEY` si les e-mails réels sont activés.
+- Vérifier `STRIPE_SECRET_KEY` et `VITE_STRIPE_PUBLISHABLE_KEY` si Stripe est activé.
 - Vérifier `TURNSTILE_SECRET_KEY` et `TURNSTILE_SITE_KEY` ou `VITE_TURNSTILE_SITE_KEY`.
 - Lancer `npm run build`.
 - Lancer `npm run validate:db`.
@@ -19,9 +19,9 @@
 - `/api-docs` est accessible.
 - Connexion admin fonctionnelle.
 - Connexion locataire/propriétaire fonctionnelle.
-- Création réservation fonctionnelle.
+- Création de réservation fonctionnelle.
 - Paiement simulé ou Stripe test fonctionnel selon configuration.
-- Test email admin fonctionnel si Brevo est configuré.
+- Test d'e-mail de l'administrateur fonctionnel si Brevo est configuré.
 
 ## Post-déploiement
 

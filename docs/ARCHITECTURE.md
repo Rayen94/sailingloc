@@ -1,25 +1,25 @@
 # Architecture SailingLoc
 
-## Vue d ensemble
+## Vue d'ensemble
 
 SailingLoc est une plateforme MVP de location de bateaux entre particuliers. Elle couvre les rôles visiteur, locataire, propriétaire et administrateur.
 
 ## Stack
 
-- Frontend: React, Vite, Tailwind, Axios, React Router.
-- Backend: Node.js, Express, JWT, Mongoose.
-- Base de données: MongoDB.
-- Tests: Node test runner, Supertest, Playwright.
-- Documentation API: Swagger/OpenAPI.
+- Frontend : React, Vite, Tailwind, Axios, React Router.
+- Backend : Node.js, Express, JWT, Mongoose.
+- Base de données : MongoDB (Mongoose).
+- Tests : Node test runner, Supertest, Vitest, Playwright.
+- Documentation API : Swagger/OpenAPI.
 
 ## Structure
 
-- `client/src`: application React.
-- `server/src/controllers`: logique métier API.
-- `server/src/routes`: routes Express.
-- `server/src/models`: modèles Mongoose.
-- `server/tests`: tests API.
-- `docs`: documentation architecture, production, backup, monitoring.
+- `client/src` : application React.
+- `server/src/controllers` : logique métier API.
+- `server/src/routes` : routes Express.
+- `server/src/models` : modèles Mongoose.
+- `server/tests` : tests API.
+- `docs` : documentation architecture, production, backup, monitoring.
 
 ## Schéma BDD
 
@@ -82,11 +82,11 @@ flowchart LR
 
 ## Paiement
 
-Le paiement est simulé via un modèle `Payment` et un provider `simulated-stripe`. Les statuts sont cohérents avec les réservations, mais aucun PSP réel n est connecté.
+Le paiement est simulé via un modèle `Payment` et un provider `simulated-stripe`. Les statuts sont cohérents avec les réservations, mais aucun prestataire de paiement réel n'est connecté (le code Stripe Checkout existe, désactivé par défaut).
 
 ## Modération admin
 
-L admin peut valider/rejeter bateaux, avis et documents, gérer les utilisateurs, consulter les paiements et suivre les actions dans `AdminActionLog`.
+L'administrateur peut valider ou rejeter bateaux, avis et documents, gérer les utilisateurs, consulter les paiements et suivre les actions dans `AdminActionLog`.
 
 ## Sécurité
 
@@ -94,7 +94,7 @@ JWT, rôles serveur, rate limiting, Helmet, validation express-validator, filtra
 
 ## Limites MVP
 
-Paiement simulé, email non configuré, upload local, vérification documentaire manuelle, pas de messagerie temps réel, pas d audit sécurité complet.
+Paiement simulé, e-mails actifs seulement si Brevo est configuré, fichiers stockés localement, vérification documentaire manuelle, pas de messagerie en temps réel, pas d'audit de sécurité complet.
 
 ## Améliorations futures
 
