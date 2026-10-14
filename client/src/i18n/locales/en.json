@@ -145,7 +145,7 @@
     "noAccount": "No account yet?",
     "registerLink": "Sign up",
     "loginHeroTitle": "Sail freely, between private owners.",
-    "loginHeroText": "+1,200 boats available across France and Europe.",
+    "loginHeroText": "Sailboats, catamarans and motorboats, rented between individuals.",
     "registerTitle": "Create an account",
     "registerSubtitle": "Join the SailingLoc community.",
     "firstName": "First name",
@@ -166,7 +166,7 @@
     "registerLoading": "Creating...",
     "registerCta": "Create my account",
     "alreadyAccount": "Already have an account?",
-    "registerHeroTitle": "Join +1,200 owners and renters",
+    "registerHeroTitle": "Join the SailingLoc community",
     "registerHeroText": "Free registration in less than 2 minutes."
   }
 }

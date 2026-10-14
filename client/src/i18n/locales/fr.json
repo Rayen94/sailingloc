@@ -145,7 +145,7 @@
     "noAccount": "Pas encore de compte ?",
     "registerLink": "S'inscrire",
     "loginHeroTitle": "Naviguez librement, entre particuliers.",
-    "loginHeroText": "+1 200 bateaux disponibles dans toute la France et l'Europe.",
+    "loginHeroText": "Voiliers, catamarans et bateaux à moteur, loués entre particuliers.",
     "registerTitle": "Créer un compte",
     "registerSubtitle": "Rejoignez la communauté SailingLoc.",
     "firstName": "Prénom",
@@ -166,7 +166,7 @@
     "registerLoading": "Création...",
     "registerCta": "Créer mon compte",
     "alreadyAccount": "Déjà un compte ?",
-    "registerHeroTitle": "Rejoignez +1 200 propriétaires et locataires",
+    "registerHeroTitle": "Rejoignez la communauté SailingLoc",
     "registerHeroText": "Inscription gratuite en moins de 2 minutes."
   }
 }
