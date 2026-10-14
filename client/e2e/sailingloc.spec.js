@@ -51,12 +51,13 @@ test('admin page blocks non-admin user', async ({ page }) => {
   await expect(page).toHaveURL(/\/$/);
 });
 
-test('keyboard users can skip directly to the main content', async ({ page }) => {
+test('keyboard users can skip directly to the main content', async ({ page, browserName }) => {
   await page.addInitScript(() =>
     localStorage.setItem('sailingloc_cookie_preferences', JSON.stringify({ essential: true, analytics: false }))
   );
   await page.goto('/');
-  await page.keyboard.press('Tab');
+  // Dans WebKit (Safari), Tab seul ne va pas sur les liens : il faut Alt+Tab (réglage par défaut de Safari).
+  await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
   const skipLink = page.getByRole('link', { name: 'Aller au contenu principal' });
   await expect(skipLink).toBeFocused();
   await page.keyboard.press('Enter');
