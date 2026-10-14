@@ -51,7 +51,7 @@ const OwnerDocumentsPage = () => {
       setFile(null);
       await refresh();
     } catch (err) {
-      setError(err.response?.data?.message || 'Impossible d envoyer ce document.');
+      setError(err.response?.data?.message || 'Impossible d’envoyer ce document.');
     } finally {
       setSubmitting(false);
     }
@@ -147,7 +147,7 @@ const OwnerDocumentsPage = () => {
               type="url"
               value={form.fileUrl}
               onChange={(event) => setForm((prev) => ({ ...prev, fileUrl: event.target.value }))}
-              placeholder="https://... ou upload local"
+              placeholder="https://... ou fichier envoyé depuis votre ordinateur"
               required={!file}
             />
           </div>
