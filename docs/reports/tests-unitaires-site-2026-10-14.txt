@@ -1,11 +1,18 @@
 Rapport des tests unitaires du site (front) SailingLoc - 14/10/2026
-Commande : npm run test:coverage (dossier client) - Vitest 2.1.9, Testing Library, jsdom
+Commande : npm run test:coverage (dossier client) - Vitest 3.2.7, Testing Library, jsdom
 Node.js 24.21.0 (bac à sable)
 
+ ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > sans choix de l’utilisateur, Google Tag Manager ne se charge pas
+ ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > après un refus, Google Tag Manager ne se charge pas
+ ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > après un accord, Google Tag Manager se charge une seule fois
+ ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > un choix enregistré illisible est ignoré sans erreur
  ✓ src/__tests__/bookingForm.test.jsx > Formulaire de réservation > un visiteur non connecté est invité à se connecter
  ✓ src/__tests__/bookingForm.test.jsx > Formulaire de réservation > un propriétaire ne peut pas réserver
  ✓ src/__tests__/bookingForm.test.jsx > Formulaire de réservation > un locataire voit le prix total puis envoie sa demande
  ✓ src/__tests__/bookingForm.test.jsx > Formulaire de réservation > une période avec une date indisponible est refusée sans appeler le serveur
+ ✓ src/__tests__/components.test.jsx > Composants > le badge de statut affiche le libellé français
+ ✓ src/__tests__/components.test.jsx > Composants > un statut inconnu est affiché tel quel
+ ✓ src/__tests__/components.test.jsx > Composants > la carte bateau mène à la fiche et décrit sa photo pour les lecteurs d’écran
  ✓ src/__tests__/utils.test.js > Prix affiché avant la réservation > 3 jours à 250 € donnent 750 € + 10 % de frais = 825 €
  ✓ src/__tests__/utils.test.js > Prix affiché avant la réservation > aucun prix si les dates sont incomplètes ou inversées
  ✓ src/__tests__/utils.test.js > Dates indisponibles > une date indisponible dans la période bloque la réservation
@@ -14,13 +21,6 @@ Node.js 24.21.0 (bac à sable)
  ✓ src/__tests__/utils.test.js > Formats français > dates courtes et dates pour les champs de formulaire
  ✓ src/__tests__/utils.test.js > Adresses des fiches bateaux > les accents et la ponctuation sont retirés
  ✓ src/__tests__/utils.test.js > Adresses des fiches bateaux > l’adresse contient le titre, le lieu et l’identifiant
- ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > sans choix de l’utilisateur, Google Tag Manager ne se charge pas
- ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > après un refus, Google Tag Manager ne se charge pas
- ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > après un accord, Google Tag Manager se charge une seule fois
- ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > un choix enregistré illisible est ignoré sans erreur
- ✓ src/__tests__/components.test.jsx > Composants > le badge de statut affiche le libellé français
- ✓ src/__tests__/components.test.jsx > Composants > un statut inconnu est affiché tel quel
- ✓ src/__tests__/components.test.jsx > Composants > la carte bateau mène à la fiche et décrit sa photo pour les lecteurs d’écran
  Test Files  4 passed (4)
       Tests  19 passed (19)
 
@@ -133,5 +133,5 @@ All files          |    6.21 |    49.76 |   23.47 |    6.21 |
   slugifyBoat.js   |     100 |       50 |     100 |     100 | 12
 -------------------|---------|----------|---------|---------|-------------------
 
-Lecture : les fonctions utilitaires (src/utils) et le formulaire de réservation sont bien couverts par les tests unitaires.
-Les pages (accueil, catalogue, espaces propriétaire et administrateur) sont vérifiées par les 13 tests E2E Playwright, pas par des tests unitaires : la couverture globale du dossier src reste donc faible.
+Lecture : les fonctions utilitaires (src/utils, 89 % des lignes) et le formulaire de réservation (87 %) sont bien couverts par les tests unitaires.
+Les pages (accueil, catalogue, espaces propriétaire et administrateur) sont vérifiées par les 13 tests E2E Playwright, pas par des tests unitaires : la couverture globale du dossier src reste donc faible (6 %).
