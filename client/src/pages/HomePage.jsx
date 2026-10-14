@@ -16,15 +16,8 @@ import {
 } from 'lucide-react';
 import BoatGrid from '../components/BoatGrid';
 import SEO from '../components/SEO';
-import { getBoats } from '../services/boatService';
+import { getBoats, getPublicStats } from '../services/boatService';
 import { getLatestReviews } from '../services/reviewService';
-
-const STATS = [
-  ['1 200+', 'home.stats.boats'],
-  ['320', 'home.stats.ports'],
-  ['15 000+', 'home.stats.navigations'],
-  ['4.9/5', 'home.stats.rating'],
-];
 
 const STEPS = [
   {
@@ -42,12 +35,6 @@ const STEPS = [
     titleKey: 'home.steps.sailTitle',
     textKey: 'home.steps.sailText',
   },
-];
-
-const REVIEWS = [
-  ['Marie D.', 'home.reviews.marie'],
-  ['Thomas L.', 'home.reviews.thomas'],
-  ['Sarah B.', 'home.reviews.sarah'],
 ];
 
 const HeroSearchBar = () => {
@@ -115,9 +102,10 @@ const HeroSearchBar = () => {
 };
 
 const HomePage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [featuredBoats, setFeaturedBoats] = useState([]);
   const [latestReviews, setLatestReviews] = useState([]);
+  const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -130,27 +118,40 @@ const HomePage = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  // Chiffres clés réels, calculés par le serveur depuis la base de données.
+  useEffect(() => {
+    getPublicStats()
+      .then(({ data }) => setStats(data))
+      .catch(() => setStats(null));
+  }, []);
+
   useEffect(() => {
     getLatestReviews({ limit: 3 })
       .then(({ data }) => setLatestReviews(Array.isArray(data) ? data : []))
       .catch(() => setLatestReviews([]));
   }, []);
 
-  const displayedReviews =
-    latestReviews.length > 0
-      ? latestReviews.map((review) => ({
-          id: review._id,
-          name: `${review.author?.firstName || 'Locataire'} ${review.author?.lastName?.charAt(0) || ''}.`.trim(),
-          comment: review.comment,
-          rating: review.rating,
-          boatTitle: review.boat?.title,
-        }))
-      : REVIEWS.map(([name, textKey]) => ({
-          id: name,
-          name,
-          comment: t(textKey),
-          rating: 5,
-        }));
+  // Seuls de vrais avis publiés sont affichés : sans avis, la section n'apparaît pas.
+  const displayedReviews = latestReviews.map((review) => ({
+    id: review._id,
+    name: `${review.author?.firstName || 'Locataire'} ${review.author?.lastName?.charAt(0) || ''}.`.trim(),
+    comment: review.comment,
+    rating: review.rating,
+    boatTitle: review.boat?.title,
+  }));
+
+  const formatNumber = (value, options) => new Intl.NumberFormat(i18n.language || 'fr', options).format(value);
+  const statItems = stats
+    ? [
+        [formatNumber(stats.boats), 'home.stats.boats'],
+        [formatNumber(stats.ports), 'home.stats.ports'],
+        [formatNumber(stats.trips), 'home.stats.navigations'],
+        [
+          stats.averageRating ? `${formatNumber(stats.averageRating, { maximumFractionDigits: 1 })}/5` : '–',
+          'home.stats.rating',
+        ],
+      ]
+    : [];
 
   return (
     <div className="home-shell">
@@ -185,16 +186,18 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="home-stats" aria-label={t('home.statsAria')}>
-        <div className="container-max home-stats-grid">
-          {STATS.map(([value, labelKey]) => (
-            <div key={labelKey}>
-              <strong>{value}</strong>
-              <span>{t(labelKey)}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      {statItems.length > 0 && (
+        <section className="home-stats" aria-label={t('home.statsAria')}>
+          <div className="container-max home-stats-grid">
+            {statItems.map(([value, labelKey]) => (
+              <div key={labelKey}>
+                <strong>{value}</strong>
+                <span>{t(labelKey)}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="section-padding home-section home-section--boats">
         <div className="container-max">
@@ -235,29 +238,31 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="section-padding home-section home-section--reviews">
-        <div className="container-max">
-          <span className="sec-eyebrow">{t('home.reviewsEyebrow')}</span>
-          <h2>{t('home.reviewsTitle')}</h2>
-          <div className="home-review-grid">
-            {displayedReviews.map((review) => (
-              <article key={review.id} className="home-review-card">
-                <div className="home-stars" role="img" aria-label={t('home.reviewAria')}>
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <Star key={index} size={14} fill={index < review.rating ? '#F4A01A' : 'none'} color="#F4A01A" />
-                  ))}
-                </div>
-                <p>{review.comment}</p>
-                <div className="home-review-user">
-                  <span>{review.name.slice(0, 1)}</span>
-                  <strong>{review.name}</strong>
-                </div>
-                {review.boatTitle && <small className="home-review-boat">{review.boatTitle}</small>}
-              </article>
-            ))}
+      {displayedReviews.length > 0 && (
+        <section className="section-padding home-section home-section--reviews">
+          <div className="container-max">
+            <span className="sec-eyebrow">{t('home.reviewsEyebrow')}</span>
+            <h2>{t('home.reviewsTitle')}</h2>
+            <div className="home-review-grid">
+              {displayedReviews.map((review) => (
+                <article key={review.id} className="home-review-card">
+                  <div className="home-stars" role="img" aria-label={t('home.reviewAria', { rating: review.rating })}>
+                    {Array.from({ length: 5 }, (_, index) => (
+                      <Star key={index} size={14} fill={index < review.rating ? '#F4A01A' : 'none'} color="#F4A01A" />
+                    ))}
+                  </div>
+                  <p>{review.comment}</p>
+                  <div className="home-review-user">
+                    <span>{review.name.slice(0, 1)}</span>
+                    <strong>{review.name}</strong>
+                  </div>
+                  {review.boatTitle && <small className="home-review-boat">{review.boatTitle}</small>}
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="home-trust">
         <div className="container-max home-trust-grid">

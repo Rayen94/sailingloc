@@ -119,7 +119,7 @@ const swaggerDefinition = {
     '/api/health': {
       get: {
         tags: ['System'],
-        summary: 'Vérifie que l API répond',
+        summary: 'Vérifie que l’API répond',
         responses: { 200: { description: 'API opérationnelle' } },
       },
     },

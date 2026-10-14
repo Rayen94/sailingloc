@@ -1,0 +1,137 @@
+Rapport des tests unitaires du site (front) SailingLoc - 14/10/2026
+Commande : npm run test:coverage (dossier client) - Vitest 2.1.9, Testing Library, jsdom
+Node.js 24.21.0 (bac à sable)
+
+ ✓ src/__tests__/bookingForm.test.jsx > Formulaire de réservation > un visiteur non connecté est invité à se connecter
+ ✓ src/__tests__/bookingForm.test.jsx > Formulaire de réservation > un propriétaire ne peut pas réserver
+ ✓ src/__tests__/bookingForm.test.jsx > Formulaire de réservation > un locataire voit le prix total puis envoie sa demande
+ ✓ src/__tests__/bookingForm.test.jsx > Formulaire de réservation > une période avec une date indisponible est refusée sans appeler le serveur
+ ✓ src/__tests__/utils.test.js > Prix affiché avant la réservation > 3 jours à 250 € donnent 750 € + 10 % de frais = 825 €
+ ✓ src/__tests__/utils.test.js > Prix affiché avant la réservation > aucun prix si les dates sont incomplètes ou inversées
+ ✓ src/__tests__/utils.test.js > Dates indisponibles > une date indisponible dans la période bloque la réservation
+ ✓ src/__tests__/utils.test.js > Dates indisponibles > le jour du retour peut être le premier jour d’une autre location
+ ✓ src/__tests__/utils.test.js > Formats français > prix en euros au format français
+ ✓ src/__tests__/utils.test.js > Formats français > dates courtes et dates pour les champs de formulaire
+ ✓ src/__tests__/utils.test.js > Adresses des fiches bateaux > les accents et la ponctuation sont retirés
+ ✓ src/__tests__/utils.test.js > Adresses des fiches bateaux > l’adresse contient le titre, le lieu et l’identifiant
+ ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > sans choix de l’utilisateur, Google Tag Manager ne se charge pas
+ ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > après un refus, Google Tag Manager ne se charge pas
+ ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > après un accord, Google Tag Manager se charge une seule fois
+ ✓ src/__tests__/analytics.test.js > Cookies et Google Tag Manager (RGPD) > un choix enregistré illisible est ignoré sans erreur
+ ✓ src/__tests__/components.test.jsx > Composants > le badge de statut affiche le libellé français
+ ✓ src/__tests__/components.test.jsx > Composants > un statut inconnu est affiché tel quel
+ ✓ src/__tests__/components.test.jsx > Composants > la carte bateau mène à la fiche et décrit sa photo pour les lecteurs d’écran
+ Test Files  4 passed (4)
+      Tests  19 passed (19)
+
+Couverture (dossier src, fichiers de test exclus) :
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------|---------|----------|---------|---------|-------------------
+All files          |    6.21 |    49.76 |   23.47 |    6.21 |
+ src               |       0 |        0 |       0 |       0 |
+  App.jsx          |       0 |        0 |       0 |       0 | 1-173
+ src/components    |    17.1 |    59.82 |   20.93 |    17.1 |
+  AdminSidebar.jsx |       0 |        0 |       0 |       0 | 1-141
+  BoatCard.jsx     |   56.77 |     8.33 |      20 |   56.77 | ...39-141,146-164
+  BoatGrid.jsx     |       0 |        0 |       0 |       0 | 1-51
+  BookingForm.jsx  |   86.64 |    84.21 |      50 |   86.64 | ...29,161-164,179
+  Breadcrumb.jsx   |       0 |        0 |       0 |       0 | 1-26
+  ConfirmModal.jsx |       0 |        0 |       0 |       0 | 1-79
+  CookieBanner.jsx |       0 |        0 |       0 |       0 | 1-152
+  ...boardCard.jsx |       0 |        0 |       0 |       0 | 1-56
+  ErrorMessage.jsx |     100 |      100 |     100 |     100 |
+  ...erSidebar.jsx |       0 |        0 |       0 |       0 | 1-139
+  Footer.jsx       |       0 |        0 |       0 |       0 | 1-113
+  Header.jsx       |       0 |        0 |       0 |       0 | 1-285
+  ...eSelector.jsx |       0 |        0 |       0 |       0 | 1-91
+  ...ngSpinner.jsx |       0 |        0 |       0 |       0 | 1-18
+  Modal.jsx        |       0 |        0 |       0 |       0 | 1-47
+  ...terSignup.jsx |       0 |        0 |       0 |       0 | 1-205
+  OwnerSidebar.jsx |       0 |        0 |       0 |       0 | 1-91
+  ...nControls.jsx |       0 |        0 |       0 |       0 | 1-37
+  ...ctedRoute.jsx |       0 |        0 |       0 |       0 | 1-13
+  ReviewForm.jsx   |       0 |        0 |       0 |       0 | 1-80
+  ReviewList.jsx   |       0 |        0 |       0 |       0 | 1-42
+  RoleRoute.jsx    |       0 |        0 |       0 |       0 | 1-14
+  SEO.jsx          |       0 |        0 |       0 |       0 | 1-40
+  ScrollToTop.jsx  |       0 |        0 |       0 |       0 | 1-22
+  SearchBar.jsx    |       0 |        0 |       0 |       0 | 1-67
+  StatusBadge.jsx  |     100 |      100 |     100 |     100 |
+  ...tProvider.jsx |       0 |        0 |       0 |       0 | 1-73
+  ...leCaptcha.jsx |       0 |        0 |       0 |       0 | 1-103
+ src/context       |       0 |        0 |       0 |       0 |
+  AuthContext.jsx  |       0 |        0 |       0 |       0 | 1-68
+ src/data          |       0 |        0 |       0 |       0 |
+  boats.mock.js    |       0 |        0 |       0 |       0 | 1-209
+ src/i18n          |     100 |      100 |     100 |     100 |
+  index.js         |     100 |      100 |     100 |     100 |
+ src/layouts       |       0 |        0 |       0 |       0 |
+  AdminLayout.jsx  |       0 |        0 |       0 |       0 | 1-74
+  OwnerLayout.jsx  |       0 |        0 |       0 |       0 | 1-81
+  PublicLayout.jsx |       0 |        0 |       0 |       0 | 1-31
+ src/pages         |       0 |        0 |       0 |       0 |
+  ...oriesPage.jsx |       0 |        0 |       0 |       0 | 1-98
+  ContactPage.jsx  |       0 |        0 |       0 |       0 | 1-321
+  HomePage.jsx     |       0 |        0 |       0 |       0 | 1-287
+  ...tionsPage.jsx |       0 |        0 |       0 |       0 | 1-99
+  NotFoundPage.jsx |       0 |        0 |       0 |       0 | 1-19
+  ProductsPage.jsx |       0 |        0 |       0 |       0 | 1-118
+ src/pages/admin   |       0 |        0 |       0 |       0 |
+  ...nLogsPage.jsx |       0 |        0 |       0 |       0 | 1-101
+  ...BoatsPage.jsx |       0 |        0 |       0 |       0 | 1-319
+  ...kingsPage.jsx |       0 |        0 |       0 |       0 | 1-319
+  ...sagesPage.jsx |       0 |        0 |       0 |       0 | 1-169
+  ...boardPage.jsx |       0 |        0 |       0 |       0 | 1-241
+  ...mentsPage.jsx |       0 |        0 |       0 |       0 | 1-170
+  ...tingsPage.jsx |       0 |        0 |       0 |       0 | 1-270
+  ...mentsPage.jsx |       0 |        0 |       0 |       0 | 1-228
+  ...portsPage.jsx |       0 |        0 |       0 |       0 | 1-137
+  ...viewsPage.jsx |       0 |        0 |       0 |       0 | 1-254
+  ...UsersPage.jsx |       0 |        0 |       0 |       0 | 1-208
+ src/pages/auth    |       0 |        0 |       0 |       0 |
+  ...swordPage.jsx |       0 |        0 |       0 |       0 | 1-161
+  LoginPage.jsx    |       0 |        0 |       0 |       0 | 1-286
+  RegisterPage.jsx |       0 |        0 |       0 |       0 | 1-304
+  ...swordPage.jsx |       0 |        0 |       0 |       0 | 1-168
+ src/pages/boats   |       0 |        0 |       0 |       0 |
+  ...etailPage.jsx |       0 |        0 |       0 |       0 | 1-366
+  BoatListPage.jsx |       0 |        0 |       0 |       0 | 1-251
+ ...pages/bookings |       0 |        0 |       0 |       0 |
+  ...kingsPage.jsx |       0 |        0 |       0 |       0 | 1-277
+ src/pages/legal   |       0 |        0 |       0 |       0 |
+  LegalPage.jsx    |       0 |        0 |       0 |       0 | 1-356
+ src/pages/owner   |       0 |        0 |       0 |       0 |
+  ...tFormPage.jsx |       0 |        0 |       0 |       0 | 1-497
+  ...BoatsPage.jsx |       0 |        0 |       0 |       0 | 1-163
+  ...kingsPage.jsx |       0 |        0 |       0 |       0 | 1-234
+  ...boardPage.jsx |       0 |        0 |       0 |       0 | 1-212
+  ...mentsPage.jsx |       0 |        0 |       0 |       0 | 1-214
+ src/pages/payment |       0 |        0 |       0 |       0 |
+  ...entCancel.jsx |       0 |        0 |       0 |       0 | 1-44
+  ...ntSuccess.jsx |       0 |        0 |       0 |       0 | 1-73
+ src/pages/profile |       0 |        0 |       0 |       0 |
+  ProfilePage.jsx  |       0 |        0 |       0 |       0 | 1-212
+ src/services      |       0 |        0 |       0 |       0 |
+  ...ailService.js |       0 |        0 |       0 |       0 | 1-5
+  api.js           |       0 |        0 |       0 |       0 | 1-25
+  authService.js   |       0 |        0 |       0 |       0 | 1-12
+  boatService.js   |       0 |        0 |       0 |       0 | 1-12
+  ...ingService.js |       0 |        0 |       0 |       0 | 1-10
+  ...entService.js |       0 |        0 |       0 |       0 | 1-6
+  ...terService.js |       0 |        0 |       0 |       0 | 1-13
+  ...entService.js |       0 |        0 |       0 |       0 | 1-6
+  reviewService.js |       0 |        0 |       0 |       0 | 1-5
+  uploadService.js |       0 |        0 |       0 |       0 | 1-12
+ src/utils         |   89.14 |    76.59 |   78.26 |   89.14 |
+  analytics.js     |     100 |      100 |     100 |     100 |
+  boatImages.js    |   84.21 |    33.33 |      50 |   84.21 | 55,68-71,81-87
+  bookingUtils.js  |     100 |      100 |     100 |     100 |
+  formatDate.js    |   66.66 |       75 |   66.66 |   66.66 | 2-8
+  formatPrice.js   |     100 |      100 |     100 |     100 |
+  slugifyBoat.js   |     100 |       50 |     100 |     100 | 12
+-------------------|---------|----------|---------|---------|-------------------
+
+Lecture : les fonctions utilitaires (src/utils) et le formulaire de réservation sont bien couverts par les tests unitaires.
+Les pages (accueil, catalogue, espaces propriétaire et administrateur) sont vérifiées par les 13 tests E2E Playwright, pas par des tests unitaires : la couverture globale du dossier src reste donc faible.

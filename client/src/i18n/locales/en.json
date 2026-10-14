@@ -97,12 +97,7 @@
     },
     "reviewsEyebrow": "Testimonials",
     "reviewsTitle": "They sailed with SailingLoc",
-    "reviewAria": "5 out of 5",
-    "reviews": {
-      "marie": "The sailboat was spotless. Booking was simple and the owner was very responsive.",
-      "thomas": "Perfect for a family outing. The boat matched the listing exactly.",
-      "sarah": "Great experience, clear payment flow and reassuring support before departure."
-    },
+    "reviewAria": "{{rating}} out of 5",
     "trust": {
       "owners": "Verified owners",
       "support": "Booking support",

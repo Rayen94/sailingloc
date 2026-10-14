@@ -76,7 +76,8 @@ const createStripeCheckoutSession = asyncHandler(async (req, res) => {
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
-    payment_method_types: ['card'],
+    // Pas de « payment_method_types » : Stripe le supprime dans la version d'API 2026-09-30
+    // et choisit les moyens de paiement activés dans le tableau de bord (la carte par défaut).
     customer_email: booking.tenant.email,
     line_items: [
       {

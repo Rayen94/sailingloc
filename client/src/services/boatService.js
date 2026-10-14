@@ -1,6 +1,7 @@
 import api from './api';
 
 export const getBoats = (params) => api.get('/boats', { params });
+export const getPublicStats = () => api.get('/boats/stats');
 export const getBoatByIdentifier = (identifier) => api.get(`/boats/${identifier}`);
 export const getBoatById = (id) => getBoatByIdentifier(id);
 export const getBoatBySlug = (slug) => api.get(`/boats/slug/${slug}`);
