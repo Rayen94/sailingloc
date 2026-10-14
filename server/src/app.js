@@ -10,6 +10,7 @@ const rateLimit = require('express-rate-limit');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const { setupSwagger } = require('./config/swagger');
 const { uploadRoot } = require('./middleware/uploadMiddleware');
+const { isKnownClientRoute } = require('./utils/clientRoutes');
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -195,7 +196,11 @@ app.get('/api/boats/:id/reviews', getBoatReviews);
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(clientDistPath, { index: false }));
   app.get(/^\/(?!api|api-docs|uploads).*/, (req, res) => {
-    res.type('html').send(renderClientIndex());
+    // Adresse inconnue : le site affiche sa page « introuvable », avec le vrai code 404.
+    res
+      .status(isKnownClientRoute(req.path) ? 200 : 404)
+      .type('html')
+      .send(renderClientIndex());
   });
 }
 

@@ -160,3 +160,32 @@ test('Erreurs : asyncHandler transmet les erreurs des fonctions asynchrones', as
   });
   assert.equal(error.message, 'Erreur asynchrone');
 });
+
+test('Pages : une adresse connue du site répond 200, une adresse inconnue 404', () => {
+  const { isKnownClientRoute } = require('../src/utils/clientRoutes');
+  assert.equal(isKnownClientRoute('/'), true);
+  assert.equal(isKnownClientRoute('/boats/voilier-arcachon-12/'), true);
+  assert.equal(isKnownClientRoute('/owner/boats/abc123/edit'), true);
+  assert.equal(isKnownClientRoute('/page-qui-n-existe-pas'), false);
+  assert.equal(isKnownClientRoute('/boats/a/b'), false);
+});
+
+test('Pages : la liste du serveur est identique aux routes de client/src/App.jsx', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const { CLIENT_ROUTE_PATTERNS } = require('../src/utils/clientRoutes');
+  const appJsx = fs.readFileSync(path.resolve(__dirname, '../../client/src/App.jsx'), 'utf8');
+  const fromApp = [];
+  let parent = '';
+  for (const match of appJsx.matchAll(/path="([^"]+)"/g)) {
+    const route = match[1];
+    if (route === '*') continue;
+    if (route.startsWith('/')) {
+      if (route === '/owner' || route === '/admin') parent = route;
+      fromApp.push(route);
+    } else {
+      fromApp.push(`${parent}/${route}`);
+    }
+  }
+  assert.deepEqual([...fromApp].sort(), [...CLIENT_ROUTE_PATTERNS].sort());
+});
