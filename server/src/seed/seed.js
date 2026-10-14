@@ -460,7 +460,7 @@ const boatBlueprints = [
   [
     'Lagoon 46',
     'catamaran',
-    'Hyeres',
+    'Hyères',
     'Port Saint-Pierre',
     840,
     10,
@@ -484,7 +484,7 @@ const boatBlueprints = [
   [
     'Excess 14',
     'catamaran',
-    'Saint-Raphael',
+    'Saint-Raphaël',
     'Port Santa Lucia',
     920,
     12,
