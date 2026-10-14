@@ -140,7 +140,7 @@
     "noAccount": "Non hai ancora un account?",
     "registerLink": "Registrati",
     "loginHeroTitle": "Naviga liberamente, tra privati.",
-    "loginHeroText": "+1 200 barche disponibili in tutta la Francia e l'Europa.",
+    "loginHeroText": "Barche a vela, catamarani e barche a motore, noleggiati tra privati.",
     "registerTitle": "Crea un account",
     "registerSubtitle": "Unisciti alla community SailingLoc.",
     "firstName": "Nome",
@@ -161,7 +161,7 @@
     "registerLoading": "Creazione...",
     "registerCta": "Crea il mio account",
     "alreadyAccount": "Hai già un account?",
-    "registerHeroTitle": "Unisciti a +1 200 proprietari e locatari",
+    "registerHeroTitle": "Unisciti alla community di SailingLoc",
     "registerHeroText": "Registrazione gratuita in meno di 2 minuti."
   }
 }
