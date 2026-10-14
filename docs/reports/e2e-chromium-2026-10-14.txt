@@ -1,20 +1,22 @@
 Rapport des tests E2E SailingLoc (Playwright) - 14/10/2026
-Commande : npx playwright test --project=chromium (dossier client), Node.js 24.21.0
+Commande : npx playwright test --project=chromium (dossier client), Node.js 24.21.0, après les dernières corrections du 14/10
 Navigateur : Chromium (bac à sable). Firefox et WebKit sont configurés dans playwright.config.js et dans la CI,
 mais n'ont pas pu être lancés ici (navigateurs non installables dans le bac à sable).
+Remarque : sur 5 lancements le 14/10/2026, le test « boat detail navigation scrolls to top » a échoué une fois,
+pendant que la machine faisait aussi des captures d'écran ; il a réussi les 4 autres fois. Test à surveiller (instable).
 
-  PASSED  chromium  cookies.spec.js > Google Tag Manager is not loaded before consent or after refusal (9659 ms)
-  PASSED  chromium  cookies.spec.js > Google Tag Manager is loaded after consent and remembered (1462 ms)
-  PASSED  chromium  sailingloc.spec.js > homepage loads (690 ms)
-  PASSED  chromium  sailingloc.spec.js > navbar links work (1048 ms)
-  PASSED  chromium  sailingloc.spec.js > login page loads (635 ms)
-  PASSED  chromium  sailingloc.spec.js > admin dashboard and users pages load in local demo mode (1047 ms)
-  PASSED  chromium  sailingloc.spec.js > boats listing page loads (608 ms)
-  PASSED  chromium  sailingloc.spec.js > boat detail route loads or shows a handled not found state (655 ms)
-  PASSED  chromium  sailingloc.spec.js > owner dashboard blocks unauthenticated access (626 ms)
-  PASSED  chromium  sailingloc.spec.js > admin page blocks non-admin user (763 ms)
-  PASSED  chromium  sailingloc.spec.js > keyboard users can skip directly to the main content (636 ms)
-  PASSED  chromium  scroll-to-top.spec.js > footer legal navigation scrolls to top (2195 ms)
-  PASSED  chromium  scroll-to-top.spec.js > boat detail navigation scrolls to top (2380 ms)
+  PASSED  chromium  cookies.spec.js > Google Tag Manager is not loaded before consent or after refusal (1967 ms)
+  PASSED  chromium  cookies.spec.js > Google Tag Manager is loaded after consent and remembered (1173 ms)
+  PASSED  chromium  sailingloc.spec.js > homepage loads (516 ms)
+  PASSED  chromium  sailingloc.spec.js > navbar links work (1097 ms)
+  PASSED  chromium  sailingloc.spec.js > login page loads (597 ms)
+  PASSED  chromium  sailingloc.spec.js > admin dashboard and users pages load in local demo mode (1009 ms)
+  PASSED  chromium  sailingloc.spec.js > boats listing page loads (559 ms)
+  PASSED  chromium  sailingloc.spec.js > boat detail route loads or shows a handled not found state (560 ms)
+  PASSED  chromium  sailingloc.spec.js > owner dashboard blocks unauthenticated access (510 ms)
+  PASSED  chromium  sailingloc.spec.js > admin page blocks non-admin user (536 ms)
+  PASSED  chromium  sailingloc.spec.js > keyboard users can skip directly to the main content (692 ms)
+  PASSED  chromium  scroll-to-top.spec.js > footer legal navigation scrolls to top (2145 ms)
+  PASSED  chromium  scroll-to-top.spec.js > boat detail navigation scrolls to top (1785 ms)
 
-Total : 13 réussis, 0 échoués, 0 ignorés, durée 25.6 s
+Total : 13 réussis, 0 échoués, 0 ignorés, durée 14.7 s
