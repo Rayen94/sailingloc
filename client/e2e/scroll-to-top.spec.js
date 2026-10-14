@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 const scrollToBottom = async (page) => {
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }));
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
 };
 
